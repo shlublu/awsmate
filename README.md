@@ -19,4 +19,5 @@ A companion for your AWS Python developments.
 ## License
 
 EUROPEAN UNION PUBLIC LICENCE (EUPL) v. 1.2.
+
 Please see `LICENSE.txt` for details.
