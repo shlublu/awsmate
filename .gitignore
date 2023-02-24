@@ -1,0 +1,9 @@
+.terraform/
+.terraform.lock.hcl
+
+.vscode/
+*.code-workspace
+
+__pycache__/
+*.pyc
+.pytest_cache/
