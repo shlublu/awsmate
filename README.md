@@ -7,12 +7,13 @@ A companion for your AWS Python developments.
 * Testing tool: `pytest`
 * Command line: `pytest [-v|-vv]`. Should be run from the base directory of the repository.
 * Tests files location:
-    awsmate
-        |___tests
-                |
-                |___unit
-                |
-                |___integration
+
+        awsmate
+            |___tests
+                    |
+                    |___unit
+                    |
+                    |___integration
 
 
 ## License
