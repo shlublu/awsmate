@@ -2,6 +2,11 @@
 
 A companion for your AWS Python developments.
 
+## Installation
+
+* Command line: `pip3 install awsmate`
+* PyPI home page: https://pypi.org/project/awsmate/
+
 ## Testing
 
 * Testing tool: `pytest`
