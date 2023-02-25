@@ -1,7 +1,6 @@
 import typing
         
-from awsmate.errors import AwsEventSpecificationError
-from awsmate.lambdafunction import LambdaEvent
+from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
 
 
 class LambdaNotificationEvent(LambdaEvent):

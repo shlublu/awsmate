@@ -2,7 +2,7 @@ import pytest
 
 import awsmate.s3 as s3
 
-from awsmate.errors import AwsEventSpecificationError
+from awsmate.lambdafunction import AwsEventSpecificationError
 
 
 def test_LambdaNotificationEvent_KEY_RECORDS_correspondsToAwsSpecifications():
