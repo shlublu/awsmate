@@ -34,5 +34,4 @@ jobs:
         if: always()
         with:
           files: |
-            test-results/**/*.xml
-            test-results/**/*.trx
+            /home/runner/work/awsmate/awsmate/junit/test-results.xml
