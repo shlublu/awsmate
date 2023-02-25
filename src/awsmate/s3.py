@@ -1,18 +1,16 @@
 import typing
         
 from awsmate.errors import AwsEventSpecificationError
+from awsmate.lambdafunction import LambdaEvent
 
 
-class LambdaNotificationEvent():
+class LambdaNotificationEvent(LambdaEvent):
     KEY_S3 = "s3"
     KEY_RECORDS = "Records"
 
 
     def __init__(self, eventObject: dict):
-        if not isinstance(eventObject, dict):
-            raise TypeError(f"eventObject should be a dict. Here: {str(type(eventObject))}.")
-        
-        self._event = eventObject
+        super().__init__(eventObject)
 
 
     def objet_key(self) -> str:

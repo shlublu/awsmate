@@ -13,15 +13,6 @@ def test_LambdaProxyEvent_init_initializesInternalEventObject():
     assert test._event is event
 
 
-def test_LambdaProxyEvent_init_raisesIfEventObjectIsNotADict():
-    event = "not a dict"
-
-    with pytest.raises(TypeError) as exceptionInfo:
-        ag.LambdaProxyEvent(event) # type: ignore
-
-    assert exceptionInfo.value.args[0] == f"eventObject should be a dict. Here: {str(type(event))}."
-
-
 def test_LambdaProxyEvent_http_headers_returnsAllHeadersWithKeysInLowerCase():
     import random
 
@@ -445,7 +436,7 @@ def test_HttpClientError_init_logsProperly(caplog):
 
     ag.HttpClientError(status, message)
 
-    assert caplog.text == f'ERROR    root:apigateway.py:113 HttpClientError: {str(status)} - {message}\n'
+    assert caplog.text == f'ERROR    root:apigateway.py:111 HttpClientError: {str(status)} - {message}\n'
 
 
 def test_json_transformer_returnsProperContent():

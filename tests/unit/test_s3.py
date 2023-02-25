@@ -23,15 +23,6 @@ def test_LambdaNotificationEvent_init_initializesInternalEventObject():
     assert test._event is event
 
 
-def test_LambdaNotificationEvent_init_raisesIfEventObjectIsNotADict():
-    event = "not a dict"
-
-    with pytest.raises(TypeError) as exceptionInfo:
-        s3.LambdaNotificationEvent(event) # type: ignore
-
-    assert exceptionInfo.value.args[0] == f"eventObject should be a dict. Here: {str(type(event))}."
-
-
 def test_LambdaNotificationEvent_objet_key_returnsTheProperValue():
     import random
 
