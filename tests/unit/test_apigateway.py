@@ -439,33 +439,6 @@ def test_HttpClientError_init_logsProperly(caplog):
     assert caplog.text == f'ERROR    root:apigateway.py:270 HttpClientError: {str(status)} - {message}\n'
 
 
-def test_json_transformer_returnsProperContent():
-    import json 
-    import random
-
-    payload = {
-        'a': random.randint(0, 9999),
-        'b': f'{random.randint(0, 9999)}'
-    }
-
-    content, _ = ag.json_transformer(payload)
-
-    assert json.loads(content) == payload
-
-
-def test_json_transformer_returnsProperContentType():
-    import random
-
-    payload = {
-        'a': random.randint(0, 9999),
-        'b': f'{random.randint(0, 9999)}'
-    }
-
-    _, contentType = ag.json_transformer(payload)
-
-    assert contentType == 'application/json; charset=utf-8'    
-
-
 def test_simple_message_returnsProperPayload():
     import random
 
@@ -643,6 +616,33 @@ def test_is_binary_returnsTrueForAny():
     mimeType = f'{random.randint(1000, 9999)}'
 
     assert ag.is_binary(mimeType) is True  
+
+
+def test_json_transformer_returnsProperContent():
+    import json 
+    import random
+
+    payload = {
+        'a': random.randint(0, 9999),
+        'b': f'{random.randint(0, 9999)}'
+    }
+
+    content, _ = ag.json_transformer(payload)
+
+    assert json.loads(content) == payload
+
+
+def test_json_transformer_returnsProperContentType():
+    import random
+
+    payload = {
+        'a': random.randint(0, 9999),
+        'b': f'{random.randint(0, 9999)}'
+    }
+
+    _, contentType = ag.json_transformer(payload)
+
+    assert contentType == 'application/json; charset=utf-8'    
 
 
 def test__basic_transformers_areAllJson():

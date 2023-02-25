@@ -300,12 +300,6 @@ class HttpConflictError(HttpClientError):
         super().__init__(409, msg)    
 
 
-def json_transformer(payload: dict) -> typing.Tuple[str, str]:
-    import json
-       
-    return json.dumps(payload, indent = 2), 'application/json; charset=utf-8'
-
-
 def simple_message(message: str) -> typing.Dict[str, str]:
     return {
          "Message": message
@@ -352,6 +346,12 @@ def is_binary(contentType: str) -> bool:
     return (
         mainType not in ('text', 'application') or (mainType == 'application' and subType not in ('json', 'xml'))
     )
+
+
+def json_transformer(payload: dict) -> typing.Tuple[str, str]:
+    import json
+       
+    return json.dumps(payload, indent = 2), 'application/json; charset=utf-8'
 
 
 _basic_transformers = {
