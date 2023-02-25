@@ -2,7 +2,6 @@
 
 A companion for your AWS Python developments.
 
-![Automated tests](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg)
 
 ## Installation
 
@@ -22,6 +21,7 @@ A companion for your AWS Python developments.
                     |
                     |___integration
 
+* CI automation: ![Automated tests](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg)
 
 ## License
 
