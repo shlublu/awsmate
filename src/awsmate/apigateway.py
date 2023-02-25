@@ -1,20 +1,77 @@
 import typing
 
-from awsmate.errors import AwsEventSpecificationError
-from awsmate.lambdafunction import LambdaEvent
+from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
 
 
 class MalformedPayloadError(RuntimeError):
+    """
+    Error raised in case of malformed input payload.
+
+    """
+
     def __init__(self, msg):
         super().__init__(msg)
         
 
 class LambdaProxyEvent(LambdaEvent):
+    """
+    Mapping of the input event received by an AWS Lambda function triggered by an AWS Api Gateway during a client API call.
+
+    ...
+
+    Methods
+    -------
+    http_headers()
+        Returns all HTTP headers of the API call.
+    header_sorted_preferences(header)
+        Returns all values assigned to the given header, sorted by decreasing preferences.
+    http_method()
+        Returns the HTTP method of the API call.
+    call_path()
+        Returns the path of the API call, broken down into elements.
+    query_string_parameters()
+        Returns all URL parameters of the API call.
+    call_string()
+        Convenience method that returns the HTTP method of the call followed by the path and the URL parameters of the call.
+    payload()
+        Returns the data sent as the body of the API call.
+
+    Examples
+    --------
+    def lambda_handler(rawEvent, context):
+        import awsmate.apigateway as ag
+        event = ag.LambdaProxyEvent(rawEvent)    
+
+    """
+
     def __init__(self, eventObject: dict):
+        """
+        Parameters
+        ----------
+        eventObject : dict
+            The parameter ``event`` received by the AWS Lambda function handler.
+        """
+        
         super().__init__(eventObject)
 
 
     def http_headers(self) -> typing.Dict[str, str]:
+        """
+        Returns all HTTP headers of the API call.
+
+        Values of these headers are returned unparsed, as submitted.
+
+        Returns
+        -------
+        dict
+            Keys are header names as ``str``, values are corresponding raw values as ``str``.
+            
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``headers`` key is present in the event data.
+        """
+        
         try: 
             headers = self._event["headers"]
 
@@ -25,6 +82,22 @@ class LambdaProxyEvent(LambdaEvent):
 
 
     def header_sorted_preferences(self, header: str) -> typing.Tuple[str, ...]:
+        """
+        Returns all values assigned to the given header, sorted by decreasing preferences.
+
+        Preferences are determined according to the weighted quality value syntax.
+        An empty ``tuple'' is returned if the given header is not found among those submitted by the caller.
+
+        Returns
+        -------
+        tuple
+            Header values as ``str``, in decreasing preference order.
+            
+        Examples
+        --------
+        Header ``Encoding: gzip;q=0.2,deflate,identity;q=0.9`` leads to ``('deflate', 'identity', 'gzip')``
+        """
+        
         headers = self.http_headers()
         preferences = {}
         header = header.lower()
@@ -45,6 +118,22 @@ class LambdaProxyEvent(LambdaEvent):
 
 
     def http_method(self) -> str:
+        """
+        Returns the HTTP method of the API call.
+
+        The method verb is returned as transmitted by AWS API Gateway. GET, PUT, POST, PATCH, DELETE are expected, but no verification is performed.
+
+        Returns
+        -------
+        str
+            HTTP method of the API call, as transmitted by the API Gateway.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``httpMethod`` key is present in the event data.            
+        """
+
         try: 
             method = self._event["httpMethod"]
 
@@ -55,6 +144,24 @@ class LambdaProxyEvent(LambdaEvent):
 
     
     def call_path(self) -> typing.Tuple[str, ...]:
+        """
+        Returns the path of the API call, broken down into elements.
+
+        Returns
+        -------
+        tuple
+            Path elements as ``str``.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``path`` key is present in the event data.      
+
+        Examples
+        --------
+        API call ``GET /projects/foobar/modules`` leads to ``('projects', 'foobar', 'modules')``                  
+        """
+        
         try: 
             path = self._event["path"].split('/')
             path = path[1 if not len(path[0]) else 0 : -1 if len(path[-1]) == 0 else len(path)]
@@ -66,6 +173,23 @@ class LambdaProxyEvent(LambdaEvent):
 
 
     def query_string_parameters(self) -> typing.Dict[str, str]:
+        """
+        Returns all URL parameters of the API call.
+
+        Values of these parameters are returned as transmitted by AWS API Gateway.
+        An empty ``dict'' is returned if no parameters were submitted by the caller.
+
+        Returns
+        -------
+        dict
+            Keys are parameter names as ``str``, values are corresponding raw values as ``str``.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``queryStringParameters`` key is present in the event data. No parameters is supposed to be represented as ``'queryStringParameters': None``.                 
+        """
+        
         try:
             params = self._event["queryStringParameters"]
 
@@ -76,12 +200,47 @@ class LambdaProxyEvent(LambdaEvent):
 
 
     def call_string(self) -> str:
+        """
+        Convenience method that returns the HTTP method of the call followed by the path and the URL parameters of the call.
+
+        Returns
+        -------
+        str
+            The complete call string of the API call, including URL parameters if any.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If at least one of the ``httpMethod``, ``path`` or ``query_string_parameters`` keys is not present in the event data.     
+
+        Examples
+        --------
+        ``GET /projects/foobar/modules?order=alphabetical&released=true``                
+        """
+        
         paramsString = '&'.join(f'{key}={value}' for key, value in self.query_string_parameters().items())
 
         return f'{self.http_method()} /{"/".join(self.call_path())}{"?" if len(paramsString) else ""}{paramsString}'
 
 
     def payload(self) -> typing.Dict[str, typing.Any]:
+        """
+        Returns the data sent as the body of the API call.
+
+        Data is expected to be valid JSON.
+
+        Returns
+        -------
+        dict
+            HTTP method of the API call, as transmitted by the API Gateway.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``body`` key is present in the event data.    
+        MalformedPayloadError
+            If the data is not valid JSON.        
+        """
         import json
 
         try:

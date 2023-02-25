@@ -1,3 +1,8 @@
+class AwsEventSpecificationError(RuntimeError):
+    def __init__(self, msg):
+        super().__init__(msg)
+
+
 class LambdaEvent():
     def __init__(self, eventObject: dict):
         if not isinstance(eventObject, dict):

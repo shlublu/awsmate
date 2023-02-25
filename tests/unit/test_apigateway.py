@@ -2,7 +2,7 @@ import pytest
 
 import awsmate.apigateway as ag
 
-from awsmate.errors import AwsEventSpecificationError
+from awsmate.lambdafunction import AwsEventSpecificationError
 
 
 def test_LambdaProxyEvent_init_initializesInternalEventObject():
@@ -436,7 +436,7 @@ def test_HttpClientError_init_logsProperly(caplog):
 
     ag.HttpClientError(status, message)
 
-    assert caplog.text == f'ERROR    root:apigateway.py:111 HttpClientError: {str(status)} - {message}\n'
+    assert caplog.text == f'ERROR    root:apigateway.py:270 HttpClientError: {str(status)} - {message}\n'
 
 
 def test_json_transformer_returnsProperContent():
