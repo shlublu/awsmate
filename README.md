@@ -1,7 +1,8 @@
 # awsmate
 
 A companion for your AWS Python developments.
-![Testing](https://github.com/github/awsmate/actions/workflows/ci.yaml/badge.svg)
+
+![Automated tests](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg)
 
 ## Installation
 
