@@ -10,12 +10,6 @@ sphinx:
   configuration: docs/source/conf.py
   builder: html
   fail_on_warning: true
-  extra:
-    sphinx.ext.apidoc:
-      - module-first
-      - -o
-      - docs/source/
-      - src/awsmate/
 
 python:
   install:
