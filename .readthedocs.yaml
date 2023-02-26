@@ -12,7 +12,7 @@ sphinx:
 # in this example, assume that awsmate is in the src/ directory
 # and the README is in the root directory
 python:
-  version: 3.9
+  version: 3.8
   install:
     - requirements: docs/requirements.txt
     - method: pip
