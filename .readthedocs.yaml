@@ -10,8 +10,6 @@ sphinx:
   configuration: docs/source/conf.py
   builder: html
   fail_on_warning: true
-  build:
-    - ./docs/source
   extra:
     # Automatically generate API documentation from module code
     apidoc:
