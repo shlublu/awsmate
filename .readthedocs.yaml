@@ -9,7 +9,6 @@ build:
 sphinx:
   configuration: docs/source/conf.py
   builder: html
-  build-dir: docs/build  
   fail_on_warning: true
   build:
     - ./docs/source
