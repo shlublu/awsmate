@@ -15,6 +15,7 @@ python:
   version: 3.8
   install:
     - requirements: docs/requirements.txt
+      path: .
     - method: pip
   system_packages: false
   packages:
