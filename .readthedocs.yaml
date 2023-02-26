@@ -6,11 +6,9 @@ build:
   tools:
     python: "3.9"
 
-# build documentation in the docs/ directory with Sphinx
 sphinx:
   configuration: docs/source/conf.py
   builder: html
-  source-dir: docs/source
   build-dir: docs/build  
   fail_on_warning: true
   build:
@@ -23,13 +21,8 @@ sphinx:
       - source/
       - ../src/awsmate
 
-# point to the root of your code repository
-# in this example, assume that awsmate is in the src/ directory
-# and the README is in the root directory
 python:
   install:
     - method: pip
       path: .
-
-
-
+    - requirements: docs/requirements.txt
