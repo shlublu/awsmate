@@ -13,7 +13,8 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'sphinx.ext.myst_parser'
 ]
 
 source_suffix = {
@@ -21,4 +22,4 @@ source_suffix = {
     '.md': 'markdown'
 }
 
-master_doc = "index"
+master_doc = "README.md"
