@@ -1,17 +1,28 @@
+# .readthedocs.yml
 version: 2
 
-build:
-  os: ubuntu-20.04
-  tools:
-    python: "3.9"
-
-
-python:
-  install:
-    - method: pip
-      path: .
-    - requirements: requirements.txt
-
+# build documentation in the docs/ directory with Sphinx
 sphinx:
   configuration: docs/source/conf.py
   fail_on_warning: true
+  build:
+    - ./docs/source
+
+# point to the root of your code repository
+# in this example, assume that awsmate is in the src/ directory
+# and the README is in the root directory
+python:
+  version: 3.9
+  install:
+    - requirements: docs/requirements.txt
+    - method: pip
+  system_packages: false
+  packages:
+    - ./
+  extra:
+    # Automatically generate API documentation from module code
+    apidoc:
+      - module-first
+      - -o
+      - docs/source/
+      - ../src/awsmate/

@@ -1,29 +1,28 @@
 # Configuration file for the Sphinx documentation builder.
 
-import sys
 import os
+import sys
 from datetime import datetime
 
-sys.path.append(os.path.abspath('..'))
+sys.path.insert(0, os.path.abspath(".."))
 
 # -- Project information
-project = 'awsmate'
-copyright = f'{datetime.now().year}, Vincent Poulain (shlublu)'
-author = 'shlublu'
+
+project = "awsmate"
+copyright = f"{datetime.now().year}, Vincent Poulain (shlublu)"
+author = "shlublu"
 
 # -- General configuration
 
 extensions = [
-    'sphinx.ext.doctest',
-    'sphinx.ext.autodoc',
-    'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon',
-    'myst_parser'
+    "sphinx.ext.autodoc",
+    "sphinx.ext.napoleon",
+    "myst_parser",
 ]
 
 source_suffix = {
-    '.py': 'restructuredtext',
-    '.md': 'markdown'
+    ".rst": "restructuredtext",
+    ".md": "markdown",
 }
 
 master_doc = "README.md"
