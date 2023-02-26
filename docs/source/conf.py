@@ -14,13 +14,12 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
-    'sphinx.ext.napoleon',
+    'sphinx.ext.napoleon'
 ]
 
 source_suffix = {
-    '.rst': 'restructuredtext',
-    '.py': 'numpy',
-    '.md': 'markdown',
+    '.py': 'restructuredtext',
+    '.md': 'markdown'
 }
 
 master_doc = "index.md"
