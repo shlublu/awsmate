@@ -1,8 +1,12 @@
 # Configuration file for the Sphinx documentation builder.
 
-# -- Project information
+import sys
+import os
 from datetime import datetime
 
+sys.path.append(os.path.abspath('..'))
+
+# -- Project information
 project = 'awsmate'
 copyright = f'{datetime.now().year}, Vincent Poulain (shlublu)'
 author = 'shlublu'
