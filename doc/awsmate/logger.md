@@ -1,2 +1,0 @@
-Module awsmate.logger
-=====================
