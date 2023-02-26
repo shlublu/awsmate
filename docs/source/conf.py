@@ -10,7 +10,6 @@ author = 'shlublu'
 # -- General configuration
 
 extensions = [
-    'sphinx.ext.duration',
     'sphinx.ext.doctest',
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
@@ -22,4 +21,4 @@ source_suffix = {
     '.md': 'markdown'
 }
 
-master_doc = "index.md"
+master_doc = "index"
