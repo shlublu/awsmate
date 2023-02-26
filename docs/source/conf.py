@@ -14,7 +14,7 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
-    'sphinx.ext.myst_parser'
+    'myst_parser'
 ]
 
 source_suffix = {
