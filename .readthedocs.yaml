@@ -10,13 +10,11 @@ sphinx:
   configuration: docs/source/conf.py
   builder: html
   fail_on_warning: true
-  extra:
-    # Automatically generate API documentation from module code
-    apidoc:
-      - module-first
-      - -o
-      - source/
-      - ../src/awsmate
+  apidoc:
+    - module-first
+    - -o
+    - docs/source/
+    - src/awsmate/
 
 python:
   install:
