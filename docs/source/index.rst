@@ -5,7 +5,7 @@ Welcome to Awsmate's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-.. include:: /README.md
+.. include:: ../../README.md
 
 AWS API Gateway
 ---------------
