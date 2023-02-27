@@ -5,8 +5,8 @@ Welcome to Awsmate's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   awsmate_link
-   
+   AWSMATE <awsmate_link>
+
 Indices and tables
 ==================
 
