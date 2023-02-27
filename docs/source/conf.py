@@ -28,8 +28,7 @@ extensions = [
 ]
 
 source_suffix = {
-    '.txt': 'restructuredtext',
-    '.md': 'markdown',
+    '.md': 'markdown'
 }
 
 master_doc = "README"
