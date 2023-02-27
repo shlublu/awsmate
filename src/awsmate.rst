@@ -1,11 +1,3 @@
-awsmate package
-===============
-
-.. automodule:: awsmate
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 Module contents
 ===============
 
