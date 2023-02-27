@@ -1,5 +1,8 @@
-Welcome to Awsmate's documentation!
-====================================
+.. myst
+   :language: markdown
+   
+AWS MATE
+========
 
 .. toctree::
    :maxdepth: 2
