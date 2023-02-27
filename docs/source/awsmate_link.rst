@@ -1,1 +1,1 @@
-.. include:: ../../src/awsmate
+.. include:: ../../src/awsmate.rst
