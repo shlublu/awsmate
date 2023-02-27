@@ -5,7 +5,7 @@ Welcome to Awsmate's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   ../../src/index.rst
+   awsmate
 
 Indices and tables
 ==================
