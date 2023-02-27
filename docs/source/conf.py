@@ -36,7 +36,7 @@ root_doc = "index"
 
 # -- Options for HTML output -------------------------------------------------
 
-html_theme = 'sphinxdoc'
+html_theme = 'latest'
 
 # -- Extension configuration -------------------------------------------------
 
