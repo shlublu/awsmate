@@ -1,6 +1,3 @@
-.. myst
-   :language: markdown
-   
 AWS MATE
 ========
 
@@ -9,6 +6,7 @@ AWS MATE
    :caption: Contents:
 
 .. include:: ../../README.md
+   :parser: myst_parser
 
 AWS API Gateway
 ---------------
