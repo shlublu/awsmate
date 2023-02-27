@@ -67,7 +67,7 @@ class LambdaProxyEvent(LambdaEvent):
         Returns all values assigned to the given header, sorted by decreasing preferences.
 
         Preferences are determined according to the weighted quality value syntax.
-        An empty ``tuple'' is returned if the given header is not found among those submitted by the caller.
+        An empty ``tuple`` is returned if the given header is not found among those submitted by the caller.
 
         Returns
         -------
@@ -158,7 +158,7 @@ class LambdaProxyEvent(LambdaEvent):
         Returns all URL parameters of the API call.
 
         Values of these parameters are returned as transmitted by AWS API Gateway.
-        An empty ``dict'' is returned if no parameters were submitted by the caller.
+        An empty ``dict`` is returned if no parameters were submitted by the caller.
 
         Returns
         -------
