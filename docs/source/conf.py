@@ -28,10 +28,11 @@ extensions = [
 ]
 
 source_suffix = {
+    '.rst': 'restructuredtext',
     '.md': 'markdown'
 }
 
-master_doc = "README"
+root_doc = "awsmate"
 
 # -- Options for HTML output -------------------------------------------------
 
