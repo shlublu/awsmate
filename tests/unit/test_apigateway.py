@@ -234,6 +234,17 @@ def test_LambdaProxyEvent_call_path_assumesLeadingSeparatorEvenIfNoTrailingSepar
     assert test.call_path() == ( randPathA, randPathB, randPathC )
 
 
+def test_LambdaProxyEvent_call_path_leavesWithASingleElement():
+    import random
+
+    event = {
+        'path': f'{random.randint(1000, 9999)}Element'
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert test.call_path() == ( event['path'], )
+
 
 def test_LambdaProxyEvent_call_path_raisesIfPathFieldIsMissing():
     event = {}

@@ -1,7 +1,8 @@
 Module contents
 ===============
 
-.. automodule:: awsmate
+.. automodule:: awsmate.apigateway
    :members:
    :undoc-members:
    :show-inheritance:
+

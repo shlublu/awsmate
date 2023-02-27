@@ -402,10 +402,10 @@ def build_http_response(
     return ret
 
 
-def build_http_server_error_response(message: typing.Optional[str] = None) -> None:
+def build_http_server_error_response(message: typing.Optional[str] = None) -> dict:
     return build_http_response(500, message if message else "Sorry, an error occured. Please contact the API administrator to have this sorted out.")
 
 
-def build_http_client_error_response(error: HttpClientError) -> None:
+def build_http_client_error_response(error: HttpClientError) -> dict:
     return build_http_response(error.status, str(error))
 
