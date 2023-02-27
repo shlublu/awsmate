@@ -32,7 +32,7 @@ source_suffix = {
     '.md': 'markdown'
 }
 
-root_doc = "awsmate"
+root_doc = "index"
 
 # -- Options for HTML output -------------------------------------------------
 
