@@ -21,5 +21,6 @@ classifiers = [
 keywords = ["python", "aws", "aws-apigateway", "aws-lambda", "aws-s3"]
 
 [project.urls]
-"Homepage" = "https://github.com/shlublu/awsmate"
+"Repository" = "https://github.com/shlublu/awsmate"
+"Documentation" = "https://awsmate.readthedocs.io/"
 "Bug Tracker" = "https://github.com/shlublu/awsmate/issues"
