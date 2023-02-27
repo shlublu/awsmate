@@ -1,12 +1,12 @@
-AWS MATE
-========
-
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 3
    :caption: Contents:
 
 .. include:: ../../README.md
    :parser: myst_parser.sphinx_
+
+Reference guide
+===============
 
 AWS API Gateway
 ---------------
