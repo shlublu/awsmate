@@ -17,30 +17,11 @@ class LambdaProxyEvent(LambdaEvent):
     """
     Mapping of the input event received by an AWS Lambda function triggered by an AWS Api Gateway during a client API call.
 
-    ...
-
-    Methods
-    -------
-    http_headers()
-        Returns all HTTP headers of the API call.
-    header_sorted_preferences(header)
-        Returns all values assigned to the given header, sorted by decreasing preferences.
-    http_method()
-        Returns the HTTP method of the API call.
-    call_path()
-        Returns the path of the API call, broken down into elements.
-    query_string_parameters()
-        Returns all URL parameters of the API call.
-    call_string()
-        Convenience method that returns the HTTP method of the call followed by the path and the URL parameters of the call.
-    payload()
-        Returns the data sent as the body of the API call.
-
     Examples
     --------
-    def lambda_handler(rawEvent, context):
-        import awsmate.apigateway as ag
-        event = ag.LambdaProxyEvent(rawEvent)    
+    >>> def lambda_handler(rawEvent, context):
+    >>>     import awsmate.apigateway as ag
+    >>>     event = ag.LambdaProxyEvent(rawEvent)    
 
     """
 
@@ -64,7 +45,7 @@ class LambdaProxyEvent(LambdaEvent):
         Returns
         -------
         dict
-            Keys are header names as ``str``, values are corresponding raw values as ``str``.
+            Keys: header names as ``str``. Values: corresponding raw values as ``str``.
             
         Raises
         ------
@@ -126,7 +107,7 @@ class LambdaProxyEvent(LambdaEvent):
         Returns
         -------
         str
-            HTTP method of the API call, as transmitted by the API Gateway.
+            HTTP method of the API call.
 
         Raises
         ------
@@ -182,7 +163,7 @@ class LambdaProxyEvent(LambdaEvent):
         Returns
         -------
         dict
-            Keys are parameter names as ``str``, values are corresponding raw values as ``str``.
+            Keys: parameter names as ``str``. Values: corresponding raw values as ``str``.
 
         Raises
         ------
@@ -232,14 +213,14 @@ class LambdaProxyEvent(LambdaEvent):
         Returns
         -------
         dict
-            HTTP method of the API call, as transmitted by the API Gateway.
+            Data sent as the body of the API call loaded as a ``dict``.
 
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
             If no ``body`` key is present in the event data.    
         MalformedPayloadError
-            If the data is not valid JSON.        
+            If the submitted data is not valid JSON.        
         """
         import json
 
