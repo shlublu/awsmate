@@ -6,7 +6,7 @@ AWS MATE
    :caption: Contents:
 
 .. include:: ../../README.md
-   :parser: myst_parser
+   :parser: myst_parser.sphinx_
 
 AWS API Gateway
 ---------------
