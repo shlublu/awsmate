@@ -27,6 +27,11 @@ extensions = [
     'myst_parser',
 ]
 
+source_suffix = {
+    '.txt': 'restructuredtext',
+    '.md': 'markdown',
+}
+
 master_doc = "README.md"
 
 # -- Options for HTML output -------------------------------------------------
