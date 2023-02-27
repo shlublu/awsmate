@@ -32,7 +32,7 @@ source_suffix = {
     '.md': 'markdown',
 }
 
-master_doc = "README.md"
+master_doc = "README"
 
 # -- Options for HTML output -------------------------------------------------
 
