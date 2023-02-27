@@ -5,9 +5,7 @@ Welcome to Awsmate's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   src/index
-   installation
-   usage
+   /src/index
 
 Indices and tables
 ==================
