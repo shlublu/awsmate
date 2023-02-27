@@ -29,9 +29,7 @@
 
 ### License
 
-This project is licensed under the EUROPEAN UNION PUBLIC LICENCE (EUPL) v. 1.2.
-
-This licence is compatible with the vast majority of open source licences.
+This project is licensed under the EUROPEAN UNION PUBLIC LICENCE (EUPL) v. 1.2, which is compatible with the vast majority of open source licences.
 
 * [View all translations](https://joinup.ec.europa.eu/collection/eupl/eupl-text-eupl-12 "Translations of the EUPL-1.2")
 * [Compatibility matrix](https://joinup.ec.europa.eu/collection/eupl/matrix-eupl-compatible-open-source-licences "Compatibility matrix of the EUPL-1.2")
