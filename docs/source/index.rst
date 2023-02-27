@@ -5,14 +5,13 @@ Welcome to Awsmate's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-A few words about the package.
+.. include:: /README.md
 
 AWS API Gateway
 ---------------
 
 .. automodule:: awsmate.apigateway
    :members:
-   :undoc-members:
    :show-inheritance:
 
 AWS Lambda Function
@@ -20,7 +19,6 @@ AWS Lambda Function
 
 .. automodule:: awsmate.lambdafunction
    :members:
-   :undoc-members:
    :show-inheritance:
 
 AWS S3
@@ -28,7 +26,6 @@ AWS S3
 
 .. automodule:: awsmate.s3
    :members:
-   :undoc-members:
    :show-inheritance:
 
 Logger
@@ -36,7 +33,6 @@ Logger
 
 .. automodule:: awsmate.logger
    :members:
-   :undoc-members:
    :show-inheritance:
 
 
