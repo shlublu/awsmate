@@ -12,7 +12,7 @@
 * PyPi release: https://packaging.python.org/en/latest/tutorials/packaging-projects/
 * Readthedocs: https://docs.readthedocs.io/en/stable/tutorial/
 
-### Todo before writing new code
+### TODO, preferably before writing more code
 
 * Automation
   - Autodeploy on PyPi when merging into master (CI task)
