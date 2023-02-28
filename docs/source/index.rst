@@ -16,6 +16,7 @@ AWS API Gateway
 
 .. automodule:: awsmate.apigateway
    :members:
+   :special-members:
    :show-inheritance:
 
 AWS Lambda Function
@@ -23,6 +24,7 @@ AWS Lambda Function
 
 .. automodule:: awsmate.lambdafunction
    :members:
+   :special-members:
    :show-inheritance:
 
 AWS S3
@@ -30,6 +32,7 @@ AWS S3
 
 .. automodule:: awsmate.s3
    :members:
+   :special-members:
    :show-inheritance:
 
 Logger
@@ -37,6 +40,7 @@ Logger
 
 .. automodule:: awsmate.logger
    :members:
+   :special-members:
    :show-inheritance:
 
 
