@@ -5,7 +5,7 @@ from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
 
 class MalformedPayloadError(RuntimeError):
     """
-    Error raised in case of malformed input payload.
+    Error raised by :class:`~LambdaProxyEvent` in case of malformed input payload.
 
     """
 
