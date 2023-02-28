@@ -389,6 +389,16 @@ def test_LambdaProxyEvent_payload_returnsThePayloadAsItIs():
     assert test.payload() == { 'key': randInt }
 
 
+def test_LambdaProxyEvent_payload_returnsNoneIfBodyIsNull():
+    event = {
+        "body": None
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert test.payload() is None   
+
+
 def test_LambdaProxyEvent_payload_raisesIfBodyIsMissing():
     event = {}
 

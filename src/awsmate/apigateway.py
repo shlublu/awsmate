@@ -213,7 +213,7 @@ class LambdaProxyEvent(LambdaEvent):
         Returns
         -------
         dict
-            Data sent as the body of the API call loaded as a ``dict``.
+            Data sent as the body of the API call loaded as a ``dict``, ``None`` if body is null.
 
         Raises
         ------
@@ -225,16 +225,16 @@ class LambdaProxyEvent(LambdaEvent):
         import json
 
         try:
-            ret = json.loads(self._event['body'])
+            body = self._event['body']
+            ret = None if body is None else json.loads(body)
     
         except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+            raise AwsEventSpecificationError(f"Event structure is not as expected: cannot reach {str(err)}.")
     
         except (TypeError, json.JSONDecodeError) as err:
-            raise MalformedPayloadError("Payload is malformed. JSON cannot be decoded: " + str(err) + ".")
+            raise MalformedPayloadError(f"Payload is malformed. JSON cannot be decoded: {str(err)}.")
 
         return ret
-
 
 
 class HttpClientError(RuntimeError):
