@@ -581,4 +581,3 @@ def build_http_server_error_response(message: typing.Optional[str] = None) -> di
 
 def build_http_client_error_response(error: HttpClientError) -> dict:
     return build_http_response(error.status, str(error))
-
