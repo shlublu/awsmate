@@ -6,10 +6,16 @@ from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
 class MalformedPayloadError(RuntimeError):
     """
     Error raised by :class:`~LambdaProxyEvent` in case of malformed input payload.
-
     """
 
-    def __init__(self, msg):
+    def __init__(self, msg: str):
+        """
+        Parameters
+        ----------
+        msg : str
+            The explanatory message.
+        """
+        
         super().__init__(msg)
         
 
@@ -22,7 +28,6 @@ class LambdaProxyEvent(LambdaEvent):
     >>> def lambda_handler(rawEvent, context):
     >>>     import awsmate.apigateway as ag
     >>>     event = ag.LambdaProxyEvent(rawEvent)    
-
     """
 
     def __init__(self, eventObject: dict):
@@ -222,6 +227,7 @@ class LambdaProxyEvent(LambdaEvent):
         MalformedPayloadError
             If the submitted data is not valid JSON.        
         """
+
         import json
 
         try:
@@ -238,7 +244,20 @@ class LambdaProxyEvent(LambdaEvent):
 
 
 class HttpClientError(RuntimeError):
+    """
+    Error that represents a HTTP response status code that comes with a message.
+    """
+
     def __init__(self, status: int, msg: str):
+        """
+        Parameters
+        ----------
+        status : int
+            The HTTP response status code. This value is taken as-is, there is no validation routine.
+        msg : str
+            The explanatory message.
+        """
+        
         import re
 
         from awsmate.logger import logger
@@ -252,33 +271,97 @@ class HttpClientError(RuntimeError):
 
 
     @property
-    def status(self):
+    def status(self) -> int:
+        """
+        Returns the HTTP response status code. 
+
+        Returns
+        -------
+        int
+            The HTTP response status code. 
+        """
+        
         return self._status
 
 
 class HttpBadRequestError(HttpClientError):
-    def __init__(self, msg: str):
-        super().__init__(400, msg)
+    """
+    Error that represents a HTTP response status 400 "Bad request".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+        """
+        
+        super().__init__(400, msg if msg else 'Bad request')
 
 
 class HttpUnauthorizedError(HttpClientError):
-    def __init__(self, msg: str):
-        super().__init__(403, msg)
+    """
+    Error that represents a HTTP response status 403 "Unauthorized".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+        """
+        
+        super().__init__(403, msg if msg else 'Unauthorized')
 
 
 class HttpNotFoundError(HttpClientError):
-    def __init__(self, msg: str):
-        super().__init__(404, msg)
+    """
+    Error that represents a HTTP response status 404 "Not found".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+        """
+        
+        super().__init__(404, msg if msg else 'Not found')
 
 
 class HttpNotAcceptableError(HttpClientError):
-    def __init__(self, msg: str):
-        super().__init__(406, msg)
+    """
+    Error that represents a HTTP response status 406 "Not acceptable".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+        """
+        
+        super().__init__(406, msg if msg else 'Not acceptable')
         
 
 class HttpConflictError(HttpClientError):
-    def __init__(self, msg: str):
-        super().__init__(409, msg)    
+    """
+    Error that represents a HTTP response status 409 "Conflict".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+        """
+        
+        super().__init__(409, msg if msg else 'Conflict')    
 
 
 def simple_message(message: str) -> typing.Dict[str, str]:
