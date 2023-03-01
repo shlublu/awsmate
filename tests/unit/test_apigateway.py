@@ -51,77 +51,77 @@ def test_LambdaProxyEvent_http_headers_raisesIfNoHeaderElementIsPresent():
 
 def test_LambdaProxyEvent_header_sorted_preferences_returnsNonWeightedPreferencesAsPassed():
     event = { 
-        "headers": { 'Encoding': 'gzip,deflate,other' }
+        "headers": { 'Accept-Encoding': 'gzip,deflate,other' }
     }
     
     test = ag.LambdaProxyEvent(event)
 
-    assert test.header_sorted_preferences('encoding') == ('gzip', 'deflate', 'other')
+    assert test.header_sorted_preferences('accept-encoding') == ('gzip', 'deflate', 'other')
     
 
 def test_LambdaProxyEvent_header_sorted_preferences_consideresNoWeightMeansOne():
     event = { 
-        "headers": { 'Encoding': 'gzip;q=0.4,deflate,other;q=0.6' }
+        "headers": { 'Accept-Encoding': 'gzip;q=0.4,deflate,other;q=0.6' }
     }
     
     test = ag.LambdaProxyEvent(event)
 
-    assert test.header_sorted_preferences('encoding') == ('deflate', 'other', 'gzip')
+    assert test.header_sorted_preferences('accept-encoding') == ('deflate', 'other', 'gzip')
 
     
 def test_LambdaProxyEvent_header_sorted_preferences_returnsPreferencesAccordingToWeightsGivenSorted():
     event = { 
-        "headers": { 'Encoding': 'gzip,deflate;q=0.8,other;q=0.1' }
+        "headers": { 'Accept-Encoding': 'gzip,deflate;q=0.8,other;q=0.1' }
     }
     
     test = ag.LambdaProxyEvent(event)
 
-    assert test.header_sorted_preferences('encoding') == ('gzip', 'deflate', 'other')
+    assert test.header_sorted_preferences('accept-encoding') == ('gzip', 'deflate', 'other')
 
 
 def test_LambdaProxyEvent_header_sorted_preferences_returnsPreferencesAccordingToWeightsGivenUnsorted():
     event = { 
-        "headers": { 'Encoding': 'gzip;q=0.2,deflate,other;q=0.9' }
+        "headers": { 'Accept-Encoding': 'gzip;q=0.2,deflate,other;q=0.9' }
     }
     
     test = ag.LambdaProxyEvent(event)
 
-    assert test.header_sorted_preferences('encoding') == ('deflate', 'other', 'gzip')
+    assert test.header_sorted_preferences('accept-encoding') == ('deflate', 'other', 'gzip')
 
 
 def test_LambdaProxyEvent_header_sorted_preferences_considersBadlyFormattedWeightMeansHalf():
     event = { 
-        "headers": { 'Encoding': 'gzip;q=0.4,deflate;q=0.6,other;garbage' }
+        "headers": { 'Accept-Encoding': 'gzip;q=0.4,deflate;q=0.6,other;garbage' }
     }
     
     test = ag.LambdaProxyEvent(event)
 
-    assert test.header_sorted_preferences('encoding') == ('deflate', 'other', 'gzip')
+    assert test.header_sorted_preferences('accept-encoding') == ('deflate', 'other', 'gzip')
 
 
 def test_LambdaProxyEvent_header_sorted_preferences_silentelyIgnoresEmptyPreference():
     event = { 
-        "headers": { 'Encoding': 'gzip;q=0.4,,;q=1,;garbage,deflate;q=0.6,other' }
+        "headers": { 'Accept-Encoding': 'gzip;q=0.4,,;q=1,;garbage,deflate;q=0.6,other' }
     }
     
     test = ag.LambdaProxyEvent(event)
 
-    assert test.header_sorted_preferences('encoding') == ('other', 'deflate', 'gzip')
+    assert test.header_sorted_preferences('accept-encoding') == ('other', 'deflate', 'gzip')
 
 
 def test_LambdaProxyEvent_header_sorted_preferences_silentelyIgnoreSpaces():
     event = { 
-        "headers": { 'Encoding': 'gzip ; q = 0.6,deflate;q=0.4,other' }
+        "headers": { 'Accept-Encoding': 'gzip ; q = 0.6,deflate;q=0.4,other' }
     }
     
     test = ag.LambdaProxyEvent(event)
 
-    assert test.header_sorted_preferences('encoding') == ('other', 'gzip', 'deflate')  
+    assert test.header_sorted_preferences('accept-encoding') == ('other', 'gzip', 'deflate')  
 
 
 def test_LambdaProxyEvent_header_sorted_preferences_returnsNoPreferenceIfQueriedHeaderHasNotBeenPassed():
     event = { 
-        "headers": { 'Encoding': 'gzip;q=0.2,deflate,other' }
+        "headers": { 'Accept-Encoding': 'gzip;q=0.2,deflate,other' }
     }
     
     test = ag.LambdaProxyEvent(event)
@@ -141,12 +141,12 @@ def test_LambdaProxyEvent_header_sorted_preferences_livesWellWithNoHeaders():
 
 def test_LambdaProxyEvent_header_sorted_preferences_isCaseUnsensitive():
     event = { 
-        "headers": { 'Encoding': 'gzip;q=0.3,deflate;q=0.2,other' }
+        "headers": { 'Accept-Encoding': 'gzip;q=0.3,deflate;q=0.2,other' }
     }
     
     test = ag.LambdaProxyEvent(event)
 
-    assert test.header_sorted_preferences('eNcOdInG') == ('other', 'gzip', 'deflate')  
+    assert test.header_sorted_preferences('aCcEpT-eNcOdInG') == ('other', 'gzip', 'deflate')  
 
      
 def test_LambdaProxyEvent_http_method_returnsTheHttpMethodOfTheCallInUpperCase():
@@ -457,7 +457,7 @@ def test_HttpClientError_init_logsProperly(caplog):
 
     ag.HttpClientError(status, message)
 
-    assert caplog.text == f'ERROR    root:apigateway.py:270 HttpClientError: {str(status)} - {message}\n'
+    assert caplog.text == f'ERROR    root:apigateway.py:251 HttpClientError: {str(status)} - {message}\n'
 
 
 def test_simple_message_returnsProperPayload():
