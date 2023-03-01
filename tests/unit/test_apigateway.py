@@ -451,13 +451,14 @@ def test_HttpClientError_init_initializesMessageProperly(caplog):
 
 def test_HttpClientError_init_logsProperly(caplog):
     import random
+    import re
 
     status = random.randint(200, 599)
     message = f'{random.randint(1000, 9999)} some text'
 
     ag.HttpClientError(status, message)
 
-    assert caplog.text == f'ERROR    root:apigateway.py:251 HttpClientError: {str(status)} - {message}\n'
+    assert re.match(f'ERROR    root:apigateway.py:[0-9]{{3}} HttpClientError: {str(status)} - {message}\n', caplog.text)
 
 
 def test_simple_message_returnsProperPayload():
