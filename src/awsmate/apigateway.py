@@ -22,12 +22,6 @@ class MalformedPayloadError(RuntimeError):
 class LambdaProxyEvent(LambdaEvent):
     """
     Mapping of the input event received by an AWS Lambda function triggered by an AWS Api Gateway during a client API call.
-
-    Examples
-    --------
-    >>> def lambda_handler(rawEvent, context):
-    >>>     import awsmate.apigateway as ag
-    >>>     event = ag.LambdaProxyEvent(rawEvent)    
     """
 
     def __init__(self, eventObject: dict):
@@ -36,6 +30,12 @@ class LambdaProxyEvent(LambdaEvent):
         ----------
         eventObject : dict
             The parameter ``event`` received by the AWS Lambda function handler.
+
+        Examples
+        --------
+        >>> def lambda_handler(rawEvent, context):
+        >>>     from awsmate.apigateway import LambdaProxyEvent
+        >>>     event = LambdaProxyEvent(rawEvent)                
         """
         
         super().__init__(eventObject)
@@ -56,6 +56,11 @@ class LambdaProxyEvent(LambdaEvent):
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
             If no ``headers`` key is present in the event data.
+
+        Examples
+        --------
+        >>> event.http_headers()
+        {'accept': 'application/json', 'accept-encoding': 'gzip,identity'}                
         """
         
         try: 
@@ -81,7 +86,10 @@ class LambdaProxyEvent(LambdaEvent):
             
         Examples
         --------
-        Header ``Encoding: gzip;q=0.2,deflate,identity;q=0.9`` leads to ``('deflate', 'identity', 'gzip')``
+        Given the header ``Accept-Encoding: gzip;q=0.2,deflate,identity;q=0.9``: 
+
+        >>> event.header_sorted_preferences('Accept-Encoding')
+        ('deflate', 'identity', 'gzip')
         """
         
         headers = self.http_headers()
@@ -118,6 +126,11 @@ class LambdaProxyEvent(LambdaEvent):
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
             If no ``httpMethod`` key is present in the event data.            
+
+        Examples
+        --------
+        >>> event.http_method()
+        'GET'
         """
 
         try: 
@@ -145,7 +158,10 @@ class LambdaProxyEvent(LambdaEvent):
 
         Examples
         --------
-        API call ``GET /projects/foobar/modules`` leads to ``('projects', 'foobar', 'modules')``                  
+        Given the API call ``GET /projects/foobar/modules``
+         
+        >>> event.call_path()
+        ('projects', 'foobar', 'modules')              
         """
         
         try: 
@@ -173,7 +189,14 @@ class LambdaProxyEvent(LambdaEvent):
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If no ``queryStringParameters`` key is present in the event data. No parameters is supposed to be represented as ``'queryStringParameters': None``.                 
+            If no ``queryStringParameters`` key is present in the event data. No parameters is supposed to be represented as ``'queryStringParameters': None``.       
+
+        Examples
+        --------
+        Given the API call ``curl -X GET 'https://api.example.com/reports?from_date=2020-01-01&to_date=2023-03-01'``
+
+        >>> event.query_string_parameters()
+        {'from_date': '2020-01-01', 'to_date': '2023-03-01'}     
         """
         
         try:
@@ -201,7 +224,10 @@ class LambdaProxyEvent(LambdaEvent):
 
         Examples
         --------
-        ``GET /projects/foobar/modules?order=alphabetical&released=true``                
+        Given the API call ``curl -X GET 'https://api.example.com/billing/reports?from_date=2020-01-01&to_date=2023-03-01'``
+
+        >>> event.call_string()
+        'GET /billing/reports?from_date=2020-01-01&to_date=2023-03-01'                  
         """
         
         paramsString = '&'.join(f'{key}={value}' for key, value in self.query_string_parameters().items())
@@ -226,6 +252,11 @@ class LambdaProxyEvent(LambdaEvent):
             If no ``body`` key is present in the event data.    
         MalformedPayloadError
             If the submitted data is not valid JSON.        
+
+        Examples
+        --------
+        >>> event.payload()
+        {'some_key': 5, 'some_other_key': [1, 2, 3, 4, 5]}            
         """
 
         import json
@@ -256,6 +287,15 @@ class HttpClientError(RuntimeError):
             The HTTP response status code. This value is taken as-is, there is no validation routine.
         msg : str
             The explanatory message.
+
+        Examples
+        --------
+        >>> from awsmate.apigateway import HttpClientError
+        >>> raise HttpClientError(404, 'Not sure where it is!')
+        HttpClientError: 404 - Not sure where it is!
+        Traceback (most recent call last):
+        File "<stdin>", line 1, in <module>
+        awsmate.apigateway.HttpClientError: Not sure where it is!
         """
         
         import re
@@ -279,6 +319,13 @@ class HttpClientError(RuntimeError):
         -------
         int
             The HTTP response status code. 
+
+        Examples
+        --------
+        Given ``e = HttpClientError(403, 'Forbidden')``
+
+        >>> e.status
+        403
         """
         
         return self._status
@@ -295,6 +342,10 @@ class HttpBadRequestError(HttpClientError):
         ----------
         msg : str
             Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpBadRequestError('This is a very very bad request')
         """
         
         super().__init__(400, msg if msg else 'Bad request')
@@ -311,6 +362,10 @@ class HttpUnauthorizedError(HttpClientError):
         ----------
         msg : str
             Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpUnauthorizedError('None shall pass')            
         """
         
         super().__init__(403, msg if msg else 'Unauthorized')
@@ -327,6 +382,10 @@ class HttpNotFoundError(HttpClientError):
         ----------
         msg : str
             Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpUnauthorizedError('This stuff is nowhere to be found')                
         """
         
         super().__init__(404, msg if msg else 'Not found')
@@ -343,6 +402,10 @@ class HttpNotAcceptableError(HttpClientError):
         ----------
         msg : str
             Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpNotAcceptableError('No I won`t respond in audio/mp3')              
         """
         
         super().__init__(406, msg if msg else 'Not acceptable')
@@ -359,6 +422,10 @@ class HttpConflictError(HttpClientError):
         ----------
         msg : str
             Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpConflictError('Not the best idea ever')                          
         """
         
         super().__init__(409, msg if msg else 'Conflict')    
@@ -380,6 +447,11 @@ def simple_message(message: str) -> typing.Dict[str, str]:
     -------
     dict
         Payload built from the message string.     
+
+    Examples
+    --------
+    >>> simple_message("Fine!")
+    {'Message': 'Fine!'}
     """
 
     return {
