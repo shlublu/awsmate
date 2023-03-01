@@ -365,6 +365,23 @@ class HttpConflictError(HttpClientError):
 
 
 def simple_message(message: str) -> typing.Dict[str, str]:
+    """
+    Turns a ``str`` into a ``dict`` payload having "Message" as a key and the passed string as a value.
+
+    :func:`~build_http_response` uses this function to build response payloads from strings. 
+    There is no need to call :func:`simple_message` directly normally, although it may not cause any harm.
+
+    Parameters
+    ----------
+    message : str
+        The string to turn into a message payload.    
+
+    Returns
+    -------
+    dict
+        Payload built from the message string.     
+    """
+
     return {
          "Message": message
     }
@@ -426,7 +443,8 @@ _basic_transformers = {
 
 
 def build_http_response(
-        status: int, payload: typing.Union[dict, str], *, 
+        status: int, 
+        payload: typing.Union[dict, str], *, 
         event: typing.Optional[LambdaProxyEvent] = None, 
         customTransformers: typing.Optional[typing.Dict[str, typing.Callable[[dict], typing.Tuple[str, str]]]] = None,
         extraHeaders: typing.Optional[typing.Dict[str, str]] = None
