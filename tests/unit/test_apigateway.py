@@ -457,7 +457,7 @@ def test_HttpClientError_init_logsProperly(caplog):
 
     ag.HttpClientError(status, message)
 
-    assert caplog.text == f'ERROR    root:apigateway.py:251 HttpClientError: {str(status)} - {message}\n'
+    assert caplog.text == f'ERROR    root:apigateway.py:270 HttpClientError: {str(status)} - {message}\n'
 
 
 def test_simple_message_returnsProperPayload():
