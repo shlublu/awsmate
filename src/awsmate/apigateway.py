@@ -169,7 +169,7 @@ class LambdaProxyEvent(LambdaEvent):
             path = path[1 if not len(path[0]) else 0 : -1 if len(path[-1]) == 0 else len(path)]
 
         except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+            raise AwsEventSpecificationError(f"Event structure is not as expected: cannot reach {str(err)}.")
 
         return tuple(path)
 
@@ -459,7 +459,52 @@ def simple_message(message: str) -> typing.Dict[str, str]:
     }
 
 
-def determine_content_type(event: LambdaProxyEvent, *, customTransformers: typing.Optional[dict] = None) -> str:
+def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typing.Optional[typing.Dict[str, typing.Callable[[dict], typing.Tuple[str, str]]]] = None) -> str:
+    """
+    Determines the ``Content-Type`` of the response to be sent based on the ``Accept`` header of the request.
+
+    ``application/json`` is the only ``Content-Type`` transformer available by default. It is mapped to the ``Accept`` values
+    ``*/*``, ``application/*`` and ``application/json``. Any other ``Accept`` value leads to a :class:`HttpNotAcceptableError` unless
+    ``customTransformers`` map this ``Accept`` value to an appropriate transformer.
+
+    Preferences are handled by ::method::`header_sorted_preferences`. Should no ``Accept`` header be given, ``*/*`` is assumed.
+
+    Parameters
+    ----------
+    event : LambdaProxyEvent
+        The API call event.    
+
+    Returns
+    -------
+    str
+        The ``Content-Type`` of the response.     
+
+    Raises
+    ------
+    HttpNotAcceptableError
+        If no transformer meets the criteria of the ``Accept`` header.
+            
+    Examples
+    --------
+    Given that the API call was made with a ``Accept: text/csv`` header:
+
+    >>> def csv_transformer(payload: dict) -> typing.Tuple[str, str]:
+    >>>        # ... code that converts the json payload to csv and stores it into a variable called csvContent ...
+    >>>        return csvContent, 'text/csv; charset=utf-8'
+    >>>    
+    >>> def xml_transformer(payload: dict) -> typing.Tuple[str, str]:
+    >>>        # ... code that converts the json payload to xml and stores it into a variable called xmlContent ...
+    >>>        return xmlContent, 'application/xml; charset=utf-8'
+    >>> 
+    >>> custom_transformers = {
+    >>>     'text/csv': csv_transformer,
+    >>>     'application/xml': xml_transformer
+    >>> }
+    >>>
+    >>> determine_content_type(event, customTransformers=custom_transformers)
+    'text/csv; charset=utf-8'
+    """
+
     acceptedMimeTypes = event.header_sorted_preferences('Accept')
 
     if len(acceptedMimeTypes) == 0:
@@ -467,17 +512,17 @@ def determine_content_type(event: LambdaProxyEvent, *, customTransformers: typin
 
     contentType = None
 
-    if customTransformers is None:
-        customTransformers = {}
+    if custom_transformers is None:
+        custom_transformers = {}
         
     for pref in acceptedMimeTypes:
-        if pref in _basic_transformers or pref in customTransformers:
+        if pref in _basic_transformers or pref in custom_transformers:
             contentType = pref
             break
 
     if contentType is None:
         availableFormats = ', '.join(
-            ( k for k in sorted(set(list(_basic_transformers.keys()) + list(customTransformers.keys()))) if not k.endswith('*') )
+            ( k for k in sorted(set(list(_basic_transformers.keys()) + list(custom_transformers.keys()))) if not k.endswith('*') )
         )
 
         raise HttpNotAcceptableError(

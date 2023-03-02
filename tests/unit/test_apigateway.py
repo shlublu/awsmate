@@ -1,5 +1,8 @@
 import pytest
 
+import json
+import random
+
 import awsmate.apigateway as ag
 
 from awsmate.lambdafunction import AwsEventSpecificationError
@@ -14,8 +17,6 @@ def test_LambdaProxyEvent_init_initializesInternalEventObject():
 
 
 def test_LambdaProxyEvent_http_headers_returnsAllHeadersWithKeysInLowerCase():
-    import random
-
     randStringA = str(random.randint(1000, 9999))
     randStringB = str(random.randint(1000, 9999))
 
@@ -171,8 +172,6 @@ def test_LambdaProxyEvent_http_method_raisesIfMethodFieldIsMissing():
 
 
 def test_LambdaProxyEvent_call_path_returnsPathElementsIgnoringTrailingSeparator():
-    import random
-
     randPathA = f'{random.randint(1000, 9999)}FirstElement' 
     randPathB = f'{random.randint(1000, 9999)}SecondElement' 
     randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
@@ -187,8 +186,6 @@ def test_LambdaProxyEvent_call_path_returnsPathElementsIgnoringTrailingSeparator
 
 
 def test_LambdaProxyEvent_call_path_livesWellWithNoTrailingSeparator():
-    import random
-
     randPathA = f'{random.randint(1000, 9999)}FirstElement' 
     randPathB = f'{random.randint(1000, 9999)}SecondElement' 
     randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
@@ -203,8 +200,6 @@ def test_LambdaProxyEvent_call_path_livesWellWithNoTrailingSeparator():
 
 
 def test_LambdaProxyEvent_call_path_assumesLeadingSeparator():
-    import random
-
     randPathA = f'{random.randint(1000, 9999)}FirstElement' 
     randPathB = f'{random.randint(1000, 9999)}SecondElement' 
     randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
@@ -219,8 +214,6 @@ def test_LambdaProxyEvent_call_path_assumesLeadingSeparator():
 
 
 def test_LambdaProxyEvent_call_path_assumesLeadingSeparatorEvenIfNoTrailingSeparator():
-    import random
-
     randPathA = f'{random.randint(1000, 9999)}FirstElement' 
     randPathB = f'{random.randint(1000, 9999)}SecondElement' 
     randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
@@ -235,8 +228,6 @@ def test_LambdaProxyEvent_call_path_assumesLeadingSeparatorEvenIfNoTrailingSepar
 
 
 def test_LambdaProxyEvent_call_path_leavesWithASingleElement():
-    import random
-
     event = {
         'path': f'{random.randint(1000, 9999)}Element'
     }
@@ -258,8 +249,6 @@ def test_LambdaProxyEvent_call_path_raisesIfPathFieldIsMissing():
 
 
 def test_LambdaProxyEvent_query_string_parameters_returnsAllQueryStringParametersAsTheyAre():
-    import random
-
     randParamsA = f'{random.randint(1000, 9999)} (Some Random Value)'
     randParamsB = f'{random.randint(1000, 9999)} (Some Other Random Value)'
 
@@ -297,8 +286,6 @@ def test_LambdaProxyEvent_query_string_parameters_raisesIfParametersFieldIsMissi
 
 
 def test_LambdaProxyEvent_call_string_returnsTheWholeString():
-    import random
-
     randMethod = str(random.randint(1000, 9999))
 
     randPathA = str(random.randint(1000, 9999)) 
@@ -330,8 +317,6 @@ def test_LambdaProxyEvent_call_string_returnsTheWholeString():
 
 
 def test_LambdaProxyEvent_call_string_livesWellWithNoQueryParameters():
-    import random
-
     randMethod = str(random.randint(1000, 9999))
 
     randPathA = str(random.randint(1000, 9999)) 
@@ -376,8 +361,6 @@ def test_LambdaProxyEvent_call_string_reliesOnEventMethods():
 
 
 def test_LambdaProxyEvent_payload_returnsThePayloadAsItIs():
-    import random
-
     randInt = random.randint(1000, 100000)
 
     event = {
@@ -411,8 +394,6 @@ def test_LambdaProxyEvent_payload_raisesIfBodyIsMissing():
 
 
 def test_LambdaProxyEvent_payload_raisesIfJsonIsIncorrect():
-    import random
-
     randInt = random.randint(1000, 100000)
 
     event = {
@@ -428,8 +409,6 @@ def test_LambdaProxyEvent_payload_raisesIfJsonIsIncorrect():
 
     
 def test_HttpClientError_init_initializesStatusProperly(caplog):
-    import random
-
     status = random.randint(200, 599)
     message = f'{random.randint(1000, 9999)} some text'
 
@@ -439,8 +418,6 @@ def test_HttpClientError_init_initializesStatusProperly(caplog):
 
 
 def test_HttpClientError_init_initializesMessageProperly(caplog):
-    import random
-
     status = random.randint(200, 599)
     message = f'{random.randint(1000, 9999)} some text'
 
@@ -450,7 +427,6 @@ def test_HttpClientError_init_initializesMessageProperly(caplog):
 
 
 def test_HttpClientError_init_logsProperly(caplog):
-    import random
     import re
 
     status = random.randint(200, 599)
@@ -462,8 +438,6 @@ def test_HttpClientError_init_logsProperly(caplog):
 
 
 def test_simple_message_returnsProperPayload():
-    import random
-
     message = f'{random.randint(0, 9999)} with some blablah'
 
     payload = ag.simple_message(message)
@@ -568,8 +542,6 @@ def test_determine_content_type_fallsBackToAnyAnyIfNoAcceptHeader():
 
 
 def test_determine_content_type_raisesWithRandomType():
-    import random
-
     event = ag.LambdaProxyEvent(
         {
             'headers': {
@@ -585,8 +557,6 @@ def test_determine_content_type_raisesWithRandomType():
 
 
 def test_is_binary_returnsFalseForTextAny():
-    import random
-    
     mimeType = f'text/{random.randint(1000, 9999)}'
 
     assert ag.is_binary(mimeType) is False
@@ -611,8 +581,6 @@ def test_is_binary_returnsFalseForApplicationXml():
 
 
 def test_is_binary_returnsTrueForApplicationAny():
-    import random
-    
     mimeType = f'application/{random.randint(1000, 9999)}'
 
     assert ag.is_binary(mimeType) is True
@@ -625,25 +593,18 @@ def test_is_binary_returnsTrueForApplication():
 
 
 def test_is_binary_returnsTrueForAnyAny():
-    import random
-
     mimeType = f'{random.randint(1000, 9999)}/{random.randint(1000, 9999)}'
 
     assert ag.is_binary(mimeType) is True   
 
 
 def test_is_binary_returnsTrueForAny():
-    import random
-
     mimeType = f'{random.randint(1000, 9999)}'
 
     assert ag.is_binary(mimeType) is True  
 
 
 def test_json_transformer_returnsProperContent():
-    import json 
-    import random
-
     payload = {
         'a': random.randint(0, 9999),
         'b': f'{random.randint(0, 9999)}'
@@ -655,8 +616,6 @@ def test_json_transformer_returnsProperContent():
 
 
 def test_json_transformer_returnsProperContentType():
-    import random
-
     payload = {
         'a': random.randint(0, 9999),
         'b': f'{random.randint(0, 9999)}'
@@ -676,9 +635,6 @@ def test__basic_transformers_areAllJson():
 
 
 def test_build_http_response_returnsPrettyJsonPayloadByDefault():
-    import json
-    import random
-
     status = random.randint(200, 599)
     
     payload = {
@@ -701,9 +657,6 @@ def test_build_http_response_returnsPrettyJsonPayloadByDefault():
 
 
 def test_build_http_response_turnsStringPayloadsIntoSimpleMessages():
-    import json
-    import random
-
     status = random.randint(200, 599)
     
     message = f"MSG{str(random.randint(0, 1000))}"
@@ -725,9 +678,7 @@ def test_build_http_response_turnsStringPayloadsIntoSimpleMessages():
 def test_build_http_response_returnsZippedPayloadIfDesired():
     import base64
     import gzip
-    import json
-    import random
-
+    
     status = random.randint(200, 599)
     
     payload = {
@@ -759,8 +710,6 @@ def test_build_http_response_returnsZippedPayloadIfDesired():
 
 
 def test_build_http_response_returnsMimeTypeAccordingToCustomPreferences():
-    import random
-
     status = random.randint(200, 599)
     
     payload = {
@@ -791,9 +740,6 @@ def test_build_http_response_returnsMimeTypeAccordingToCustomPreferences():
 
 
 def test_build_http_response_allowsReturningExtraHeaders():
-    import json
-    import random
-
     status = random.randint(200, 599)
     
     payload = {
@@ -822,8 +768,6 @@ def test_build_http_response_allowsReturningExtraHeaders():
 
 
 def test_build_http_server_error_response_returnsOopsMessage():
-    import json
-
     expectedResponse = {
         'isBase64Encoded': False,
         'statusCode': 500,
@@ -842,8 +786,6 @@ def test_build_http_server_error_response_returnsOopsMessage():
 
 
 def test_build_http_server_error_response_returnsCustomMessageIfSpecified():
-    import json
-
     expectedResponse = {
         'isBase64Encoded': False,
         'statusCode': 500,
@@ -862,8 +804,6 @@ def test_build_http_server_error_response_returnsCustomMessageIfSpecified():
 
 
 def test_build_http_client_error_response_returnsWhatTheExceptionCarries():
-    import json 
-
     ex = ag.HttpBadRequestError("some message")
 
     expectedResponse = {
@@ -881,4 +821,3 @@ def test_build_http_client_error_response_returnsWhatTheExceptionCarries():
     response = ag.build_http_client_error_response(ex)
 
     assert response == expectedResponse
-
