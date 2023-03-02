@@ -467,7 +467,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     ``*/*``, ``application/*`` and ``application/json``. Any other ``Accept`` value leads to a :class:`HttpNotAcceptableError` unless
     ``custom_transformers`` map this ``Accept`` value to an appropriate transformer.
 
-    Preferences are handled by ::method::`header_sorted_preferences`. Should no ``Accept`` header be given, ``*/*`` is assumed.
+    Preferences are handled by :method:`header_sorted_preferences`. Should no ``Accept`` header be given, ``*/*`` is assumed.
 
     Parameters
     ----------
