@@ -496,7 +496,7 @@ def test_determine_content_type_acceptsCustomTypes():
         }
     )
 
-    selected = ag.determine_content_type(event, customTransformers = { 'something/weird': lambda x : x})
+    selected = ag.determine_content_type(event, custom_transformers = { 'something/weird': lambda x : x})
 
     assert selected == 'something/weird'      
 
@@ -510,7 +510,7 @@ def test_determine_content_type_stillAcceptsJsonWithCustomTypes():
         }
     )
 
-    selected = ag.determine_content_type(event, customTransformers = { 'something/weird': lambda x : x})
+    selected = ag.determine_content_type(event, custom_transformers = { 'something/weird': lambda x : x})
 
     assert selected == 'application/json'        
 
@@ -524,7 +524,7 @@ def test_determine_content_type_handlesPreferencesProperly():
         }
     )
 
-    selected = ag.determine_content_type(event, customTransformers = { 'something/weird': lambda x : x, 'other/stuff': lambda x : x})
+    selected = ag.determine_content_type(event, custom_transformers = { 'something/weird': lambda x : x, 'other/stuff': lambda x : x})
 
     assert selected == 'something/weird'     
 
@@ -734,7 +734,7 @@ def test_build_http_response_returnsMimeTypeAccordingToCustomPreferences():
         }
     }
 
-    response = ag.build_http_response(status, payload, event = event, customTransformers = { 'text/*': lambda x : (x, 'text/strange') })
+    response = ag.build_http_response(status, payload, event = event, custom_transformers = { 'text/*': lambda x : (x, 'text/strange') })
 
     assert response == expectedResponse
 
@@ -747,7 +747,7 @@ def test_build_http_response_allowsReturningExtraHeaders():
         "msg": f"MSG{str(random.randint(0, 1000))}"
     }
 
-    extraHeaders = {
+    extra_headers = {
         f'{random.randint(0, 1000)}' : f'{random.randint(0, 1000)}',
         f'{random.randint(0, 1000)}' : f'{random.randint(0, 1000)}'
     }
@@ -758,11 +758,11 @@ def test_build_http_response_allowsReturningExtraHeaders():
         'body': json.dumps(payload, indent = 2),
         'headers': {     
             'Content-Type': 'application/json; charset=utf-8',
-            **extraHeaders
+            **extra_headers
         }
     }
 
-    response = ag.build_http_response(status, payload, extraHeaders = extraHeaders)
+    response = ag.build_http_response(status, payload, extra_headers = extra_headers)
 
     assert response == expectedResponse    
 
@@ -786,7 +786,7 @@ def test_build_http_server_error_response_returnsOopsMessage():
 
 
 def test_build_http_server_error_response_returnsCustomMessageIfSpecified():
-    expectedResponse = {
+    expectedResponse = { 
         'isBase64Encoded': False,
         'statusCode': 500,
         'body': json.dumps(
