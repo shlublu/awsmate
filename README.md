@@ -4,12 +4,12 @@
 ### Installation
 
 * Command line: `pip3 install awsmate`
-* [PyPI page](https://pypi.org/project/awsmate/ "PyPI page of awsmate")
+* See the [PyPI page](https://pypi.org/project/awsmate/ "PyPI page of awsmate")
 
 
 ### Documentation
 
-* The complete documentation is available [here at ReadTheDocs](https://awsmate.readthedocs.io/ "awsmate documentation").
+* The complete documentation is available [at ReadTheDocs](https://awsmate.readthedocs.io/ "awsmate documentation").
 * Documentation status: [![Documentation status](https://readthedocs.org/projects/awsmate/badge/?version=latest)](https://awsmate.readthedocs.io/en/latest/?badge=latest)
 
 ### Testing

@@ -193,7 +193,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Examples
         --------
-        Given the API call ``curl -X GET 'https://api.example.com/reports?from_date=2020-01-01&to_date=2023-03-01'``
+        Given the API call ``GET '/reports?from_date=2020-01-01&to_date=2023-03-01'``
 
         >>> event.query_string_parameters()
         {'from_date': '2020-01-01', 'to_date': '2023-03-01'}     
@@ -435,7 +435,8 @@ def simple_message(message: str) -> typing.Dict[str, str]:
     """
     Turns a ``str`` into a ``dict`` payload having "Message" as a key and the passed string as a value.
 
-    :func:`~build_http_response` uses this function to build response payloads from strings. 
+    :func:`build_http_response` uses this function to build response payloads from strings. 
+
     There is no need to call :func:`simple_message` directly normally, although it may not cause any harm.
 
     Parameters
@@ -450,8 +451,8 @@ def simple_message(message: str) -> typing.Dict[str, str]:
 
     Examples
     --------
-    >>> simple_message("Fine!")
-    {'Message': 'Fine!'}
+    >>> simple_message("This is fine!")
+    {'Message': 'This is fine!'}
     """
 
     return {
@@ -502,7 +503,13 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     >>> }
     >>>
     >>> determine_content_type(event, custom_transformers=custom_transformers)
-    'text/csv; charset=utf-8'
+    'text/csv'
+
+    Notes
+    -----
+    It is a good idea to call this function at the very beginning of your Lambda handler. That way, you can make sure that
+    the accepted ``Content-Type``s match what your API is capable of returning, and return an :class:`~HttpNotAcceptableError` 
+    response without doing any unnecessary processing otherwise.
     """
 
     acceptedMimeTypes = event.header_sorted_preferences('Accept')
@@ -533,6 +540,30 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
 
 
 def is_binary(content_type: str) -> bool:
+    """
+    Determines whether the given ``Content-Type`` is binary. 
+
+    :func:`build_http_response` uses this function to determine if the API Gateway requires a ``base64`` encoding prior returning the content. 
+    All types but ``text/*``, ``application/xml`` and ``application/json`` are considered binary. 
+
+    There is no need to call :func:`is_binary` directly normally, although it may not cause any harm.    
+
+    Parameters
+    ----------
+    content_type : str
+        The ``Content-Type`` to assess.    
+
+    Returns
+    -------
+    bool
+        Whether the ``Content-Type`` is binary.     
+        
+    Examples
+    --------
+    >>> is_binary('image/jpeg')
+    True
+    """
+     
     splitted = content_type.split('/')
 
     if len(splitted) == 1:
