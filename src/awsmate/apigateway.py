@@ -279,7 +279,7 @@ class HttpClientError(RuntimeError):
     Error that represents a HTTP response status code that comes with a message.
     """
 
-    def __init__(self, status: int, msg: str):
+    def __init__(self, status: int, msg: str) -> None:
         """
         Parameters
         ----------
@@ -508,7 +508,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     Notes
     -----
     It is a good idea to call this function at the very beginning of your Lambda handler. That way, you can make sure that
-    the accepted ``Content-Type``s match what your API is capable of returning, and return an :class:`~HttpNotAcceptableError` 
+    the accepted ``Content-Type`` matches what your API is capable of returning, and return an :class:`~HttpNotAcceptableError` 
     response without doing any unnecessary processing otherwise.
     """
 
