@@ -465,7 +465,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
 
     ``application/json`` is the only ``Content-Type`` transformer available by default. It is mapped to the ``Accept`` values
     ``*/*``, ``application/*`` and ``application/json``. Any other ``Accept`` value leads to a :class:`HttpNotAcceptableError` unless
-    ``customTransformers`` map this ``Accept`` value to an appropriate transformer.
+    ``custom_transformers`` map this ``Accept`` value to an appropriate transformer.
 
     Preferences are handled by ::method::`header_sorted_preferences`. Should no ``Accept`` header be given, ``*/*`` is assumed.
 
@@ -501,7 +501,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     >>>     'application/xml': xml_transformer
     >>> }
     >>>
-    >>> determine_content_type(event, customTransformers=custom_transformers)
+    >>> determine_content_type(event, custom_transformers=custom_transformers)
     'text/csv; charset=utf-8'
     """
 
@@ -532,8 +532,8 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     return contentType
 
 
-def is_binary(contentType: str) -> bool:
-    splitted = contentType.split('/')
+def is_binary(content_type: str) -> bool:
+    splitted = content_type.split('/')
 
     if len(splitted) == 1:
         splitted.append('*')
@@ -563,8 +563,8 @@ def build_http_response(
         status: int, 
         payload: typing.Union[dict, str], *, 
         event: typing.Optional[LambdaProxyEvent] = None, 
-        customTransformers: typing.Optional[typing.Dict[str, typing.Callable[[dict], typing.Tuple[str, str]]]] = None,
-        extraHeaders: typing.Optional[typing.Dict[str, str]] = None
+        custom_transformers: typing.Optional[typing.Dict[str, typing.Callable[[dict], typing.Tuple[str, str]]]] = None,
+        extra_headers: typing.Optional[typing.Dict[str, str]] = None
     ) -> dict:
     import base64
     import gzip
@@ -583,14 +583,14 @@ def build_http_response(
             elif pref == 'identity':
                 break
 
-        if customTransformers is not None:
+        if custom_transformers is not None:
             contentTypeTransformers = {
                 **contentTypeTransformers,
-                **customTransformers
+                **custom_transformers
             }
 
         try:
-            selectedMimeType = determine_content_type(event, customTransformers = customTransformers)
+            selectedMimeType = determine_content_type(event, custom_transformers = custom_transformers)
             stringifiedPayload, contentType = contentTypeTransformers[selectedMimeType](payload)
 
         except HttpNotAcceptableError as err:
@@ -610,7 +610,7 @@ def build_http_response(
         'body': stringifiedPayload if not useGzip else base64.b64encode(gzip.compress(stringifiedPayload.encode('utf-8'))).decode('utf-8'),
         'headers': {     
             'Content-Type': contentType,
-            **(extraHeaders if extraHeaders else {})
+            **(extra_headers if extra_headers else {})
         }
     }
 
