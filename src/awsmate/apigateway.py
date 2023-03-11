@@ -346,6 +346,7 @@ class HttpBadRequestError(HttpClientError):
         Examples
         --------
         >>> raise HttpBadRequestError('This is a very very bad request')
+        
         """
         
         super().__init__(400, msg if msg else 'Bad request')
@@ -779,7 +780,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     -------
     dict
         The HTTP error 4XX response to return to API Gateway.      
-    
+
     Examples
     --------
     >>> build_http_client_error_response(HttpNotFoundError())
