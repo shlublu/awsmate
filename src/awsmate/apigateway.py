@@ -345,8 +345,8 @@ class HttpBadRequestError(HttpClientError):
 
         Examples
         --------
-        >>> raise HttpBadRequestError('This is a very very bad request')
         
+        >>> raise HttpBadRequestError('This is a very very bad request')
         """
         
         super().__init__(400, msg if msg else 'Bad request')
@@ -785,7 +785,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     --------
     >>> build_http_client_error_response(HttpNotFoundError())
     {'isBase64Encoded': False, 'statusCode': 404, 'body': '{\n  "Message": "Not found"\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
-
+    
     Notes
     -----
     This method simply calls:
