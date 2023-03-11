@@ -751,9 +751,7 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
 
     Notes
     -----
-    This method simply calls:
-    
-    >>> build_http_response(500, message, extra_headers=extra_headers)
+    This method simply calls: ``build_http_response(500, message, extra_headers=extra_headers)``.
     """
     
     return build_http_response(
@@ -788,9 +786,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     
     Notes
     -----
-    This method simply calls:
-
-    >>> build_http_response(error.status, str(error), extra_headers=extra_headers)
+    This method simply calls ``build_http_response(error.status, str(error), extra_headers=extra_headers)``.
     """
 
     return build_http_response(
