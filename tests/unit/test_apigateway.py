@@ -803,6 +803,25 @@ def test_build_http_server_error_response_returnsCustomMessageIfSpecified():
     assert response == expectedResponse
 
 
+def test_build_http_server_error_response_passesCustomHeaders():
+    expectedResponse = {
+        'isBase64Encoded': False,
+        'statusCode': 500,
+        'body': json.dumps(
+                { "Message": "Sorry, an error occured. Please contact the API administrator to have this sorted out." }, 
+                indent = 2
+            ),
+        'headers': {     
+            'Content-Type': 'application/json; charset=utf-8',
+            'someKey': 'someValue'
+        }
+    }
+
+    response = ag.build_http_server_error_response(extra_headers={ 'someKey': 'someValue' })
+
+    assert response == expectedResponse
+
+
 def test_build_http_client_error_response_returnsWhatTheExceptionCarries():
     ex = ag.HttpBadRequestError("some message")
 
@@ -819,5 +838,26 @@ def test_build_http_client_error_response_returnsWhatTheExceptionCarries():
     }    
 
     response = ag.build_http_client_error_response(ex)
+
+    assert response == expectedResponse
+
+
+def test_build_http_client_error_response_passesCustomHeaders():
+    ex = ag.HttpBadRequestError("some message")
+
+    expectedResponse = {
+        'isBase64Encoded': False,
+        'statusCode': ex.status,
+        'body': json.dumps(
+                { "Message": str(ex) }, 
+                indent = 2
+            ),
+        'headers': {     
+            'Content-Type': 'application/json; charset=utf-8',
+            'someKey': 'someValue'        
+        }
+    }    
+
+    response = ag.build_http_client_error_response(ex, extra_headers={ 'someKey': 'someValue' })
 
     assert response == expectedResponse
