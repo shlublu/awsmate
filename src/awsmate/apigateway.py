@@ -345,7 +345,6 @@ class HttpBadRequestError(HttpClientError):
 
         Examples
         --------
-
         >>> raise HttpBadRequestError('This is a very very bad request')
         """
         
@@ -366,7 +365,6 @@ class HttpUnauthorizedError(HttpClientError):
 
         Examples
         --------
-
         >>> raise HttpUnauthorizedError('None shall pass')            
         """
         
@@ -387,7 +385,6 @@ class HttpNotFoundError(HttpClientError):
 
         Examples
         --------
-
         >>> raise HttpUnauthorizedError('This stuff is nowhere to be found')                
         """
         
@@ -408,7 +405,6 @@ class HttpNotAcceptableError(HttpClientError):
 
         Examples
         --------
-
         >>> raise HttpNotAcceptableError('No I won`t respond in audio/mp3')              
         """
         
@@ -429,7 +425,6 @@ class HttpConflictError(HttpClientError):
 
         Examples
         --------
-        
         >>> raise HttpConflictError('Not the best idea ever')                          
         """
         
@@ -757,6 +752,7 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     Notes
     -----
     This method simply calls:
+    
     >>> build_http_response(500, message, extra_headers=extra_headers)
     """
     
@@ -793,6 +789,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     Notes
     -----
     This method simply calls:
+
     >>> build_http_response(error.status, str(error), extra_headers=extra_headers)
     """
 
