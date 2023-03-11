@@ -345,7 +345,7 @@ class HttpBadRequestError(HttpClientError):
 
         Examples
         --------
-        
+
         >>> raise HttpBadRequestError('This is a very very bad request')
         """
         
@@ -366,6 +366,7 @@ class HttpUnauthorizedError(HttpClientError):
 
         Examples
         --------
+
         >>> raise HttpUnauthorizedError('None shall pass')            
         """
         
@@ -386,6 +387,7 @@ class HttpNotFoundError(HttpClientError):
 
         Examples
         --------
+
         >>> raise HttpUnauthorizedError('This stuff is nowhere to be found')                
         """
         
@@ -406,6 +408,7 @@ class HttpNotAcceptableError(HttpClientError):
 
         Examples
         --------
+
         >>> raise HttpNotAcceptableError('No I won`t respond in audio/mp3')              
         """
         
@@ -426,6 +429,7 @@ class HttpConflictError(HttpClientError):
 
         Examples
         --------
+        
         >>> raise HttpConflictError('Not the best idea ever')                          
         """
         
