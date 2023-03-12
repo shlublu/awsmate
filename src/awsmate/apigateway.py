@@ -586,7 +586,7 @@ def is_binary(content_type: str) -> bool:
 
 
 def json_transformer(payload: dict) -> typing.Tuple[str, str]:
-    '''
+    """
     Transformer used by :func:`build_http_response`build_http_response` to build ``application/json`` responses.
 
     There is no need to this function directly normally, although it may not cause any harm.    
@@ -605,7 +605,7 @@ def json_transformer(payload: dict) -> typing.Tuple[str, str]:
     --------
     >>> json_transformer({'TopThreeBibs': (751,25,372)})
     ('{\n  "TopThreeBibs": [\n    751,\n    25,\n    372\n  ]\n}', 'application/json; charset=utf-8')
-    '''
+    """
     
     import json
        
@@ -626,11 +626,13 @@ def build_http_response(
         custom_transformers: typing.Optional[typing.Dict[str, typing.Callable[[dict], typing.Tuple[str, str]]]] = None,
         extra_headers: typing.Optional[typing.Dict[str, str]] = None
     ) -> dict:
-    '''
+    """
     Builds the HTTP response the Lambda handler has to return to API Gateway.
 
     Should the ``Accept`` header of the API call lead to a :class:`HttpNotAcceptableError`, an error message is returned instead
-    of the passed payload and the status code is set accordingly. This function handles the ``Accept-Encoding: gzip`` header of the API call for you. It also sets the base-64 flag of the response to ``True`` if
+    of the passed payload and the status code is set accordingly. 
+    
+    This function handles the ``Accept-Encoding: gzip`` header of the API call for you. It also sets the base-64 flag of the response to ``True`` if
     the returned ``Content-Type`` is binary.
 
     Parameters
@@ -667,7 +669,7 @@ def build_http_response(
     >>>
     >>> build_http_response(200, payload, event=event, custom_transformers=custom_transformers, extra_headers=extra_headers)
     {'isBase64Encoded': False, 'statusCode': 200, 'body': '{\n  "someKey": "someVal"\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*'}}
-    '''
+    """
 
     import base64
     import gzip
@@ -724,7 +726,7 @@ def build_http_response(
 
 
 def build_http_server_error_response(message: typing.Optional[str] = None, extra_headers: typing.Optional[typing.Dict[str, str]] = None) -> dict:
-    '''
+    """
     Convenience method that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
 
     The response is always in uncompressed ``application/json`` format. The event received by the Lambda Handler is ignored.
@@ -751,7 +753,7 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     This method simply calls:
 
     >>> build_http_response(500, message, extra_headers=extra_headers)
-    '''
+    """
     
     return build_http_response(
         500, 
@@ -761,7 +763,7 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
 
 
 def build_http_client_error_response(error: HttpClientError, extra_headers: typing.Optional[typing.Dict[str, str]] = None) -> dict:
-    '''
+    """
     Convenience method that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
 
     The response is always in uncompressed ``application/json`` format. The event received by the Lambda Handler is ignored.
@@ -788,7 +790,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     This method simply calls 
     
     >>> build_http_response(error.status, str(error), extra_headers=extra_headers)
-    '''
+    """
 
     return build_http_response(
         error.status, 
