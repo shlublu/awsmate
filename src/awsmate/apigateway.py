@@ -586,26 +586,7 @@ def is_binary(content_type: str) -> bool:
 
 
 def json_transformer(payload: dict) -> typing.Tuple[str, str]:
-    """
-    Transformer used by :func:`build_http_response`build_http_response` to build ``application/json`` responses.
 
-    There is no need to this function directly normally, although it may not cause any harm.    
-
-    Parameters
-    ----------
-    payload : dict
-        The payload to convert to ``application/json``.    
-
-    Returns
-    -------
-    tuple
-        The ``application/json`` payload as a ``str``, the ``Content-Type`` with its encoding specifier.      
-        
-    Examples
-    --------
-    >>> json_transformer({'TopThreeBibs': (751,25,372)})
-    ('{\n  "TopThreeBibs": [\n    751,\n    25,\n    372\n  ]\n}', 'application/json; charset=utf-8')
-    """
     
     import json
        
