@@ -587,7 +587,7 @@ def is_binary(content_type: str) -> bool:
 
 def json_transformer(payload: dict) -> typing.Tuple[str, str]:
     """
-    Transformer used by :func:`build_http_response`build_http_response` to build ``application/json`` responses.
+    Transformer used by :func:`build_http_response` to build ``application/json`` responses.
 
     There is no need to this function directly normally, although it may not cause any harm.    
 
