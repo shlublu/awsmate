@@ -587,9 +587,7 @@ def is_binary(content_type: str) -> bool:
 
 def json_transformer(payload: dict) -> typing.Tuple[str, str]:
     """
-    Transformer used by :func:` whether the given ``Content-Type`` is binary. 
-
-    :func:`build_http_response`build_http_response` to build ``application/json`` responses.
+    Transformer used by :func:`build_http_response`build_http_response` to build ``application/json`` responses.
 
     There is no need to this function directly normally, although it may not cause any harm.    
 
@@ -751,7 +749,9 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
 
     Notes
     -----
-    This method simply calls: ``build_http_response(500, message, extra_headers=extra_headers)``.
+    This method simply calls:
+
+    >>> build_http_response(500, message, extra_headers=extra_headers)
     """
     
     return build_http_response(
@@ -786,7 +786,9 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     
     Notes
     -----
-    This method simply calls ``build_http_response(error.status, str(error), extra_headers=extra_headers)``.
+    This method simply calls 
+    
+    >>> build_http_response(error.status, str(error), extra_headers=extra_headers)
     """
 
     return build_http_response(
