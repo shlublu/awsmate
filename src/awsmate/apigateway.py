@@ -626,50 +626,7 @@ def build_http_response(
         custom_transformers: typing.Optional[typing.Dict[str, typing.Callable[[dict], typing.Tuple[str, str]]]] = None,
         extra_headers: typing.Optional[typing.Dict[str, str]] = None
     ) -> dict:
-    """
-    Builds the HTTP response the Lambda handler has to return to API Gateway.
 
-    Should the ``Accept`` header of the API call lead to a :class:`HttpNotAcceptableError`, an error message is returned instead
-    of the passed payload and the status code is set accordingly. 
-    
-    This function handles the ``Accept-Encoding: gzip`` header of the API call for you. It also sets the base-64 flag of the response to ``True`` if
-    the returned ``Content-Type`` is binary.
-
-    Parameters
-    ----------
-    status : int
-        The HTTP status code.  
-    payload : dict or str
-        The payload that constitutes the body of the response. Should it be a ``str``, it will first be transformed by ::func::`simple_message`.
-    event : LambdaProxyEvent
-        Optional wrapper of the event the Lambda handler receives from the API Gateway.
-    custom_transformers : dict
-        Optional mapping of ``Content-Type``: ``dict`` to (content as ``Content-Type``, ``Content-Type`` with encoding as ``str``) transformer functions.
-    extra_headers : dict
-        Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.   
-
-    Returns
-    -------
-    dict
-        The HTTP response to return to API Gateway.     
-      
-    Examples
-    --------
-    >>> payload = { 
-    >>>     'someKey': 'someVal' 
-    >>> }
-    >>>
-    >>> event = None # Use defaults: no specific headers ('Accept: */*' assumed), no body, no URL parameters
-    >>>
-    >>> custom_transformers = None # 'application/json' transformer is built-in and is bound to 'Accept: */*'. We don't need anything else here.
-    >>>
-    >>> extra_headers = {
-    >>>     'Access-Control-Allow-Origin': '*' # Deals with CORS provided HTTP OPTIONS is dealt with on API Gateway side.
-    >>> }
-    >>>
-    >>> build_http_response(200, payload, event=event, custom_transformers=custom_transformers, extra_headers=extra_headers)
-    {'isBase64Encoded': False, 'statusCode': 200, 'body': '{\n  "someKey": "someVal"\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*'}}
-    """
 
     import base64
     import gzip
@@ -726,34 +683,7 @@ def build_http_response(
 
 
 def build_http_server_error_response(message: typing.Optional[str] = None, extra_headers: typing.Optional[typing.Dict[str, str]] = None) -> dict:
-    """
-    Convenience method that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
 
-    The response is always in uncompressed ``application/json`` format. The event received by the Lambda Handler is ignored.
-
-    Parameters
-    ----------
-    message : str
-        Optional error message. If omitted, the default message is "Sorry, an error occured. Please contact the API administrator to have this sorted out."
-    extra_headers : dict
-        Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.  
-
-    Returns
-    -------
-    dict
-        The HTTP error 500 response to return to API Gateway.      
-      
-    Examples
-    --------
-    >>> build_http_server_error_response('Oops, our bad...')
-    {'isBase64Encoded': False, 'statusCode': 500, 'body': '{\n  "Message": "Oops, our bad..."\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
-
-    Notes
-    -----
-    This method simply calls:
-
-    >>> build_http_response(500, message, extra_headers=extra_headers)
-    """
     
     return build_http_response(
         500, 
@@ -763,34 +693,7 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
 
 
 def build_http_client_error_response(error: HttpClientError, extra_headers: typing.Optional[typing.Dict[str, str]] = None) -> dict:
-    """
-    Convenience method that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
 
-    The response is always in uncompressed ``application/json`` format. The event received by the Lambda Handler is ignored.
-
-    Parameters
-    ----------
-    error : HttpClientError
-        Object representing the error. 
-    extra_headers : dict
-        Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.  
-
-    Returns
-    -------
-    dict
-        The HTTP error 4XX response to return to API Gateway.      
-
-    Examples
-    --------
-    >>> build_http_client_error_response(HttpNotFoundError())
-    {'isBase64Encoded': False, 'statusCode': 404, 'body': '{\n  "Message": "Not found"\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
-    
-    Notes
-    -----
-    This method simply calls 
-    
-    >>> build_http_response(error.status, str(error), extra_headers=extra_headers)
-    """
 
     return build_http_response(
         error.status, 
