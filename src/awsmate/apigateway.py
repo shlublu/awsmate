@@ -509,9 +509,23 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
 
     Notes
     -----
-    It is a good idea to call this function at the very beginning of your Lambda handler. That way, you can make sure that
+    It is a good idea to call this function at the very beginning of your Lambda handler. This way you can make sure that
     the accepted ``Content-Type`` matches what your API is capable of returning, and return an :class:`~HttpNotAcceptableError` 
     response without doing any unnecessary processing otherwise.
+
+    The example below only accepts ``*/*``, ``application/*`` and ``application/json``, all mapped to ``application/json`` by default.
+
+    >>> def lambda_handler(rawEvent, context):
+    >>>     import awsmate.apigateway as amag
+    >>>
+    >>>     event = amag.LambdaProxyEvent(rawEvent) 
+    >>>     try:
+    >>>         amag.determine_content_type(event)
+    >>>         # Everything you need to do
+    >>>         return amag.build_http_response(200, "OK", event=event)
+    >>>
+    >>>     except amag.HttpNotAcceptableError as err:
+    >>>         return amag.build_http_client_error_response(err)
     """
 
     acceptedMimeTypes = event.header_sorted_preferences('Accept')
