@@ -637,7 +637,7 @@ def build_http_response(
     status : int
         The HTTP status code.  
     payload : dict or str
-        The payload that constitutes the body of the response. Should it be a ``str``, it will first be transformed by ::func::`simple_message`.
+        The payload that constitutes the body of the response. Should it be a ``str``, it will first be transformed by :func:`simple_message`.
     event : LambdaProxyEvent
         Optional wrapper of the event the Lambda handler receives from the API Gateway.
     custom_transformers : dict
