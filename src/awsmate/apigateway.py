@@ -289,12 +289,7 @@ class HttpClientError(RuntimeError):
 
         Examples
         --------
-        >>> from awsmate.apigateway import HttpClientError
         >>> raise HttpClientError(404, 'Not sure where it is!')
-        HttpClientError: 404 - Not sure where it is!
-        Traceback (most recent call last):
-        File "<stdin>", line 1, in <module>
-        awsmate.apigateway.HttpClientError: Not sure where it is!
         """
         
         import re
@@ -384,7 +379,7 @@ class HttpNotFoundError(HttpClientError):
 
         Examples
         --------
-        >>> raise HttpUnauthorizedError('This stuff is nowhere to be found')                
+        >>> raise HttpNotFoundError('This stuff is nowhere to be found')                
         """
         
         super().__init__(404, msg if msg else 'Not found')
@@ -474,7 +469,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     event : LambdaProxyEvent
         The API call event.    
     custom_transformers : dict
-        Optional mapping of ``Content-Type``: ``dict`` to (content as ``Content-Type``, ``Content-Type`` with encoding as ``str``) transformer functions.
+        Optional mapping of ``Content-Type`` to transformer functions returning (the content as ``Content-Type``, the ``Content-Type`` with encoding as ``str``).
 
     Returns
     -------
@@ -641,7 +636,7 @@ def build_http_response(
     event : LambdaProxyEvent
         Optional wrapper of the event the Lambda handler receives from the API Gateway.
     custom_transformers : dict
-        Optional mapping of ``Content-Type``: ``dict`` to (content as ``Content-Type``, ``Content-Type`` with encoding as ``str``) transformer functions.
+        Optional mapping of ``Content-Type`` to transformer functions returning (the content as ``Content-Type``, the ``Content-Type`` with encoding as ``str``).
     extra_headers : dict
         Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.   
 
@@ -666,6 +661,10 @@ def build_http_response(
     >>>
     >>> build_http_response(200, payload, event=event, custom_transformers=custom_transformers, extra_headers=extra_headers)
     {'isBase64Encoded': False, 'statusCode': 200, 'body': '{\\n  "someKey": "someVal"\\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*'}}
+
+    See Also
+    --------
+    determine_content_type : more details on the use of the optional parameter ``custom_transformers``.
     """
 
     import base64
