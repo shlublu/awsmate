@@ -757,7 +757,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     Examples
     --------
     >>> build_http_client_error_response(HttpNotFoundError())
-    True
+    {'isBase64Encoded': False, 'statusCode': 404, 'body': '{"Message": "Not found"}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
     
     Notes
     -----
