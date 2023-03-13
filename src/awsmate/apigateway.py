@@ -586,27 +586,24 @@ def is_binary(content_type: str) -> bool:
 
 def json_transformer(payload: dict) -> typing.Tuple[str, str]:
     """
-    Determines whether the given ``Content-Type`` is binary. 
+    Transformer used by :func:`build_http_response` to build ``application/json`` responses.
 
-    :func:`build_http_response` uses this function to determine if the API Gateway requires a ``base64`` encoding prior returning the content. 
-    All types but ``text/*``, ``application/xml`` and ``application/json`` are considered binary. 
-
-    There is no need to call :func:`is_binary` directly normally, although it may not cause any harm.    
+    There is no need to this function directly normally, although it may not cause any harm.    
 
     Parameters
     ----------
-    content_type : str
-        The ``Content-Type`` to assess.    
+    payload : dict
+        The payload to convert to ``application/json``.    
 
     Returns
     -------
-    bool
-        Whether the ``Content-Type`` is binary.     
+    tuple
+        The ``application/json`` payload as a ``str``, the ``Content-Type`` with its encoding specifier.      
         
     Examples
     --------
-    >>> is_binary('image/jpeg')
-    True
+    >>> json_transformer({'TopThreeBibs': (751,25,372)})
+    ('{\\n  "TopThreeBibs": [\\n    751,\\n    25,\\n    372\\n  ]\\n}', 'application/json; charset=utf-8')
     """
     
     return json.dumps(payload, indent = 2), 'application/json; charset=utf-8'
@@ -627,27 +624,48 @@ def build_http_response(
         extra_headers: typing.Optional[typing.Dict[str, str]] = None
     ) -> dict:
     """
-    Determines whether the given ``Content-Type`` is binary. 
+    Builds the HTTP response the Lambda handler has to return to API Gateway.
 
-    :func:`build_http_response` uses this function to determine if the API Gateway requires a ``base64`` encoding prior returning the content. 
-    All types but ``text/*``, ``application/xml`` and ``application/json`` are considered binary. 
-
-    There is no need to call :func:`is_binary` directly normally, although it may not cause any harm.    
+    Should the ``Accept`` header of the API call lead to a :class:`HttpNotAcceptableError`, an error message is returned instead
+    of the passed payload and the status code is set accordingly. 
+    
+    This function handles the ``Accept-Encoding: gzip`` header of the API call for you. It also sets the base-64 flag of the response to ``True`` if
+    the returned ``Content-Type`` is binary.
 
     Parameters
     ----------
-    content_type : str
-        The ``Content-Type`` to assess.    
+    status : int
+        The HTTP status code.  
+    payload : dict or str
+        The payload that constitutes the body of the response. Should it be a ``str``, it will first be transformed by ::func::`simple_message`.
+    event : LambdaProxyEvent
+        Optional wrapper of the event the Lambda handler receives from the API Gateway.
+    custom_transformers : dict
+        Optional mapping of ``Content-Type``: ``dict`` to (content as ``Content-Type``, ``Content-Type`` with encoding as ``str``) transformer functions.
+    extra_headers : dict
+        Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.   
 
     Returns
     -------
-    bool
-        Whether the ``Content-Type`` is binary.     
-        
+    dict
+        The HTTP response to return to API Gateway.     
+      
     Examples
     --------
-    >>> is_binary('image/jpeg')
-    True
+    >>> payload = { 
+    >>>     'someKey': 'someVal' 
+    >>> }
+    >>>
+    >>> event = None # Use defaults: no specific headers ('Accept: */*' assumed), no body, no URL parameters
+    >>>
+    >>> custom_transformers = None # 'application/json' transformer is built-in and is bound to 'Accept: */*'. We don't need anything else here.
+    >>>
+    >>> extra_headers = {
+    >>>     'Access-Control-Allow-Origin': '*' # Deals with CORS provided HTTP OPTIONS is dealt with on API Gateway side.
+    >>> }
+    >>>
+    >>> build_http_response(200, payload, event=event, custom_transformers=custom_transformers, extra_headers=extra_headers)
+    {'isBase64Encoded': False, 'statusCode': 200, 'body': '{\\n  "someKey": "someVal"\\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8', 'Access-Control-Allow-Origin': '*'}}
     """
 
     import base64
@@ -706,27 +724,32 @@ def build_http_response(
 
 def build_http_server_error_response(message: typing.Optional[str] = None, extra_headers: typing.Optional[typing.Dict[str, str]] = None) -> dict:
     """
-    Determines whether the given ``Content-Type`` is binary. 
+    Convenience method that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
 
-    :func:`build_http_response` uses this function to determine if the API Gateway requires a ``base64`` encoding prior returning the content. 
-    All types but ``text/*``, ``application/xml`` and ``application/json`` are considered binary. 
-
-    There is no need to call :func:`is_binary` directly normally, although it may not cause any harm.    
+    The response is always in uncompressed ``application/json`` format. The event received by the Lambda Handler is ignored.
 
     Parameters
     ----------
-    content_type : str
-        The ``Content-Type`` to assess.    
+    message : str
+        Optional error message. If omitted, the default message is "Sorry, an error occured. Please contact the API administrator to have this sorted out."
+    extra_headers : dict
+        Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.  
 
     Returns
     -------
-    bool
-        Whether the ``Content-Type`` is binary.     
-        
+    dict
+        The HTTP error 500 response to return to API Gateway.      
+      
     Examples
     --------
-    >>> is_binary('image/jpeg')
-    True
+    >>> build_http_server_error_response('Oops, our bad...')
+    {'isBase64Encoded': False, 'statusCode': 500, 'body': '{\\n  "Message": "Oops, our bad..."\\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
+
+    Notes
+    -----
+    This method simply calls:
+
+    >>> build_http_response(500, message, extra_headers=extra_headers)
     """
     
     return build_http_response(
