@@ -741,24 +741,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     Convenience method that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
 
     The response is always in uncompressed ``application/json`` format. The event received by the Lambda Handler is ignored.
-
-    Parameters
-    ----------
-    error : HttpClientError
-        Object representing the error. 
-    extra_headers : dict
-        Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.  
-
-    Returns
-    -------
-    dict
-        The HTTP error 4XX response to return to API Gateway.      
-
-    Examples
-    --------
-    >>> build_http_client_error_response(HttpNotFoundError())
-    {'isBase64Encoded': False, 'statusCode': 404, 'body': '{\n  "Message": "Not found"\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
-     """
+    """
 
     return build_http_response(
         error.status, 
