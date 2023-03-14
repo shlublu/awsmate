@@ -781,7 +781,9 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     >>>     except amag.HttpClientError as err:
     >>>         return amag.build_http_client_error_response(err) 
     >>>     except Exception:
-    >>>         return amag.build_http_server_error_response() # We will end up here should any unexpected error occur
+    >>>         # We will end up here should any unexpected error occur
+    >>>         # Log everything you need in Cloudwatch
+    >>>         return amag.build_http_server_error_response() 
     """
     
     return build_http_response(
