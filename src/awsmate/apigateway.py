@@ -513,19 +513,22 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     the accepted ``Content-Type`` matches what your API is capable of returning, and return an :class:`~HttpNotAcceptableError` 
     response without doing any unnecessary processing otherwise.
 
-    The example below only accepts ``*/*``, ``application/*`` and ``application/json``, all mapped to ``application/json`` by default.
+    The example below only accepts ``*/*``, ``application/*`` and ``application/json``, all mapped to ``application/json`` by default. 
 
     >>> def lambda_handler(rawEvent, context):
     >>>     import awsmate.apigateway as amag
     >>>
     >>>     event = amag.LambdaProxyEvent(rawEvent) 
+    >>>
     >>>     try:
     >>>         amag.determine_content_type(event)
     >>>         # Everything you need to do
     >>>         return amag.build_http_response(200, "OK", event=event)
     >>>
-    >>>     except amag.HttpNotAcceptableError as err:
-    >>>         return amag.build_http_client_error_response(err)
+    >>>     except amag.HttpClientError as err:
+    >>>         return amag.build_http_client_error_response(err) # We will end up here should HttpNotAcceptableError be raised by determine_content_type()
+    >>>     except Exception:
+    >>>         return amag.build_http_server_error_response()
     """
 
     acceptedMimeTypes = event.header_sorted_preferences('Accept')
@@ -763,6 +766,22 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     This method simply calls:
 
     >>> build_http_response(500, message, extra_headers=extra_headers)
+
+    It is a good idea to make your Lambda handler to catch all unexpected errors to return a proper error message should anything go wrong.
+
+    >>> def lambda_handler(rawEvent, context):
+    >>>     import awsmate.apigateway as amag
+    >>>
+    >>>     event = amag.LambdaProxyEvent(rawEvent) 
+    >>>
+    >>>     try:
+    >>>         # Everything you need to do
+    >>>         return amag.build_http_response(200, "OK", event=event)
+    >>>
+    >>>     except amag.HttpClientError as err:
+    >>>         return amag.build_http_client_error_response(err) 
+    >>>     except Exception:
+    >>>         return amag.build_http_server_error_response() # We will end up here should any unexpected error occur
     """
     
     return build_http_response(
@@ -800,6 +819,22 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     This method simply calls 
     
     >>> build_http_response(error.status, str(error), extra_headers=extra_headers)
+
+    It is a good idea to make your Lambda handler to catch all HttpClientError to return a proper error message should there be any problem with the request.
+
+    >>> def lambda_handler(rawEvent, context):
+    >>>     import awsmate.apigateway as amag
+    >>>
+    >>>     event = amag.LambdaProxyEvent(rawEvent) 
+    >>>
+    >>>     try:
+    >>>         # Everything you need to do
+    >>>         return amag.build_http_response(200, "OK", event=event)
+    >>>
+    >>>     except amag.HttpClientError as err:
+    >>>         return amag.build_http_client_error_response(err) # We will end up here should anything be wrong in the client's request
+    >>>     except Exception:
+    >>>         return amag.build_http_server_error_response() 
     """
 
     return build_http_response(
