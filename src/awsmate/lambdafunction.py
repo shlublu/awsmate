@@ -36,7 +36,7 @@ class LambdaEvent():
         Examples
         --------
         >>> def lambda_handler(raw_event, context):
-        >>>     from awsmate.apigateway import LambdaProxyEvent
+        >>>     from awsmate.lambdafunction import LambdaEvent
         >>>     event = LambdaEvent(raw_event)                
         """
         
