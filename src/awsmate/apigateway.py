@@ -518,11 +518,12 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     >>> def lambda_handler(rawEvent, context):
     >>>     import awsmate.apigateway as amag
     >>>
-    >>>     event = amag.LambdaProxyEvent(rawEvent) 
-    >>>
     >>>     try:
+    >>>         event = amag.LambdaProxyEvent(rawEvent) 
     >>>         amag.determine_content_type(event)
+    >>>
     >>>         # Everything you need to do
+    >>>
     >>>         return amag.build_http_response(200, "OK", event=event)
     >>>
     >>>     except amag.HttpClientError as err:
@@ -772,10 +773,11 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     >>> def lambda_handler(rawEvent, context):
     >>>     import awsmate.apigateway as amag
     >>>
-    >>>     event = amag.LambdaProxyEvent(rawEvent) 
-    >>>
     >>>     try:
+    >>>         event = amag.LambdaProxyEvent(rawEvent) 
+    >>>
     >>>         # Everything you need to do
+    >>>
     >>>         return amag.build_http_response(200, "OK", event=event)
     >>>
     >>>     except amag.HttpClientError as err:
@@ -827,10 +829,11 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     >>> def lambda_handler(rawEvent, context):
     >>>     import awsmate.apigateway as amag
     >>>
-    >>>     event = amag.LambdaProxyEvent(rawEvent) 
-    >>>
     >>>     try:
+    >>>         event = amag.LambdaProxyEvent(rawEvent) 
+    >>>
     >>>         # Everything you need to do
+    >>>
     >>>         return amag.build_http_response(200, "OK", event=event)
     >>>
     >>>     except amag.HttpClientError as err:
