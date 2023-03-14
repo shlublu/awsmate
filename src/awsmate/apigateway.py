@@ -14,7 +14,7 @@ class MalformedPayloadError(RuntimeError):
         Parameters
         ----------
         msg : str
-            The explanatory message.
+            Explanatory message.
         """
         
         super().__init__(msg)
@@ -22,24 +22,24 @@ class MalformedPayloadError(RuntimeError):
 
 class LambdaProxyEvent(LambdaEvent):
     """
-    Mapping of the input event received by an AWS Lambda function triggered by an AWS Api Gateway during a client API call.
+    Mapping of the input event received by an AWS Lambda function triggered by AWS API Gateway during a client API call.
     """
 
-    def __init__(self, eventObject: dict):
+    def __init__(self, event_object: dict):
         """
         Parameters
         ----------
-        eventObject : dict
+        event_object : dict
             The parameter ``event`` received by the AWS Lambda function handler.
 
         Examples
         --------
-        >>> def lambda_handler(rawEvent, context):
+        >>> def lambda_handler(raw_event, context):
         >>>     from awsmate.apigateway import LambdaProxyEvent
-        >>>     event = LambdaProxyEvent(rawEvent)                
+        >>>     event = LambdaProxyEvent(raw_event)                
         """
         
-        super().__init__(eventObject)
+        super().__init__(event_object)
 
 
     def http_headers(self) -> typing.Dict[str, str]:
@@ -515,11 +515,11 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
 
     The example below only accepts ``*/*``, ``application/*`` and ``application/json``, all mapped to ``application/json`` by default. 
 
-    >>> def lambda_handler(rawEvent, context):
+    >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
     >>>
     >>>     try:
-    >>>         event = amag.LambdaProxyEvent(rawEvent) 
+    >>>         event = amag.LambdaProxyEvent(raw_event) 
     >>>         amag.determine_content_type(event)
     >>>
     >>>         # Everything you need to do
@@ -770,11 +770,11 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
 
     It is a good idea to make your Lambda handler to catch all unexpected errors to return a proper error message should anything go wrong.
 
-    >>> def lambda_handler(rawEvent, context):
+    >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
     >>>
     >>>     try:
-    >>>         event = amag.LambdaProxyEvent(rawEvent) 
+    >>>         event = amag.LambdaProxyEvent(raw_event) 
     >>>
     >>>         # Everything you need to do
     >>>
@@ -826,11 +826,11 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
 
     It is a good idea to make your Lambda handler to catch all HttpClientError to return a proper error message should there be any problem with the request.
 
-    >>> def lambda_handler(rawEvent, context):
+    >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
     >>>
     >>>     try:
-    >>>         event = amag.LambdaProxyEvent(rawEvent) 
+    >>>         event = amag.LambdaProxyEvent(raw_event) 
     >>>
     >>>         # Everything you need to do
     >>>
