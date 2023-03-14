@@ -32,6 +32,11 @@ class LambdaProxyEvent(LambdaEvent):
         event_object : dict
             The parameter ``event`` received by the AWS Lambda function handler.
 
+        Raises
+        ------
+        TypeError
+            If ``event_object`` is not a ``dict``.  
+                    
         Examples
         --------
         >>> def lambda_handler(raw_event, context):
