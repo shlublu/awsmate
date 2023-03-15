@@ -36,3 +36,11 @@ Logger
    :inherited-members:
    :special-members: __init__
    :show-inheritance:
+   
+
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
