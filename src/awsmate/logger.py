@@ -12,7 +12,7 @@ This object is a standard logger from the Python module ``logging``.
 
 Examples
 --------
->>> logger.info('Initialization successfully completed.')
+>>> logger.warning('No configuration properties found. Used default values.')
 """
 
 logger.setLevel(defaultLevel)
