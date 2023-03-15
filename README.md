@@ -1,18 +1,18 @@
 `awsmate` is a companion for your AWS Python developments.
 
 
-### Installation
+## Installation
 
 * Command line: `pip3 install awsmate`
 * See the [PyPI page](https://pypi.org/project/awsmate/ "PyPI page of awsmate")
 
 
-### Documentation
+## Documentation
 
 * The complete documentation is available [at ReadTheDocs](https://awsmate.readthedocs.io/ "awsmate documentation").
 * Documentation status: [![Documentation status](https://readthedocs.org/projects/awsmate/badge/?version=latest)](https://awsmate.readthedocs.io/en/latest/?badge=latest)
 
-### Testing
+## Testing
 
 * Testing tool: `pytest`
 * Command line: `pytest [-v|-vv]`. Should be run from the base directory of the repository.
@@ -27,7 +27,7 @@
 
 * master branch tests status: ![master branch tests status](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)
 
-### License
+## License
 
 This project is licensed under the EUROPEAN UNION PUBLIC LICENCE (EUPL) v. 1.2, which is compatible with the vast majority of open source licences.
 
