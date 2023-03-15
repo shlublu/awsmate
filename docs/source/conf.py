@@ -38,12 +38,6 @@ root_doc = "index"
 
 html_theme = 'sphinx_rtd_theme'
 
-html_theme_options = {
-    'navigation_depth': -1
-}
-
-html_static_path = ['_static']
-
 # -- Extension configuration -------------------------------------------------
 
 # Napoleon settings
