@@ -777,6 +777,7 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
 
     >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
+    >>>     from awsmate.logger import log_internal_error
     >>>
     >>>     try:
     >>>         event = amag.LambdaProxyEvent(raw_event) 
@@ -789,7 +790,7 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     >>>         return amag.build_http_client_error_response(err) 
     >>>     except Exception:
     >>>         # We will end up here should any unexpected error occur
-    >>>         # Log everything you need in Cloudwatch
+    >>>         log_internal_error("Logs everything you need in CloudWatch")
     >>>         return amag.build_http_server_error_response() 
     """
     
