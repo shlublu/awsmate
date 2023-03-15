@@ -23,7 +23,7 @@ def test_LambdaNotificationEvent_init_initializesInternalEventObject():
     assert test._event is event
 
 
-def test_LambdaNotificationEvent_objet_key_returnsTheProperValue():
+def test_LambdaNotificationEvent_object_key_returnsTheProperValue():
     import random
 
     randString = repr(random.randint(1000, 100000))
@@ -42,10 +42,10 @@ def test_LambdaNotificationEvent_objet_key_returnsTheProperValue():
 
     test = s3.LambdaNotificationEvent(event)
 
-    assert test.objet_key() == randString
+    assert test.object_key() == randString
 
 
-def test_LambdaNotificationEvent_objet_key_raisesIfKeyDoesNotHaveARecordElement():
+def test_LambdaNotificationEvent_object_key_raisesIfKeyDoesNotHaveARecordElement():
     event = {
         "randomStuff": "stuff"
     }
@@ -53,12 +53,12 @@ def test_LambdaNotificationEvent_objet_key_raisesIfKeyDoesNotHaveARecordElement(
     test = s3.LambdaNotificationEvent(event)
     
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.objet_key()
+        test.object_key()
 
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'Records'."
 
 
-def test_LambdaNotificationEvent_objet_key_raisesIfKeyDoesNotHaveAS3ElementUnderRecords():
+def test_LambdaNotificationEvent_object_key_raisesIfKeyDoesNotHaveAS3ElementUnderRecords():
     event = {
         "Records": [
             {
@@ -74,12 +74,12 @@ def test_LambdaNotificationEvent_objet_key_raisesIfKeyDoesNotHaveAS3ElementUnder
     test = s3.LambdaNotificationEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.objet_key()
+        test.object_key()
 
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 's3'."
 
 
-def test_LambdaNotificationEvent_objet_key_raisesIfKeyDoesNotHaveAnObjectElementUnderS3():
+def test_LambdaNotificationEvent_object_key_raisesIfKeyDoesNotHaveAnObjectElementUnderS3():
     event = {
         "Records": [
             {
@@ -95,12 +95,12 @@ def test_LambdaNotificationEvent_objet_key_raisesIfKeyDoesNotHaveAnObjectElement
     test = s3.LambdaNotificationEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.objet_key()
+        test.object_key()
 
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'object'."
 
 
-def test_LambdaNotificationEvent_objet_key_raisesIfKeyDoesNotHaveAKeyElementUnderObject():
+def test_LambdaNotificationEvent_object_key_raisesIfKeyDoesNotHaveAKeyElementUnderObject():
     event = {
         "Records": [
             {
@@ -116,12 +116,12 @@ def test_LambdaNotificationEvent_objet_key_raisesIfKeyDoesNotHaveAKeyElementUnde
     test = s3.LambdaNotificationEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.objet_key()
+        test.object_key()
 
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'key'."
 
 
-def test_LambdaNotificationEvent_objet_key_raisesIfRecordsIsEmpty():
+def test_LambdaNotificationEvent_object_key_raisesIfRecordsIsEmpty():
     event = {
         "Records": []
     }
@@ -129,12 +129,12 @@ def test_LambdaNotificationEvent_objet_key_raisesIfRecordsIsEmpty():
     test = s3.LambdaNotificationEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.objet_key()
+        test.object_key()
 
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: no Records object is present in 's3'."
 
 
-def test_LambdaNotificationEvent_objet_key_raisesIfRecordsContainsMoreThanOneElement():
+def test_LambdaNotificationEvent_object_key_raisesIfRecordsContainsMoreThanOneElement():
     import random
 
     event = {
@@ -159,6 +159,6 @@ def test_LambdaNotificationEvent_objet_key_raisesIfRecordsContainsMoreThanOneEle
     test = s3.LambdaNotificationEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.objet_key()
+        test.object_key()
 
     assert exceptionInfo.value.args[0] == "Event contains 2 Records where 1 is expected."
