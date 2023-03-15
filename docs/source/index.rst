@@ -1,3 +1,6 @@
+awsmate
+=======
+
 .. toctree::
    :maxdepth: 3
    :caption: README
@@ -8,6 +11,6 @@
    :maxdepth: 4
    :caption: Reference Guide
 
-   refguide
+   modules
    indtables
 
