@@ -1,3 +1,8 @@
+.. toctree::
+   :maxdepth: 4
+   :hidden:
+   :caption: Content
+
 Introduction
 ============
 
@@ -50,7 +55,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
-.. toctree::
-   :maxdepth: 4
-   :caption: CONTENT
