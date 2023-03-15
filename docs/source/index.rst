@@ -1,7 +1,12 @@
 .. toctree::
-   :maxdepth: 5
-   :caption: Content
+   :maxdepth: 3
+   :caption: README
 
    readme
+
+.. toctree::
+   :maxdepth: 4
+   :caption: Reference Guide
+
    refguide
 
