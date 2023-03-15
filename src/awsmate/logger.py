@@ -4,6 +4,7 @@ defaultLevel = logging.INFO
 
 logging.basicConfig(format = '%(message)s', level = defaultLevel)
 
+logger = logging.getLogger()
 """
 Object used for logging.
 
@@ -13,7 +14,7 @@ Examples
 --------
 >>> logger.info('Initialization successfully completed.')
 """
-logger = logging.getLogger()
+
 logger.setLevel(defaultLevel)
 
 
