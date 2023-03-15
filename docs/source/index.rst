@@ -9,4 +9,5 @@
    :caption: Reference Guide
 
    refguide
+   indtables
 
