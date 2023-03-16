@@ -1,6 +1,8 @@
 Modules
 =======
 
+.. autosummary::
+
 AWS API Gateway
 ---------------
 
