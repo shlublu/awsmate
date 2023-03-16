@@ -22,9 +22,9 @@ release = '0.0.3'
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
 extensions = [
-    'sphinx.ext.autodoc',
     'sphinx.ext.napoleon',
-    'myst_parser',
+    'sphinx.ext.autodoc',
+    'myst_parser'
 ]
 
 source_suffix = {
@@ -34,7 +34,16 @@ source_suffix = {
 
 root_doc = "index"
 
-toc_object_entries = True
+autodoc_default_options = {
+    "undoc-members": False,
+    "members": True,
+    "private-members": False,
+    "inherited-members": True,
+    "special-members": [ "__init__" ],
+    "show-inheritance": True,
+    "member-order": "bysource",
+}
+
 
 # -- Options for HTML output -------------------------------------------------
 
