@@ -1,10 +1,6 @@
 Modules
 =======
 
-.. autosummary::
-   :toctree:
-   :recursive:
-
 AWS API Gateway
 ---------------
 
