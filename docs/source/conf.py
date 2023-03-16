@@ -34,6 +34,8 @@ source_suffix = {
 
 root_doc = "index"
 
+toc_object_entries = True
+
 # -- Options for HTML output -------------------------------------------------
 
 html_theme = 'sphinx_rtd_theme'
