@@ -24,6 +24,7 @@ release = '0.0.3'
 extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.autodoc',
+    'sphinx_toolbox.github',
     'sphinx_toolbox.sidebar_links',
     'myst_parser'
 ]
