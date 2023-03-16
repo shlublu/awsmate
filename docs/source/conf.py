@@ -24,6 +24,7 @@ release = '0.0.3'
 extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.autodoc',
+    'sphinx_toolbox.sidebar_links',
     'myst_parser'
 ]
 
@@ -48,6 +49,9 @@ autodoc_default_options = {
 }
 
 toc_object_entries_show_parents = 'hide'
+
+github_username = author
+github_repository = project
 
 # -- Options for HTML output -------------------------------------------------
 
