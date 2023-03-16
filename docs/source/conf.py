@@ -42,6 +42,7 @@ autodoc_default_options = {
     "private-members": False,
     "inherited-members": False,
     "special-members": False,
+    "undocumented-members": False,
     "show-inheritance": True,
     "member-order": "bysource",
 }
