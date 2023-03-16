@@ -26,7 +26,6 @@ extensions = [
     'sphinx.ext.autodoc',
     'sphinx_toolbox.github',
     'sphinx_toolbox.sidebar_links',
-    'sphinxcontrib.fulltoc',
     'myst_parser'
 ]
 
