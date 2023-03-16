@@ -14,3 +14,6 @@ awsmate
    modules
    indtables
 
+.. sidebar-links::
+   :github:
+   :pypi: awsmate
