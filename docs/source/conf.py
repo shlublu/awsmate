@@ -34,12 +34,14 @@ source_suffix = {
 
 root_doc = "index"
 
+autoclass_content = "both"
+
 autodoc_default_options = {
     "undoc-members": False,
     "members": True,
     "private-members": False,
-    "inherited-members": True,
-    "special-members": "__init__",
+    "inherited-members": False,
+    "special-members": False,
     "show-inheritance": True,
     "member-order": "bysource",
 }
