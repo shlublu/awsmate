@@ -1,3 +1,4 @@
 myst-parser>=0.15
 sphinx-rtd-theme
 sphinx_toolbox
+sphinxcontrib-fulltoc
