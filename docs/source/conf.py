@@ -46,6 +46,7 @@ autodoc_default_options = {
     "member-order": "bysource",
 }
 
+toc_object_entries_show_parents = 'hide'
 
 # -- Options for HTML output -------------------------------------------------
 
