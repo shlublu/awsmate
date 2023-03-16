@@ -39,7 +39,7 @@ autodoc_default_options = {
     "members": True,
     "private-members": False,
     "inherited-members": True,
-    "special-members": [ "__init__" ],
+    "special-members": "__init__",
     "show-inheritance": True,
     "member-order": "bysource",
 }
