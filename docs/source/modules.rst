@@ -2,6 +2,7 @@ Modules
 =======
 
 .. autosummary::
+   :toctree:
 
 AWS API Gateway
 ---------------
