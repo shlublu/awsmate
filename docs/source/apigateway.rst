@@ -28,34 +28,3 @@ Helper functions
 .. autofunction:: awsmate.apigateway.determine_content_type
 .. autofunction:: awsmate.apigateway.is_binary
 .. autofunction:: awsmate.apigateway.json_transformer   
-
-lambdafunction
-==============
-
-LambdaEvent
-----------------
-
-.. autoclass:: awsmate.lambdafunction.LambdaEvent
-.. autoexception:: awsmate.lambdafunction.AwsEventSpecificationError
-
-s3
-===
-
-LambdaNotificationEvent   
------------------------
-
-.. autoclass:: awsmate.s3.LambdaNotificationEvent
-
-logger
-======
-
-logger
-------
-
-.. autodata:: awsmate.logger.logger
-   :no-value:
-
-log_internal_error
-------------------
-
-.. autofunction:: awsmate.logger.log_internal_error   
