@@ -32,7 +32,7 @@ Helper functions
 lambdafunction
 ==============
 
-LambdaProxyEvent
+LambdaEvent
 ----------------
 
 .. autoclass:: awsmate.lambdafunction.LambdaEvent
