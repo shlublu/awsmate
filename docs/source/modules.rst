@@ -6,6 +6,16 @@ AWS API Gateway
 
 .. automodule:: awsmate.apigateway
 
+MalformedPayloadError
+~~~~~~~~~~~~~~~~~~~~~
+
+.. autoclass:: MalformedPayloadError
+
+LambdaProxyEvent
+~~~~~~~~~~~~~~~~
+
+.. autoclass:: LambdaProxyEvent
+
 AWS Lambda Function
 -------------------
 
