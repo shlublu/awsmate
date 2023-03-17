@@ -4,6 +4,8 @@ Modules
 AWS API Gateway
 ---------------
 
+.. currentmodule:: awsmate.apigateway
+
 MalformedPayloadError
 ~~~~~~~~~~~~~~~~~~~~~
 
@@ -47,7 +49,7 @@ json_transformer
 
 build_http_response
 ~~~~~~~~~~~~~~~~~~~
-   
+
 .. autofunction:: build_http_response
 .. autofunction:: build_http_server_error_response
 .. autofunction:: build_http_client_error_response
