@@ -1,68 +1,69 @@
-AWS API Gateway
-===============
+apigateway
+==========
 
 .. currentmodule:: awsmate.apigateway
-
-MalformedPayloadError
----------------------
-
-.. autoexception:: MalformedPayloadError
 
 LambdaProxyEvent
 ----------------
 
 .. autoclass:: LambdaProxyEvent
+.. autoexception:: MalformedPayloadError
 
-HttpClientError
-----------------
+HTTP responses
+--------------
+
+.. autofunction:: build_http_response
+.. autofunction:: build_http_server_error_response
+.. autofunction:: build_http_client_error_response
 
 .. autoexception:: HttpClientError
-
 .. autoexception:: HttpBadRequestError
 .. autoexception:: HttpUnauthorizedError
 .. autoexception:: HttpNotFoundError
 .. autoexception:: HttpNotAcceptableError
 .. autoexception:: HttpConflictError
 
-simple_message
---------------
-
-.. autofunction:: simple_message
-
-determine_content_type
-----------------------
-
-.. autofunction:: determine_content_type
-
-is_binary
----------
-
-.. autofunction:: is_binary
-
-json_transformer
+Helper functions
 ----------------
 
-.. autofunction:: json_transformer
+.. autofunction:: simple_message
+.. autofunction:: determine_content_type
+.. autofunction:: is_binary
+.. autofunction:: json_transformer   
 
-build_http_response
--------------------
+lambdafunction
+==============
 
-.. autofunction:: build_http_response
-.. autofunction:: build_http_server_error_response
-.. autofunction:: build_http_client_error_response
+.. currentmodule:: awsmate.lambdafunction
 
+LambdaProxyEvent
+----------------
 
-AWS Lambda Function
-===================
+.. autoclass:: LambdaEvent
+.. autoexception:: AwsEventSpecificationError
 
-.. automodule:: awsmate.lambdafunction
+s3
+===
 
-AWS S3
-======
+.. currentmodule:: awsmate.s3
 
-.. automodule:: awsmate.s3
+LambdaNotificationEvent   
+-----------------------
+
+.. autoclass:: LambdaNotificationEvent
 
 Logger
 ======
 
-.. automodule:: awsmate.logger
+.. currentmodule:: awsmate.logger
+
+logger
+------
+
+.. autodata:: logger
+   :no-value:
+
+log_internal_error
+------------------
+
+.. autofunction:: log_internal_error   
