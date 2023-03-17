@@ -1,69 +1,61 @@
 apigateway
 ==========
 
-.. currentmodule:: awsmate.apigateway
-
 LambdaProxyEvent
 ----------------
 
-.. autoclass:: LambdaProxyEvent
-.. autoexception:: MalformedPayloadError
+.. autoclass:: awsmate.apigateway.LambdaProxyEvent
+.. autoexception:: awsmate.apigateway.MalformedPayloadError
 
 HTTP responses
 --------------
 
-.. autofunction:: build_http_response
-.. autofunction:: build_http_server_error_response
-.. autofunction:: build_http_client_error_response
+.. autofunction:: awsmate.apigateway.build_http_response
+.. autofunction:: awsmate.apigateway.build_http_server_error_response
+.. autofunction:: awsmate.apigateway.build_http_client_error_response
 
-.. autoexception:: HttpClientError
-.. autoexception:: HttpBadRequestError
-.. autoexception:: HttpUnauthorizedError
-.. autoexception:: HttpNotFoundError
-.. autoexception:: HttpNotAcceptableError
-.. autoexception:: HttpConflictError
+.. autoexception:: awsmate.apigateway.HttpClientError
+.. autoexception:: awsmate.apigateway.HttpBadRequestError
+.. autoexception:: awsmate.apigateway.HttpUnauthorizedError
+.. autoexception:: awsmate.apigateway.HttpNotFoundError
+.. autoexception:: awsmate.apigateway.HttpNotAcceptableError
+.. autoexception:: awsmate.apigateway.HttpConflictError
 
 Helper functions
 ----------------
 
-.. autofunction:: simple_message
-.. autofunction:: determine_content_type
-.. autofunction:: is_binary
-.. autofunction:: json_transformer   
+.. autofunction:: awsmate.apigateway.simple_message
+.. autofunction:: awsmate.apigateway.determine_content_type
+.. autofunction:: awsmate.apigateway.is_binary
+.. autofunction:: awsmate.apigateway.json_transformer   
 
 lambdafunction
 ==============
 
-.. currentmodule:: awsmate.lambdafunction
-
 LambdaProxyEvent
 ----------------
 
-.. autoclass:: LambdaEvent
-.. autoexception:: AwsEventSpecificationError
+.. autoclass:: awsmate.lambdafunction.LambdaEvent
+.. autoexception:: awsmate.lambdafunction.AwsEventSpecificationError
 
 s3
 ===
 
-.. currentmodule:: awsmate.s3
-
 LambdaNotificationEvent   
 -----------------------
 
-.. autoclass:: LambdaNotificationEvent
+.. autoclass:: awsmate.s3.LambdaNotificationEvent
 
-Logger
+logger
 ======
-
-.. currentmodule:: awsmate.logger
 
 logger
 ------
 
-.. autodata:: logger
+.. autodata:: awsmate.logger.logger
    :no-value:
 
 log_internal_error
 ------------------
 
-.. autofunction:: log_internal_error   
+.. autofunction:: awsmate.logger.log_internal_error   
