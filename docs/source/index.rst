@@ -11,7 +11,10 @@ awsmate
    :maxdepth: 5
    :caption: Modules
 
-   modules
+   apigateway
+   lambdafunction
+   s3
+   logger
 
 .. toctree::
    :maxdepth: 2
