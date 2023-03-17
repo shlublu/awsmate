@@ -1,23 +1,20 @@
-Modules
-=======
-
 AWS API Gateway
----------------
+===============
 
 .. currentmodule:: awsmate.apigateway
 
 MalformedPayloadError
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 .. autoexception:: MalformedPayloadError
 
 LambdaProxyEvent
-~~~~~~~~~~~~~~~~
+----------------
 
 .. autoclass:: LambdaProxyEvent
 
 HttpClientError
-~~~~~~~~~~~~~~~
+----------------
 
 .. autoexception:: HttpClientError
 
@@ -28,27 +25,27 @@ HttpClientError
 .. autoexception:: HttpConflictError
 
 simple_message
-~~~~~~~~~~~~~~
+--------------
 
 .. autofunction:: simple_message
 
 determine_content_type
-~~~~~~~~~~~~~~~~~~~~~~
+----------------------
 
 .. autofunction:: determine_content_type
 
 is_binary
-~~~~~~~~~
+---------
 
 .. autofunction:: is_binary
 
 json_transformer
-~~~~~~~~~~~~~~~~
+----------------
 
 .. autofunction:: json_transformer
 
 build_http_response
-~~~~~~~~~~~~~~~~~~~
+-------------------
 
 .. autofunction:: build_http_response
 .. autofunction:: build_http_server_error_response
@@ -56,16 +53,16 @@ build_http_response
 
 
 AWS Lambda Function
--------------------
+===================
 
 .. automodule:: awsmate.lambdafunction
 
 AWS S3
-------
+======
 
 .. automodule:: awsmate.s3
 
 Logger
-------
+======
 
 .. automodule:: awsmate.logger

@@ -9,9 +9,14 @@ awsmate
 
 .. toctree::
    :maxdepth: 5
-   :caption: Reference Guide
+   :caption: Modules
 
    modules
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Index
+
    indtables
 
 .. sidebar-links::
