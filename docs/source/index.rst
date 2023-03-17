@@ -8,7 +8,7 @@ awsmate
    readme
 
 .. toctree::
-   :maxdepth: -1
+   :maxdepth: 5
    :caption: Reference Guide
 
    modules
