@@ -1,5 +1,3 @@
-### Release process
-
 * Create a new branch named after the next version number "9.9.9"
 * Set this version number 
     - /pyproject.toml: `version = "x.y.z"`
