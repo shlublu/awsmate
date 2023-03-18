@@ -1,13 +1,13 @@
 logger
 ======
 
-logger
-------
+Logger object
+-------------
 
 .. autodata:: awsmate.logger.logger
    :no-value:
 
-log_internal_error
-------------------
+Helper functions
+----------------
 
 .. autofunction:: awsmate.logger.log_internal_error   

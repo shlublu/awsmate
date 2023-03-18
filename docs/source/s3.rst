@@ -1,8 +1,8 @@
 s3
 ==
 
-LambdaNotificationEvent   
------------------------
+Lambda event
+------------
 
 .. autoclass:: awsmate.s3.LambdaNotificationEvent
 
