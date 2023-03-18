@@ -2,6 +2,7 @@
 * Set this version number 
     - /pyproject.toml: `version = "x.y.z"`
     - /docs/sources/conf.py: `release = 'x.y.z'`
+    - Changelog: new empty section
 * Set the project's development status classifier in /pyproject.toml
 * ...do the job...
 * ...test the job...

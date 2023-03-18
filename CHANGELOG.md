@@ -1,5 +1,31 @@
 All notable changes to this project are documented in this file.
 
+## [0.1.0] - *not yet released*
+
+### Added
+
+*nothing*
+
+### Changed
+
+*nothing*
+
+### Deprecated
+
+*nothing*
+
+### Removed
+
+*nothing*
+
+### Fixed
+
+*nothing*
+
+### Security
+
+*nothing*
+
 ## [0.0.3] - 2023-03-18
 
 ### Added

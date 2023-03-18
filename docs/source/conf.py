@@ -14,7 +14,7 @@ copyright = f"{datetime.now().year}, Vincent Poulain (shlublu)"
 author = 'shlublu'
 
 # The full version, including alpha/beta/rc tags
-release = '0.0.3'
+release = '0.1.0'
 
 # -- General configuration ---------------------------------------------------
 
