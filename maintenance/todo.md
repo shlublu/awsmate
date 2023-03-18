@@ -6,5 +6,3 @@
 
 ## Documentation 
   - Create proper sections: https://realpython.com/documenting-python-code/#public-and-open-source-projects
-  
-  
