@@ -7,14 +7,19 @@ All notable changes to this project are documented in this file.
 - this changelog
 - documentation of the existing code
 
-### Fixed
+### Changed
 
 - Python naming convention
 
-## Changed
+### Deprecated
 
-## [0.0.2] - 2023-02-28
-## [0.0.1] - 2023-02-25
+### Removed
 
-All these: genesis
+### Fixed
+
+### Security
+
+## [0.0.2] and before - 2023-02-28
+
+Genesis.
 
