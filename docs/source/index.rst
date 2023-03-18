@@ -9,7 +9,7 @@ awsmate
    changelog
 
 .. toctree::
-   :maxdepth: 5
+   :maxdepth: 4
    :caption: Modules
 
    apigateway
@@ -21,7 +21,7 @@ awsmate
    :maxdepth: 2
    :caption: Index
 
-   :ref:`genindex`
+   genindex
 
 .. sidebar-links::
    :github:
