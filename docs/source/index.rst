@@ -25,6 +25,12 @@ awsmate
    release_process
    todo
 
+.. toctree::
+   :maxdepth: 2
+   :caption: Community
+
+   code_of_conduct   
+
 .. sidebar-links::
    :github:
    :pypi: awsmate

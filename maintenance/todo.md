@@ -9,7 +9,6 @@
   - Create section "How-To Guides"
   - Create section "Explanations"
   - Add "How to Contribute"
-  - Add "Code of Conduct"
 
 ## Testing
   - Initiate integration tests
