@@ -21,7 +21,7 @@ awsmate
    :maxdepth: 2
    :caption: Index
 
-   indtables
+   :ref:`genindex`
 
 .. sidebar-links::
    :github:
