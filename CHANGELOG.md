@@ -13,11 +13,19 @@ All notable changes to this project are documented in this file.
 
 ### Deprecated
 
+*nothing*
+
 ### Removed
+
+*nothing*
 
 ### Fixed
 
+*nothing*
+
 ### Security
+
+*nothing*
 
 ## [0.0.2] and before - 2023-02-28
 
