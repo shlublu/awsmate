@@ -19,9 +19,11 @@ awsmate
 
 .. toctree::
    :maxdepth: 2
-   :caption: Index
+   :caption: Appendix
 
    genindex
+   release_process
+   todo
 
 .. sidebar-links::
    :github:
