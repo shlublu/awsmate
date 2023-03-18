@@ -10,9 +10,15 @@ LambdaProxyEvent
 HTTP responses
 --------------
 
+Builders
+~~~~~~~~
+
 .. autofunction:: awsmate.apigateway.build_http_response
 .. autofunction:: awsmate.apigateway.build_http_server_error_response
 .. autofunction:: awsmate.apigateway.build_http_client_error_response
+
+Client errors
+~~~~~~~~~~~~~
 
 .. autoexception:: awsmate.apigateway.HttpClientError
 .. autoexception:: awsmate.apigateway.HttpBadRequestError
