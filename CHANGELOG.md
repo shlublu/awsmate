@@ -1,15 +1,17 @@
 All notable changes to this project are documented in this file.
 
-## [0.0.3] - date
+## [0.0.3] - 2023-03-19
 
 ### Added
 
 - this changelog
 - documentation of the existing code
+- function ``awsmate.logger.log_internal_error()``
 
 ### Changed
 
-- Python naming convention
+- Almost all functions: Python naming convention applied to parameters
+- Method ``awsmate.s3.LambdaNotificationEvent.object_key()``: corrected a typo in its name
 
 ### Deprecated
 

@@ -6,7 +6,7 @@
 * ...do the job...
 * ...test the job...
 * Update the changelog, including the release date
-* Merge into master
+* PR and merge into master
 * Set commit tag
 * PyPi release: https://packaging.python.org/en/latest/tutorials/packaging-projects/
 * Readthedocs: https://docs.readthedocs.io/en/stable/tutorial/
