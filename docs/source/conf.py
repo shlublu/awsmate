@@ -18,9 +18,6 @@ release = '0.0.3'
 
 # -- General configuration ---------------------------------------------------
 
-# Add any Sphinx extension module names here, as strings. They can be
-# extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
-# ones.
 extensions = [
     'sphinx.ext.napoleon',
     'sphinx.ext.autodoc',
@@ -36,6 +33,19 @@ source_suffix = {
 
 root_doc = "index"
 
+# -- Options for HTML output -------------------------------------------------
+
+toc_object_entries_show_parents = 'hide'
+
+html_theme = 'sphinx_rtd_theme'
+
+html_theme_options = {
+    'navigation_depth': 5
+}
+
+# -- Extension configuration -------------------------------------------------
+
+# Autodoc settings
 autoclass_content = "both"
 
 autodoc_default_options = {
@@ -49,21 +59,10 @@ autodoc_default_options = {
     "member-order": "bysource",
 }
 
-toc_object_entries_show_parents = 'hide'
-
-github_username = author
-github_repository = project
-
-# -- Options for HTML output -------------------------------------------------
-
-html_theme = 'sphinx_rtd_theme'
-
-html_theme_options = {
-    'navigation_depth': 5
-}
-
-# -- Extension configuration -------------------------------------------------
-
 # Napoleon settings
 napoleon_google_docstring = False
 napoleon_numpy_docstring = True
+
+# Toolbox Github settings
+github_username = author
+github_repository = project

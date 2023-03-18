@@ -3,9 +3,10 @@ awsmate
 
 .. toctree::
    :maxdepth: 3
-   :caption: README
+   :caption: Overview
 
    readme
+   changelog
 
 .. toctree::
    :maxdepth: 5

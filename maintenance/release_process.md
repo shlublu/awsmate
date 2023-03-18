@@ -7,6 +7,7 @@
 * Set the project's development status classifier in /pyproject.toml
 * ...do the job...
 * ...test the job...
+* Update the changelog, including the release date
 * Merge into master
 * Set commit tag
 * PyPi release: https://packaging.python.org/en/latest/tutorials/packaging-projects/
@@ -22,8 +23,6 @@
 * Documentation 
   - Finish documenting the existing code
   - Create proper sections: https://realpython.com/documenting-python-code/#public-and-open-source-projects
-  - Add a changelog
-  - Set the changelog URL: /pyproject.toml: `[project.urls]` 
   - Enable versions: https://docs.readthedocs.io/en/stable/tutorial/
   
   
