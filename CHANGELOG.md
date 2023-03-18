@@ -8,7 +8,7 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
-*nothing*
+- improved documentation
 
 ### Deprecated
 

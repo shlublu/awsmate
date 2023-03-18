@@ -5,4 +5,14 @@
   - Automatize step "Set this version number" of the release process when creating a new version branch
 
 ## Documentation 
-  - Create proper sections: https://realpython.com/documenting-python-code/#public-and-open-source-projects
+  - Create section "Tutorials"
+  - Create section "How-To Guides"
+  - Create section "Explanations"
+  - Add "How to Contribute"
+  - Add "Code of Conduct"
+
+## Testing
+  - Initiate integration tests
+
+Useful ref for documentation: https://realpython.com/documenting-python-code/#public-and-open-source-projects
+
