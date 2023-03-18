@@ -1,6 +1,6 @@
 All notable changes to this project are documented in this file.
 
-## [0.0.3] - 2023-03-19
+## [0.0.3] - 2023-03-18
 
 ### Added
 
