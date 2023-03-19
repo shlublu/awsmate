@@ -26,9 +26,9 @@ Such changes are welcome! Please just let us know why this change would be an im
 
 * Ask any question you would like in [the discussion forum](https://github.com/shlublu/awsmate/discussions/new/choose "new discussion on awsmate forum").
 
-## Do you want to contribute to the Rails documentation?
+## Do you want to contribute to the documentation?
 
-* You are very welcome. Please proceed the same way as described above for bug fixing an features requests.
+You are very welcome! Please proceed the same way as described above for bug fixing an features requests.
 
 Thank you so much!
 
