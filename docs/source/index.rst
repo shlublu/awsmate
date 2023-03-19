@@ -29,6 +29,7 @@ awsmate
    :maxdepth: 2
    :caption: Community
 
+   contributing
    code_of_conduct   
 
 .. sidebar-links::
