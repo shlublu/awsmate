@@ -33,3 +33,5 @@ Such changes are welcome! Please just let us know why this change would be an im
 Thank you so much!
 
 Shlublu
+
+*This document has been derived from [Ruby on Rails's guidelines](https://github.com/rails/rails/blob/main/CONTRIBUTING.md "Ruby on Rail CONRIBUTING document")*
