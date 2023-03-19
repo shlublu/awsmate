@@ -8,7 +8,6 @@
   - Create section "Tutorials"
   - Create section "How-To Guides"
   - Create section "Explanations"
-  - Add "How to Contribute"
 
 ## Testing
   - Initiate integration tests
