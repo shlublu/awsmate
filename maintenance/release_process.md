@@ -1,7 +1,7 @@
 * Create a new branch named after the next version number "9.9.9"
 * Set this version number 
     - /pyproject.toml: `version = "x.y.z"`
-    - /docs/sources/conf.py: `release = 'x.y.z'`
+    - /src/awsmate/__init.py__: `__version__ = 'x.y.z'`
     - Changelog: new empty section
 * Set the project's development status classifier in /pyproject.toml
 * ...do the job...
