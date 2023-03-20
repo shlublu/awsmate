@@ -15,7 +15,7 @@
 ## Issues and testing
 
 * Testing tool: `pytest`
-* Command line: `pytest [-v|-vv]`. Should be run from the base directory of the repository.
+* Command line: `pytest [-v|-vv] [-s]`. Should be run from the base directory of the repository.
 * Tests files location:
 
         awsmate
@@ -27,7 +27,7 @@
 
 * master branch tests status: ![master branch tests status](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)
 
-Should you ancounter any bug or problem, please feel free to open an issue according to [contribution giudelines](CONTRIBUTING.md).
+Should you ancounter any bug or problem, please feel free to open an issue according to [contribution guidelines](https://awsmate.readthedocs.io/en/latest/contributing.html).
 
 ## License
 
