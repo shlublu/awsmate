@@ -1,6 +1,3 @@
-## General
-  - consider using a package `__version__` field used in conf.py 
-
 ## Automation
   - Autodeploy on PyPi when merging into master (CI task)
   - Autogenerate ReadTheDocs when merging to master (ReadTheDocs merge listener)
@@ -18,6 +15,7 @@
 ## Example program    
   - Auto-install Terraform if not yet there in a supported version
   - Add examples for transformers: text/html for "returns_json"
+  - Add examples of all event methods
   - Add examples for s3 notification
 
 ## Testing

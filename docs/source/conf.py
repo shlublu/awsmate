@@ -5,6 +5,8 @@ import sys
 
 from datetime import datetime
 
+from awsmate import __version__
+
 sys.path.insert(0, os.path.abspath('../../src'))
 
 # -- Project information -----------------------------------------------------
@@ -14,7 +16,7 @@ copyright = f"{datetime.now().year}, Vincent Poulain (shlublu)"
 author = 'shlublu'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1.0'
+release = __version__
 
 # -- General configuration ---------------------------------------------------
 

@@ -12,6 +12,7 @@ awsmate
    :maxdepth: 4
    :caption: API reference
 
+   awsmate
    apigateway
    lambdafunction
    s3
