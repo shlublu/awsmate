@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 - contributing guidelines
 - code of conduct
+- example application that demontrates API Gateway and S3
 
 ### Changed
 
