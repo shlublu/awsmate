@@ -27,7 +27,7 @@
 
 * master branch tests status: ![master branch tests status](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)
 
-Should you ancounter any bug or problem, please feel free to open an issue on the [bugtracker](https://github.com/shlublu/awsmate/issues "awsmate bugtracker").  
+Should you ancounter any bug or problem, please feel free to open an issue according to [contribution giudelines](CONTRIBUTING.md).
 
 ## License
 

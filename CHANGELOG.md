@@ -4,9 +4,9 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
-- contributing guidelines
-- code of conduct
-- example application that demontrates API Gateway and S3
+- Documentation: contributing guidelines
+- Documentation: code of conduct
+- Example application: first draft for `apigateway`
 
 ### Changed
 
@@ -34,12 +34,12 @@ All notable changes to this project are documented in this file.
 
 - this changelog
 - documentation of the existing code
-- function ``awsmate.logger.log_internal_error()``
+- function `awsmate.logger.log_internal_error()`
 
 ### Changed
 
 - Almost all functions: Python naming convention applied to parameters
-- Method ``awsmate.s3.LambdaNotificationEvent.object_key()``: corrected a typo in its name
+- Method `awsmate.s3.LambdaNotificationEvent.object_key()`: corrected a typo in its name
 
 ### Deprecated
 

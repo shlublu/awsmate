@@ -10,7 +10,7 @@ awsmate
 
 .. toctree::
    :maxdepth: 4
-   :caption: Modules
+   :caption: API reference
 
    apigateway
    lambdafunction
@@ -19,7 +19,7 @@ awsmate
 
 .. toctree::
    :maxdepth: 2
-   :caption: Appendix
+   :caption: Technical appendix
 
    genindex
    release_process
