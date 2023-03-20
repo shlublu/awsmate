@@ -8,6 +8,7 @@
   - Create section "Tutorials"
   - Create section "How-To Guides"
   - Create section "Explanations"
+  - Write example programs with their IaC
 
 ## Testing
   - Initiate integration tests
