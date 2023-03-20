@@ -8,9 +8,8 @@
   - Create section "Tutorials"
   - Create section "How-To Guides"
   - Create section "Explanations"
-  - Reconsider the section "issues & testing" in README.md
-    - redirect users to CONTRIBUTING for bug reporting
-    - move tests description to regular documentation
+  - Reconsider the section "issues & testing" in README.md: move tests description to regular documentation
+  - Reconsider the section "examples" in README.md: move example app description to regular documentation
 
 ## Example program    
   - Auto-install Terraform if not yet there in a supported version
