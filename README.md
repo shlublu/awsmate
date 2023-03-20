@@ -23,11 +23,28 @@
                     |
                     |___unit
                     |
-                    |___integration
+                    |___integration (coming soon)
 
 * master branch tests status: ![master branch tests status](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)
 
-Should you ancounter any bug or problem, please feel free to open an issue according to [contribution guidelines](https://awsmate.readthedocs.io/en/latest/contributing.html).
+Should you ancounter any bug or problem, please feel free to open an issue according to our [contribution guidelines](https://awsmate.readthedocs.io/en/latest/contributing.html).
+
+## Examples
+
+* A complete example is available to demontrate the main features of this library.
+* Running this example requires an AWS account and a user profile able to create, modify and destroy resources for all AWS services this library covers.
+* Example files location:
+
+        awsmate
+            |___example
+                    |
+                    |___deploy.sh
+                    |
+                    |___undeploy.sh
+                    |
+                    |___src/ (Python sources of this example application)                    
+                    |
+                    |___tf/ (Terraform sources of this example application)
 
 ## License
 
