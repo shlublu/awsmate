@@ -1,5 +1,6 @@
 .terraform/
 .terraform.lock.hcl
+terraform.tfstate*
 
 .vscode/
 *.code-workspace
@@ -9,3 +10,4 @@ __pycache__/
 .pytest_cache/
 
 dist/
+.build/
