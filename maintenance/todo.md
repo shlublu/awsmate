@@ -1,8 +1,7 @@
 ## Automation
   - Autodeploy on PyPi when merging into master (CI task)
-  - Autogenerate ReadTheDocs when merging to master (ReadTheDocs merge listener)
   - Set commit tag when merging into master (CI task)
-  - Automatize step "Set this version number" of the release process when creating a new version branch
+  - Automatize step "Set this version number" of the release process when creating a new version branch: `pyproject.toml`
 
 ## Documentation 
   - Create section "Tutorials"
@@ -12,7 +11,6 @@
   - Reconsider the section "examples" in README.md: move example app description to regular documentation
 
 ## Example program    
-  - Auto-install Terraform if not yet there in a supported version
   - Add examples for transformers: text/html for "returns_json"
   - Add examples of all event methods
   - Add examples for s3 notification
