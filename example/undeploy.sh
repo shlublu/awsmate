@@ -1,77 +1,10 @@
 #!/bin/sh
 
-noCurl () {
-  echo >&1 "'curl' is needed to perform this undeployment. Please install it and retry."
-  exit 1
-}
-
-notSupportedOS () {
-  echo >&1 "Sorry, Terraform is unlikely to be available for this operating system."
-  exit 1
-}
-
-notSupportedArch () {
-  echo >&1 "Sorry, Terraform $TERRAFORM_VERSION is unlikely to be available for this architecture."
-  exit 1
-}
-
-TERRAFORM_VERSION='1.4.2'
-
-BUILD_DIR='.build'
-
-EXE_EXT=''
-OS_PART=''
-ARCH_PART=''
-
-if [[ "$OSTYPE" == "linux"* ]]; then
-    OS_PART='linux'
-elif [[ "$OSTYPE" == "darwin"* ]]; then
-    OS_PART='darwin'
-elif [[ "$OSTYPE" == "cygwin" ]]; then
-    EXE_EXT='.exe'
-    OS_PART='windows'    
-elif [[ "$OSTYPE" == "msys" ]]; then
-    EXE_EXT='.exe'
-    OS_PART='windows'    
-elif [[ "$OSTYPE" == "freebsd"* ]]; then
-    OS_PART='freebsd'
-elif [[ "$OSTYPE" == "openbsd"* ]]; then
-    OS_PART='openbsd' 
-elif [[ "$OSTYPE" == "solaris"* ]]; then
-    OS_PART='solaris'  
-else
-    notSupportedOS
-fi
-
-CPU=`uname -m`
-
-if [[ "$CPU" == "x86_64"* ]]; then
-    ARCH_PART='amd64'
-elif [[ "$CPU" == "i?86"* ]]; then
-    ARCH_PART='386'
-elif [[ "$CPU" == "arm"* ]]; then
-    ARCH_PART='arm'    
-else
-    notSupportedArch
-fi
-
-TERRAFORM_ARCHIVE="terraform_${TERRAFORM_VERSION}_${OS_PART}_${ARCH_PART}.zip"
-TERRAFORM_EXECUTABLE="terraform${EXE_EXT}"
-
-if [[ ! -f ${BUILD_DIR}/${TERRAFORM_EXECUTABLE} ]]
-then
-    which curl 2> /dev/null || noCurl
-    mkdir $BUILD_DIR 2> /dev/null
-    cd $BUILD_DIR
-    curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ARCHIVE} --output ${TERRAFORM_ARCHIVE}
-    unzip ${TERRAFORM_ARCHIVE}
-    rm ${TERRAFORM_ARCHIVE}
-    chmod ugo+x ${TERRAFORM_EXECUTABLE}
-    cd ..
-fi
+. check_terraform.sh
 
 cd tf
 
+../${BUILD_DIR}/${TERRAFORM_EXECUTABLE} init
 ../${BUILD_DIR}/${TERRAFORM_EXECUTABLE} destroy -auto-approve -var-file="../variables.tfvars"
 
 cd ..
