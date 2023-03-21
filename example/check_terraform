@@ -54,16 +54,18 @@ else
 fi
 
 TERRAFORM_ARCHIVE="terraform_${TERRAFORM_VERSION}_${OS_PART}_${ARCH_PART}.zip"
-TERRAFORM_EXECUTABLE="terraform${EXE_EXT}"
+TERRAFORM_EXECUTABLE="terraform_${TERRAFORM_VERSION//\./_}${EXE_EXT}"
 
 if [[ ! -f ${BUILD_DIR}/${TERRAFORM_EXECUTABLE} ]]
 then
     which curl 2> /dev/null || noCurl
     mkdir $BUILD_DIR 2> /dev/null
     cd $BUILD_DIR
+    rm terraform_?_?_?${EXE_EXT} 2> /dev/null
     curl https://releases.hashicorp.com/terraform/${TERRAFORM_VERSION}/${TERRAFORM_ARCHIVE} --output ${TERRAFORM_ARCHIVE}
     unzip ${TERRAFORM_ARCHIVE}
     rm ${TERRAFORM_ARCHIVE}
+    mv terraform${EXE_EXT} ${TERRAFORM_EXECUTABLE}
     chmod ugo+x ${TERRAFORM_EXECUTABLE}
     cd ..
 fi

@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. check_terraform.sh
+. check_terraform
 
 cd tf
 
