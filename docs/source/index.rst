@@ -24,7 +24,6 @@ awsmate
 
    genindex
    release_process
-   todo
 
 .. toctree::
    :maxdepth: 2
