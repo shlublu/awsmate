@@ -51,7 +51,7 @@ class LambdaProxyEvent(LambdaEvent):
         """
         Returns all HTTP headers of the API call.
 
-        Values of these headers are returned unparsed, as submitted.
+        Header names are always returned in lower case. Values of these headers are returned unparsed, as submitted.
 
         Returns
         -------
@@ -82,7 +82,7 @@ class LambdaProxyEvent(LambdaEvent):
         """
         Returns the HTTP method of the API call.
 
-        The method verb is returned as transmitted by AWS API Gateway. GET, PUT, POST, PATCH, DELETE are expected, but no verification is performed.
+        The method verb is always returned in upper case. GET, PUT, POST, PATCH, DELETE are expected, but no verification is performed.
 
         Returns
         -------
@@ -92,7 +92,7 @@ class LambdaProxyEvent(LambdaEvent):
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If no ``httpMethod`` key is present in the event data.            
+            If no ``requestContext.httpMethod`` key is present in the event data.            
 
         Examples
         --------
@@ -101,12 +101,74 @@ class LambdaProxyEvent(LambdaEvent):
         """
 
         try: 
-            method = self._event["httpMethod"]
+            method = self._event["requestContext"]["httpMethod"]
 
         except KeyError as err:
             raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
 
-        return str(method).upper()
+        return method.upper()
+    
+
+    def http_protocol(self) -> str:
+        """
+        Returns the HTTP protocol of the API call.
+
+        The protocol is always returned in lower case.
+
+        Returns
+        -------
+        str
+            HTTP protocol of the API call.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``requestContext.protocol`` key is present in the event data.            
+
+        Examples
+        --------
+        >>> event.http_protocol()
+        'HTTP/1.1'
+        """
+
+        try: 
+            protocol = self._event["requestContext"]["protocol"]
+
+        except KeyError as err:
+            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+
+        return protocol.upper()    
+    
+
+    def http_user_agent(self) -> str:
+        """
+        Returns the HTTP user-agent of the API call.
+
+        The user-agent is returned as transmitted by AWS API Gateway.
+
+        Returns
+        -------
+        str
+            HTTP user-agent of the API call.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``requestContext.identity.userAgent`` key is present in the event data.            
+
+        Examples
+        --------
+        >>> event.http_user_agent()
+        'curl/7.83.1'
+        """
+
+        try: 
+            userAgent = self._event["requestContext"]["identity"]["userAgent"]
+
+        except KeyError as err:
+            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+
+        return userAgent        
 
     
     def header_sorted_preferences(self, header: str) -> typing.Tuple[str, ...]:
@@ -148,7 +210,38 @@ class LambdaProxyEvent(LambdaEvent):
         return tuple(sorted(preferences.keys(), key = lambda k: preferences[k], reverse = True))
 
 
-    def call_path(self) -> typing.Tuple[str, ...]:
+    def query_domain_name(self) -> str:
+        """
+        Returns the domain name of the API call.
+
+        The domain name is always returned in lower case.
+
+        Returns
+        -------
+        str
+            Domain name of the API call.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``requestContext.domainName`` key is present in the event data.            
+
+        Examples
+        --------
+        >>> event.query_domain_name()
+        'example.com'
+        """
+
+        try: 
+            domainName = self._event["requestContext"]["domainName"]
+
+        except KeyError as err:
+            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+
+        return domainName.lower()   
+        
+        
+    def query_path(self) -> typing.Tuple[str, ...]:
         """
         Returns the path of the API call, broken down into elements.
 
@@ -160,18 +253,18 @@ class LambdaProxyEvent(LambdaEvent):
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If no ``path`` key is present in the event data.      
+            If no ``requestContext.path`` key is present in the event data.      
 
         Examples
         --------
         Given the API call ``GET /projects/foobar/modules``
          
-        >>> event.call_path()
+        >>> event.query_path()
         ('projects', 'foobar', 'modules')              
         """
         
         try: 
-            path = self._event["path"].split('/')
+            path = self._event["requestContext"]["path"].split('/')
             path = path[1 if not len(path[0]) else 0 : -1 if len(path[-1]) == 0 else len(path)]
 
         except KeyError as err:
@@ -214,34 +307,34 @@ class LambdaProxyEvent(LambdaEvent):
         return params or {}
 
 
-    def call_string(self) -> str:
+    def query_string(self) -> str:
         """
-        Convenience method that returns the HTTP method of the call followed by the path and the URL parameters of the call.
+        Convenience method that returns the HTTP method of the call followed by the URL of the call.
 
         Returns
         -------
         str
-            The complete call string of the API call, including URL parameters if any.
+            The query string of the API call, including URL parameters if any.
 
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If at least one of the ``httpMethod``, ``path`` or ``query_string_parameters`` keys is not present in the event data.     
+            If at least one of the ``httpMethod``, ``query_domain``, ``query_path`` or ``query_string_parameters`` keys is not present in the event data.     
 
         Examples
         --------
         Given the API call ``curl -X GET 'https://api.example.com/billing/reports?from_date=2020-01-01&to_date=2023-03-01'``
 
-        >>> event.call_string()
-        'GET /billing/reports?from_date=2020-01-01&to_date=2023-03-01'                  
+        >>> event.query_string()
+        'GET https://api.example.com/billing/reports?from_date=2020-01-01&to_date=2023-03-01'                  
         """
         
         paramsString = '&'.join(f'{key}={value}' for key, value in self.query_string_parameters().items())
 
-        return f'{self.http_method()} /{"/".join(self.call_path())}{"?" if len(paramsString) else ""}{paramsString}'
+        return f'{self.http_method()} https://{self.query_domain_name()}/{"/".join(self.query_path())}{"?" if len(paramsString) else ""}{paramsString}'
 
 
-    def payload(self) -> typing.Dict[str, typing.Any]:
+    def query_payload(self) -> typing.Dict[str, typing.Any]:
         """
         Returns the data sent as the body of the API call.
 
@@ -261,7 +354,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Examples
         --------
-        >>> event.payload()
+        >>> event.query_payload()
         {'some_key': 5, 'some_other_key': [1, 2, 3, 4, 5]}            
         """
 

@@ -2,6 +2,7 @@ import site
 site.addsitedir('/opt')
 
 def lambda_handler(raw_event, context):
+    import json
     import awsmate.apigateway as ag
 
     from awsmate.logger import logger, log_internal_error
@@ -28,7 +29,9 @@ def lambda_handler(raw_event, context):
         response = ag.build_http_client_error_response(err, extra_headers=extra_headers)
 
     except Exception as err:
-        log_internal_error('Something bad happened, and this is on our end!')
-        response = ag.build_http_server_error_response(extra_headers=extra_headers)
+        log_internal_error('Well, we expected that one')
+        response = ag.build_http_server_error_response('Something bad happened, and this is on our end!', extra_headers=extra_headers)
+
+    logger.info(f'Returned payload:\n{json.dumps(response)}')
 
     return response

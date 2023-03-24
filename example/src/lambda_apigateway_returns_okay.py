@@ -2,6 +2,8 @@ import site
 site.addsitedir('/opt')
 
 def lambda_handler(raw_event, context):
+    import json
+
     import awsmate.apigateway as ag
 
     from awsmate.logger import logger, log_internal_error
@@ -18,19 +20,18 @@ def lambda_handler(raw_event, context):
         #############################
         # Specific work starts here
 
-        logger.info(f'HTTP headers: event.http_headers() -> {str(event.http_headers())}')
-        logger.info(f'HTTP method: event.http_method() -> {event.http_method()}')        
-        logger.info(f'HTTP method: event.header_sorted_preferences("accept") -> {str(event.header_sorted_preferences("accept"))}')        
-        logger.info(f'HTTP method: event.call_path() -> {str(event.call_path())}')        
-        logger.info(f'HTTP method: event.query_string_parameters() -> {str(event.query_string_parameters())}')        
-        logger.info(f'HTTP method: event.call_string() -> {event.call_string()}')    
-        logger.info(f'HTTP method: event.payload() -> {event.payload()}')       
-
-        some_complicated_result = 2 + 2
-
         payload = {
-            'result' : some_complicated_result,
-            'details' : 'We made some complicated computation you know...'
+            'raw_event': raw_event,
+            'event.http_headers()' : event.http_headers(),
+            'event.http_method()' : event.http_method(),
+            'event.http_protocol()' : event.http_protocol(),
+            'event.http_user_agent()' : event.http_user_agent(),            
+            'event.header_sorted_preferences("accept")' : event.header_sorted_preferences("accept"),
+            'event.query_domain_name()' : event.query_domain_name(),
+            'event.query_path()' : event.query_path(),
+            'event.query_string_parameters()' : event.query_string_parameters(),
+            'event.query_string()' : event.query_string(),
+            'event.query_payload()' : event.query_payload()
         }
 
         # Specific work finishes here
@@ -45,5 +46,7 @@ def lambda_handler(raw_event, context):
     except Exception as err:
         log_internal_error('Something bad happened, and this is on our end!')
         response = ag.build_http_server_error_response(extra_headers=extra_headers)
+
+    logger.info(f'Returned payload:\n{json.dumps(response)}')
 
     return response

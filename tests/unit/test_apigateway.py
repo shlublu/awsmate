@@ -52,7 +52,9 @@ def test_LambdaProxyEvent_http_headers_raisesIfNoHeaderElementIsPresent():
 
 def test_LambdaProxyEvent_http_method_returnsTheHttpMethodOfTheCallInUpperCase():
     event = {
-        'httpMethod': 'PoSt'
+        'requestContext' : { 
+            'httpMethod': 'PoSt'
+        }
     }
 
     test = ag.LambdaProxyEvent(event)
@@ -61,7 +63,9 @@ def test_LambdaProxyEvent_http_method_returnsTheHttpMethodOfTheCallInUpperCase()
 
 
 def test_LambdaProxyEvent_http_method_raisesIfMethodFieldIsMissing():
-    event = {}
+    event = {
+        'requestContext' : {}
+    }
 
     test = ag.LambdaProxyEvent(event)
 
@@ -69,6 +73,106 @@ def test_LambdaProxyEvent_http_method_raisesIfMethodFieldIsMissing():
         test.http_method()
 
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'httpMethod'."
+
+
+def test_LambdaProxyEvent_http_method_raisesIfRequestContextFieldIsMissing():
+    event = {}
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.http_method()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
+
+
+def test_LambdaProxyEvent_http_protocol_returnsTheHttpProtocolOfTheCallInUpperCase():
+    event = {
+        'requestContext' : { 
+            'protocol': 'HtTp/1.1'
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.http_protocol() == 'HTTP/1.1'
+
+
+def test_LambdaProxyEvent_http_protocol_raisesIfProtocolFieldIsMissing():
+    event = {
+        'requestContext' : {}
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.http_protocol()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'protocol'."
+
+
+def test_LambdaProxyEvent_http_protocol_raisesIfRequestContextFieldIsMissing():
+    event = {}
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.http_protocol()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
+
+
+def test_LambdaProxyEvent_http_user_agent_returnsTheHttpUserAgentOfTheCall():
+    event = {
+        'requestContext' : { 
+            'identity': {
+                'userAgent': 'agent/1.0'
+            }
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.http_user_agent() == 'agent/1.0'
+
+
+def test_LambdaProxyEvent_http_user_agent_raisesIfUserAGentFieldIsMissing():
+    event = {
+        'requestContext' : {
+            'identity': {}
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.http_user_agent()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'userAgent'."
+
+
+def test_LambdaProxyEvent_http_user_agent_raisesIfIdentityFieldIsMissing():
+    event = {
+        'requestContext' : {}
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.http_user_agent()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'identity'."    
+    
+    
+def test_LambdaProxyEvent_http_user_agent_raisesIfRequestContextFieldIsMissing():
+    event = {}
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.http_user_agent()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
 
 
 def test_LambdaProxyEvent_header_sorted_preferences_returnsNonWeightedPreferencesAsPassed():
@@ -170,82 +274,141 @@ def test_LambdaProxyEvent_header_sorted_preferences_isCaseUnsensitive():
 
     assert test.header_sorted_preferences('aCcEpT-eNcOdInG') == ('other', 'gzip', 'deflate')  
 
-     
-def test_LambdaProxyEvent_call_path_returnsPathElementsIgnoringTrailingSeparator():
-    randPathA = f'{random.randint(1000, 9999)}FirstElement' 
-    randPathB = f'{random.randint(1000, 9999)}SecondElement' 
-    randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
 
+def test_LambdaProxyEvent_query_domain_name_returnsTheDomainNameOfTheCallInLowerCase():
     event = {
-        'path': f'/{randPathA}/{randPathB}/{randPathC}/'
+        'requestContext': {
+            'domainName': 'eXaMpLe.CoM'
+        }
     }
 
     test = ag.LambdaProxyEvent(event)
 
-    assert test.call_path() == ( randPathA, randPathB, randPathC )
+    assert  test.query_domain_name() == 'example.com'
 
 
-def test_LambdaProxyEvent_call_path_livesWellWithNoTrailingSeparator():
-    randPathA = f'{random.randint(1000, 9999)}FirstElement' 
-    randPathB = f'{random.randint(1000, 9999)}SecondElement' 
-    randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
-
+def test_LambdaProxyEvent_query_domain_name_raisesIfDomainNameFieldIsMissing():
     event = {
-        'path': f'/{randPathA}/{randPathB}/{randPathC}'
+        'requestContext' : {}
     }
 
     test = ag.LambdaProxyEvent(event)
 
-    assert test.call_path() == ( randPathA, randPathB, randPathC )
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.query_domain_name()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'domainName'."
 
 
-def test_LambdaProxyEvent_call_path_assumesLeadingSeparator():
-    randPathA = f'{random.randint(1000, 9999)}FirstElement' 
-    randPathB = f'{random.randint(1000, 9999)}SecondElement' 
-    randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
-
-    event = {
-        'path': f'{randPathA}/{randPathB}/{randPathC}/'
-    }
-
-    test = ag.LambdaProxyEvent(event)
-
-    assert test.call_path() == ( randPathA, randPathB, randPathC )
-
-
-def test_LambdaProxyEvent_call_path_assumesLeadingSeparatorEvenIfNoTrailingSeparator():
-    randPathA = f'{random.randint(1000, 9999)}FirstElement' 
-    randPathB = f'{random.randint(1000, 9999)}SecondElement' 
-    randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
-
-    event = {
-        'path': f'{randPathA}/{randPathB}/{randPathC}'
-    }
-
-    test = ag.LambdaProxyEvent(event)
-
-    assert test.call_path() == ( randPathA, randPathB, randPathC )
-
-
-def test_LambdaProxyEvent_call_path_leavesWithASingleElement():
-    event = {
-        'path': f'{random.randint(1000, 9999)}Element'
-    }
-
-    test = ag.LambdaProxyEvent(event)
-
-    assert test.call_path() == ( event['path'], )
-
-
-def test_LambdaProxyEvent_call_path_raisesIfPathFieldIsMissing():
+def test_LambdaProxyEvent_query_domain_name_raisesIfRequestContextFieldIsMissing():
     event = {}
 
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.call_path()
+        test.query_domain_name()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
+
+
+def test_LambdaProxyEvent_query_path_returnsPathElementsIgnoringTrailingSeparator():
+    randPathA = f'{random.randint(1000, 9999)}FirstElement' 
+    randPathB = f'{random.randint(1000, 9999)}SecondElement' 
+    randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
+
+    event = {
+        'requestContext' : {
+            'path': f'/{randPathA}/{randPathB}/{randPathC}/'
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert test.query_path() == ( randPathA, randPathB, randPathC )
+
+
+def test_LambdaProxyEvent_query_path_livesWellWithNoTrailingSeparator():
+    randPathA = f'{random.randint(1000, 9999)}FirstElement' 
+    randPathB = f'{random.randint(1000, 9999)}SecondElement' 
+    randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
+
+    event = {
+        'requestContext' : {
+            'path': f'/{randPathA}/{randPathB}/{randPathC}'
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert test.query_path() == ( randPathA, randPathB, randPathC )
+
+
+def test_LambdaProxyEvent_query_path_assumesLeadingSeparator():
+    randPathA = f'{random.randint(1000, 9999)}FirstElement' 
+    randPathB = f'{random.randint(1000, 9999)}SecondElement' 
+    randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
+
+    event = {
+        'requestContext' : {
+            'path': f'{randPathA}/{randPathB}/{randPathC}/'
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert test.query_path() == ( randPathA, randPathB, randPathC )
+
+
+def test_LambdaProxyEvent_query_path_assumesLeadingSeparatorEvenIfNoTrailingSeparator():
+    randPathA = f'{random.randint(1000, 9999)}FirstElement' 
+    randPathB = f'{random.randint(1000, 9999)}SecondElement' 
+    randPathC = f'{random.randint(1000, 9999)}ThirdElement' 
+
+    event = {
+        'requestContext' : {
+            'path': f'{randPathA}/{randPathB}/{randPathC}'
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert test.query_path() == ( randPathA, randPathB, randPathC )
+
+
+def test_LambdaProxyEvent_query_path_livesWithASingleElement():
+    event = {
+        'requestContext' : {        
+            'path': f'{random.randint(1000, 9999)}Element'
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert test.query_path() == ( event['requestContext']['path'], )
+
+
+def test_LambdaProxyEvent_query_path_raisesIfPathFieldIsMissing():
+    event = {
+        'requestContext' : {}
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.query_path()
 
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'path'."
+
+
+def test_LambdaProxyEvent_query_path_raisesIfRequestContextFieldIsMissing():
+    event = {}
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.query_path()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
 
 
 def test_LambdaProxyEvent_query_string_parameters_returnsAllQueryStringParametersAsTheyAre():
@@ -285,7 +448,7 @@ def test_LambdaProxyEvent_query_string_parameters_raisesIfParametersFieldIsMissi
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'queryStringParameters'."
 
 
-def test_LambdaProxyEvent_call_string_returnsTheWholeString():
+def test_LambdaProxyEvent_query_string_returnsTheWholeString():
     randMethod = str(random.randint(1000, 9999))
 
     randPathA = str(random.randint(1000, 9999)) 
@@ -296,7 +459,7 @@ def test_LambdaProxyEvent_call_string_returnsTheWholeString():
     randParamsB = str(random.randint(1000, 9999))  
     randParamsC = str(random.randint(1000, 9999))  
 
-    path = f'/{randPathA}/{randPathB }/{randPathC}/'
+    path = f'/{randPathA}/{randPathB}/{randPathC}/'
 
     params = {
         'a': randParamsA,
@@ -305,18 +468,21 @@ def test_LambdaProxyEvent_call_string_returnsTheWholeString():
     }
 
     event = {
-        'httpMethod': randMethod,
-        'path': path,
+        'requestContext': {
+            'httpMethod': randMethod,
+            'path': path,
+            'domainName': 'example.com'
+        },
         'queryStringParameters': params
     }
 
     test = ag.LambdaProxyEvent(event)
-    expected = f'{randMethod} {path[0:-1]}?a={randParamsA}&b={randParamsB}&c={randParamsC}'
+    expected = f'{randMethod} https://example.com{path[0:-1]}?a={randParamsA}&b={randParamsB}&c={randParamsC}'
 
-    assert test.call_string() == expected
+    assert test.query_string() == expected
 
 
-def test_LambdaProxyEvent_call_string_livesWellWithNoQueryParameters():
+def test_LambdaProxyEvent_query_string_livesWellWithNoQueryParameters():
     randMethod = str(random.randint(1000, 9999))
 
     randPathA = str(random.randint(1000, 9999)) 
@@ -326,23 +492,29 @@ def test_LambdaProxyEvent_call_string_livesWellWithNoQueryParameters():
     path = f'/{randPathA}/{randPathB }/{randPathC}/'
 
     event = {
-        'httpMethod': randMethod,
-        'path': path,
+        'requestContext': {
+            'httpMethod': randMethod,
+            'path': path,
+            'domainName': 'example.com'
+        },
         'queryStringParameters': None
     }
 
     test = ag.LambdaProxyEvent(event)
-    expected = f'{randMethod} {path[0:-1]}'
+    expected = f'{randMethod} https://example.com{path[0:-1]}'
 
-    assert test.call_string() == expected
+    assert test.query_string() == expected
 
 
-def test_LambdaProxyEvent_call_string_reliesOnEventMethods():
+def test_LambdaProxyEvent_query_string_reliesOnEventMethods():
     from unittest.mock import patch
 
     event = {
-        'httpMethod': 'GET',
-        'path': '/a/b/c/',
+        'requestContext': {
+            'httpMethod': 'GET',
+            'path': '/a/b/c/',
+            'domainName': 'example.com'
+        },
         'queryStringParameters': {
             'a': 'paramA',
             'b': 'paramB',
@@ -351,16 +523,16 @@ def test_LambdaProxyEvent_call_string_reliesOnEventMethods():
     }
 
     with patch.object(ag.LambdaProxyEvent, 'http_method', return_value=None) as acm:
-        with patch.object(ag.LambdaProxyEvent, 'call_path', return_value = ()) as acp:
+        with patch.object(ag.LambdaProxyEvent, 'query_path', return_value = ()) as acp:
             with patch.object(ag.LambdaProxyEvent, 'query_string_parameters', return_value = {}) as acqp:
-                ag.LambdaProxyEvent(event).call_string()
+                ag.LambdaProxyEvent(event).query_string()
 
     acm.assert_called_once()
     acp.assert_called_once()
     acqp.assert_called_once()
 
 
-def test_LambdaProxyEvent_payload_returnsThePayloadAsItIs():
+def test_LambdaProxyEvent_query_payload_returnsThePayloadAsItIs():
     randInt = random.randint(1000, 100000)
 
     event = {
@@ -369,31 +541,31 @@ def test_LambdaProxyEvent_payload_returnsThePayloadAsItIs():
 
     test = ag.LambdaProxyEvent(event)
 
-    assert test.payload() == { 'key': randInt }
+    assert test.query_payload() == { 'key': randInt }
 
 
-def test_LambdaProxyEvent_payload_returnsNoneIfBodyIsNull():
+def test_LambdaProxyEvent_query_payload_returnsNoneIfBodyIsNull():
     event = {
         "body": None
     }
 
     test = ag.LambdaProxyEvent(event)
 
-    assert test.payload() is None   
+    assert test.query_payload() is None   
 
 
-def test_LambdaProxyEvent_payload_raisesIfBodyIsMissing():
+def test_LambdaProxyEvent_query_payload_raisesIfBodyIsMissing():
     event = {}
 
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.payload()
+        test.query_payload()
 
     assert exceptionInfo.value.args[0] == f"Event structure is not as expected: cannot reach 'body'."
 
 
-def test_LambdaProxyEvent_payload_raisesIfJsonIsIncorrect():
+def test_LambdaProxyEvent_query_payload_raisesIfJsonIsIncorrect():
     randInt = random.randint(1000, 100000)
 
     event = {
@@ -403,7 +575,7 @@ def test_LambdaProxyEvent_payload_raisesIfJsonIsIncorrect():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(ag.MalformedPayloadError) as exceptionInfo:
-        test.payload()
+        test.query_payload()
 
     assert exceptionInfo.value.args[0] == f"Payload is malformed. JSON cannot be decoded: Extra data: line 1 column 7 (char 6)."
 
