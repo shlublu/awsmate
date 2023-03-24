@@ -50,6 +50,27 @@ def test_LambdaProxyEvent_http_headers_raisesIfNoHeaderElementIsPresent():
     assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'headers'."
 
 
+def test_LambdaProxyEvent_http_method_returnsTheHttpMethodOfTheCallInUpperCase():
+    event = {
+        'httpMethod': 'PoSt'
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.http_method() == 'POST'
+
+
+def test_LambdaProxyEvent_http_method_raisesIfMethodFieldIsMissing():
+    event = {}
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.http_method()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'httpMethod'."
+
+
 def test_LambdaProxyEvent_header_sorted_preferences_returnsNonWeightedPreferencesAsPassed():
     event = { 
         "headers": { 'Accept-Encoding': 'gzip,deflate,other' }
@@ -150,27 +171,6 @@ def test_LambdaProxyEvent_header_sorted_preferences_isCaseUnsensitive():
     assert test.header_sorted_preferences('aCcEpT-eNcOdInG') == ('other', 'gzip', 'deflate')  
 
      
-def test_LambdaProxyEvent_http_method_returnsTheHttpMethodOfTheCallInUpperCase():
-    event = {
-        'httpMethod': 'PoSt'
-    }
-
-    test = ag.LambdaProxyEvent(event)
-
-    assert  test.http_method() == 'POST'
-
-
-def test_LambdaProxyEvent_http_method_raisesIfMethodFieldIsMissing():
-    event = {}
-
-    test = ag.LambdaProxyEvent(event)
-
-    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_method()
-
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'httpMethod'."
-
-
 def test_LambdaProxyEvent_call_path_returnsPathElementsIgnoringTrailingSeparator():
     randPathA = f'{random.randint(1000, 9999)}FirstElement' 
     randPathB = f'{random.randint(1000, 9999)}SecondElement' 

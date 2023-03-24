@@ -18,6 +18,14 @@ def lambda_handler(raw_event, context):
         #############################
         # Specific work starts here
 
+        logger.info(f'HTTP headers: event.http_headers() -> {str(event.http_headers())}')
+        logger.info(f'HTTP method: event.http_method() -> {event.http_method()}')        
+        logger.info(f'HTTP method: event.header_sorted_preferences("accept") -> {str(event.header_sorted_preferences("accept"))}')        
+        logger.info(f'HTTP method: event.call_path() -> {str(event.call_path())}')        
+        logger.info(f'HTTP method: event.query_string_parameters() -> {str(event.query_string_parameters())}')        
+        logger.info(f'HTTP method: event.call_string() -> {event.call_string()}')    
+        logger.info(f'HTTP method: event.payload() -> {event.payload()}')       
+
         some_complicated_result = 2 + 2
 
         payload = {
