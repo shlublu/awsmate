@@ -4,10 +4,15 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
-- Documentation: contributing guidelines
-- Documentation: code of conduct
-- Example application: first draft for `apigateway`
-- awsmate package: added `__version__` variable
+#### Documentation
+- Contributing guidelines
+- Code of conduct
+
+#### Example application
+- First draft focusing on `apigateway`
+
+#### Code
+- added variable `awsmate.__version__` 
 
 ### Changed
 

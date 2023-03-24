@@ -78,6 +78,37 @@ class LambdaProxyEvent(LambdaEvent):
         return {} if headers is None else { k.lower(): v for k, v in headers.items() }
 
 
+    def http_method(self) -> str:
+        """
+        Returns the HTTP method of the API call.
+
+        The method verb is returned as transmitted by AWS API Gateway. GET, PUT, POST, PATCH, DELETE are expected, but no verification is performed.
+
+        Returns
+        -------
+        str
+            HTTP method of the API call.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``httpMethod`` key is present in the event data.            
+
+        Examples
+        --------
+        >>> event.http_method()
+        'GET'
+        """
+
+        try: 
+            method = self._event["httpMethod"]
+
+        except KeyError as err:
+            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+
+        return str(method).upper()
+
+    
     def header_sorted_preferences(self, header: str) -> typing.Tuple[str, ...]:
         """
         Returns all values assigned to the given header, sorted by decreasing preferences.
@@ -117,37 +148,6 @@ class LambdaProxyEvent(LambdaEvent):
         return tuple(sorted(preferences.keys(), key = lambda k: preferences[k], reverse = True))
 
 
-    def http_method(self) -> str:
-        """
-        Returns the HTTP method of the API call.
-
-        The method verb is returned as transmitted by AWS API Gateway. GET, PUT, POST, PATCH, DELETE are expected, but no verification is performed.
-
-        Returns
-        -------
-        str
-            HTTP method of the API call.
-
-        Raises
-        ------
-        awsmate.lambdafunction.AwsEventSpecificationError
-            If no ``httpMethod`` key is present in the event data.            
-
-        Examples
-        --------
-        >>> event.http_method()
-        'GET'
-        """
-
-        try: 
-            method = self._event["httpMethod"]
-
-        except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
-
-        return str(method).upper()
-
-    
     def call_path(self) -> typing.Tuple[str, ...]:
         """
         Returns the path of the API call, broken down into elements.
