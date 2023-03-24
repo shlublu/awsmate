@@ -113,7 +113,7 @@ class LambdaProxyEvent(LambdaEvent):
         """
         Returns the HTTP protocol of the API call.
 
-        The protocol is always returned in lower case.
+        The protocol is always returned in upper case.
 
         Returns
         -------
