@@ -13,10 +13,21 @@ All notable changes to this project are documented in this file.
 
 #### Code
 - added variable `awsmate.__version__` 
+- added `awsmate.apigateway.LambdaProxyEvent.http_protocol()`
+- added `awsmate.apigateway.LambdaProxyEvent.http_user_agent()`
+- added `awsmate.apigateway.LambdaProxyEvent.query_domain_name()`
 
 ### Changed
 
+#### Documentation
 - improved documentation
+
+#### Code
+- made `awsmate.apigateway.LambdaProxyEvent.http_method()` based on `event['requestContext']['httpMethod']` instead of just `event['httpMethod']`
+- made `awsmate.apigateway.LambdaProxyEvent.query_string()` to include the domain name
+- renamed `awsmate.apigateway.LambdaProxyEvent.call_path()` -> `awsmate.apigateway.LambdaProxyEvent.query_path()` and made it based on `event['requestContext']['path']` instead of just `event['path']`
+- renamed `awsmate.apigateway.LambdaProxyEvent.call_string()` -> `awsmate.apigateway.LambdaProxyEvent.query_string()`
+- renamed `awsmate.apigateway.LambdaProxyEvent.payload()` -> `awsmate.apigateway.LambdaProxyEvent.query_payload_()`
 
 ### Deprecated
 
