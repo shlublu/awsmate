@@ -3,13 +3,20 @@ site.addsitedir('/opt')
 
 import json
 
+from awsmate import __version__
+
 
 # Transformer that turns a simple dict to HTML
 def dict_to_html(data: dict):
-    ret = f'<html>\n\t<head></head>\n\t<body>\n\t\t<h1>Initial JSON payload</h1>\n\t\t<p>\n\t\t\t<pre>{json.dumps(data, indent=2)}</pre>\n\t\t</p>\n\t\t<h1>HTML conversion</h1>\n\t\t<p>\n\t\t\t<ul>'
+    ret = '<html>\n\t<head></head>\n\t<body>\n\t\t<h1>Response after HTML transformation</h1>\n\t\t<p>\n\t\t\t<ul>'
 
     for k in data.keys():
-        ret += f'\n\t\t\t\t<li><b><u>{k}</u></b>: <pre>{json.dumps(data[k])}</pre></li>'
+        if k.startswith('event'):
+            bullet = f'<a href="https://awsmate.readthedocs.io/en/{__version__}/apigateway.html#awsmate.apigateway.LambdaProxyEvent.{k.split(".")[1].split("(")[0]}">{k}</a>'
+        else:
+            bullet = k
+            
+        ret += f'\n\t\t\t\t<li><b>{bullet}</b>: <pre>{json.dumps(data[k])}</pre></li>'
 
     ret += '\n\t\t\t</ul>\n\t\t</p>\n\t</body>\n</html>\n'
 
