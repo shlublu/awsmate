@@ -378,7 +378,7 @@ class LambdaProxyEvent(LambdaEvent):
         Returns
         -------
         dict
-            User details or `None` if this call is anonymous.
+            User details or ``None`` if this call is anonymous.
 
         Raises
         ------
