@@ -2,7 +2,7 @@ import site
 site.addsitedir('/opt')
 
 
-# HTML transformer for our response payload
+# HTML transformer for our response payloads (that are always error messages in this example code)
 def dict_to_html(data: dict):
     return (
         f'<html>\n\t<head></head>\n\t<body>\n\t\t<h1>Error: {data["Message"]}</h1>\n\t</body>\n</html>\n', 
@@ -29,7 +29,7 @@ def lambda_handler(raw_event, context):
     try:
         event = ag.LambdaProxyEvent(raw_event)
         
-        ag.determine_content_type(event)
+        ag.determine_content_type(event, custom_transformers=html_transformers)
 
         #############################
         # Specific work starts here
