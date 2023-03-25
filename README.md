@@ -16,7 +16,7 @@
 
 * Tests status: ![tests status](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)
 
-Should you ancounter any bug or problem of any kind, please feel free to open an issue according to our [contribution guidelines](https://awsmate.readthedocs.io/en/latest/contributing.html).
+Should you encounter any bug or problem of any kind, please feel free to open an issue according to our [contribution guidelines](https://awsmate.readthedocs.io/en/latest/contributing.html).
 
 ## Examples
 
