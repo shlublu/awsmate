@@ -16,6 +16,7 @@ All notable changes to this project are documented in this file.
 - added `awsmate.apigateway.LambdaProxyEvent.http_protocol()`
 - added `awsmate.apigateway.LambdaProxyEvent.http_user_agent()`
 - added `awsmate.apigateway.LambdaProxyEvent.query_domain_name()`
+- added `awsmate.apigateway.LambdaProxyEvent.authorizer_claims()`
 
 ### Changed
 

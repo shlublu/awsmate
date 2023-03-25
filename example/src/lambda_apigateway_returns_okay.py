@@ -59,7 +59,8 @@ def lambda_handler(raw_event, context):
             'event.query_path()' : event.query_path(),
             'event.query_string_parameters()' : event.query_string_parameters(),
             'event.query_string()' : event.query_string(),
-            'event.query_payload()' : event.query_payload()
+            'event.query_payload()' : event.query_payload(),
+            'event.authorizer_claims()' : event.authorizer_claims()
         }
 
         # Specific work finishes here

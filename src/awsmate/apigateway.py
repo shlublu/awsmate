@@ -369,7 +369,42 @@ class LambdaProxyEvent(LambdaEvent):
             raise MalformedPayloadError(f"Payload is malformed. JSON cannot be decoded: {str(err)}.")
 
         return ret
+    
 
+    def authorizer_claims(self) -> typing.Optional[typing.Dict[str, typing.Any]]:
+        """
+        Returns the authenticated user details or ``None`` if this is an anonymous API call.
+
+        Returns
+        -------
+        dict
+            User details or `None` if this call is anonymous.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``requestContext`` key is present in the event data. or if claims is not ``None`` and not a ``dict``.  
+
+        Examples
+        --------
+        >>> event.authorizer_claims()
+        {'cognito:username': '192837645', 'email': 'jane@example.com', 'given_name': 'Jane', 'family_name': 'Doe'}
+        """
+
+        try:
+            claims = self._event['requestContext']['authorizer']['claims']
+    
+        except KeyError as err:
+            if str(err) == "'requestContext'":
+                raise AwsEventSpecificationError(f"Event structure is not as expected: cannot reach {str(err)}.")
+            else:
+                claims = None
+
+        if claims and not isinstance(claims, dict):
+            raise AwsEventSpecificationError(f"Claims should be a dict, not a {type(claims)}.")
+
+        return claims
+    
 
 class HttpClientError(RuntimeError):
     """
