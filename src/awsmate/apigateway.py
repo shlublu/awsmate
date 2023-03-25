@@ -309,7 +309,7 @@ class LambdaProxyEvent(LambdaEvent):
 
     def query_string(self) -> str:
         """
-        Convenience method that returns the HTTP method of the call followed by the URL of the call.
+        Convenience function that returns the HTTP method of the call followed by the URL of the call.
 
         Returns
         -------
@@ -844,7 +844,7 @@ def build_http_server_error_response(
         extra_headers: typing.Optional[typing.Dict[str, str]] = None
     ) -> dict:
     """
-    Convenience method that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
+    Convenience function that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
 
     Parameters
     ----------
@@ -869,7 +869,7 @@ def build_http_server_error_response(
 
     Notes
     -----
-    This method simply calls:
+    This function simply calls:
 
     >>> build_http_response(500, message, event=event, custom_transformers=custom_transformers, extra_headers=extra_headers)
 
@@ -910,7 +910,7 @@ def build_http_client_error_response(
         extra_headers: typing.Optional[typing.Dict[str, str]] = None
     ) -> dict:
     """
-    Convenience method that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
+    Convenience function that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
 
     Parameters
     ----------
@@ -935,7 +935,7 @@ def build_http_client_error_response(
     
     Notes
     -----
-    This method simply calls 
+    This function simply calls 
     
     >>> build_http_response(error.status, str(error), event=event, custom_transformers=custom_transformers, extra_headers=extra_headers)
 
