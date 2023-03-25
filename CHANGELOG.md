@@ -24,6 +24,8 @@ All notable changes to this project are documented in this file.
 
 #### Code
 - made `awsmate.apigateway.LambdaProxyEvent.http_method()` based on `event['requestContext']['httpMethod']` instead of just `event['httpMethod']`
+- made `awsmate.apigateway.build_http_server_error_response()` to handle optional parameters `event` and `custom_transformers`
+- made `awsmate.apigateway.build_http_client_error_response()` to handle optional parameters `event` and `custom_transformers`
 - renamed `awsmate.apigateway.LambdaProxyEvent.call_path()` -> `awsmate.apigateway.LambdaProxyEvent.query_path()` and made it based on `event['requestContext']['path']` instead of just `event['path']`
 - renamed `awsmate.apigateway.LambdaProxyEvent.call_string()` -> `awsmate.apigateway.LambdaProxyEvent.query_string()` and made it include the prototype and the domain name
 - renamed `awsmate.apigateway.LambdaProxyEvent.payload()` -> `awsmate.apigateway.LambdaProxyEvent.query_payload_()`
