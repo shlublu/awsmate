@@ -940,92 +940,46 @@ def test_build_http_response_allowsReturningExtraHeaders():
     assert response == expectedResponse    
 
 
-def test_build_http_server_error_response_returnsOopsMessage():
-    expectedResponse = {
-        'isBase64Encoded': False,
-        'statusCode': 500,
-        'body': json.dumps(
-                { "Message": "Sorry, an error occured. Please contact the API administrator to have this sorted out." }, 
-                indent = 2
-            ),
-        'headers': {     
-            'Content-Type': 'application/json; charset=utf-8',
-        }
-    }
-
-    response = ag.build_http_server_error_response()
-
-    assert response == expectedResponse
-
-
-def test_build_http_server_error_response_returnsCustomMessageIfSpecified():
-    expectedResponse = { 
-        'isBase64Encoded': False,
-        'statusCode': 500,
-        'body': json.dumps(
-                { "Message": "Some custom message" }, 
-                indent = 2
-            ),
-        'headers': {     
-            'Content-Type': 'application/json; charset=utf-8',
-        }
-    }
-
-    response = ag.build_http_server_error_response('Some custom message')
-
-    assert response == expectedResponse
-
-
-def test_build_http_server_error_response_passesOptionalParameters():
+def test_build_http_server_error_response_passeAllParameters():
+    message = 'some msg'
     event = ag.LambdaProxyEvent({})
     transformers = { 'text/*': lambda x : (x, 'text/strange') }
     extra_headers={ 'someKey': 'someValue' }
 
     with patch('awsmate.apigateway.build_http_response') as mbhser:
-        ag.build_http_server_error_response(event=event, custom_transformers=transformers, extra_headers=extra_headers)
+        ag.build_http_server_error_response(message, event=event, custom_transformers=transformers, extra_headers=extra_headers)
 
     mbhser.assert_called_once_with(
         500, 
-        "Sorry, an error occured. Please contact the API administrator to have this sorted out.", 
+        message, 
         event=event,
         custom_transformers=transformers,
         extra_headers=extra_headers
         )
     
 
-def test_build_http_client_error_response_returnsWhatTheExceptionCarries():
-    ex = ag.HttpBadRequestError("some message")
+def test_build_http_server_error_response_usesDefaultMessageIfUnspecified():
+    with patch('awsmate.apigateway.build_http_response') as mbhser:
+        ag.build_http_server_error_response()
 
-    expectedResponse = {
-        'isBase64Encoded': False,
-        'statusCode': ex.status,
-        'body': json.dumps(
-                { "Message": str(ex) }, 
-                indent = 2
-            ),
-        'headers': {     
-            'Content-Type': 'application/json; charset=utf-8',
-        }
-    }    
-
-    response = ag.build_http_client_error_response(ex)
-
-    assert response == expectedResponse
+    mbhser.assert_called_once_with(
+        500, 
+        "Sorry, an error occured. Please contact the API administrator to have this sorted out.", 
+        )
 
 
-def test_build_http_client_error_response_passesOptionalParameters():
-    exc = ag.HttpBadRequestError("some message")
-
+def test_build_http_client_error_response_passeAllParameters():
+    exception = ag.HttpBadRequestError("some message")
     event = ag.LambdaProxyEvent({})
     transformers = { 'text/*': lambda x : (x, 'text/strange') }
     extra_headers={ 'someKey': 'someValue' }
 
     with patch('awsmate.apigateway.build_http_response') as mbhser:
-        ag.build_http_client_error_response(exc, event=event, custom_transformers=transformers, extra_headers=extra_headers)
+        ag.build_http_client_error_response(exception, event=event, custom_transformers=transformers, extra_headers=extra_headers)
 
     mbhser.assert_called_once_with(
-        400, 
-        "some message", 
+        exception.status, 
+        str(exception), 
         event=event,
         custom_transformers=transformers,
         extra_headers=extra_headers
