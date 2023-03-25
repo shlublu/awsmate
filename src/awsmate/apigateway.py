@@ -848,7 +848,7 @@ def build_http_server_error_response(
     ----------
     message : str
         Optional error message. If omitted, the default message is "Sorry, an error occured. Please contact the API administrator to have this sorted out."
-    kwarg : dict
+    **kwarg : dict
         Optional arguments to pass to :func:`build_http_response`
 
     Returns
@@ -906,7 +906,7 @@ def build_http_client_error_response(
     ----------
     error : HttpClientError
         Object representing the error. 
-    kwarg : dict
+    **kwarg : dict
         Optional arguments to pass to :func:`build_http_response`
 
     Returns
