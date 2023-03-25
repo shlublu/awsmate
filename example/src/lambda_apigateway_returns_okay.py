@@ -1,9 +1,28 @@
 import site
 site.addsitedir('/opt')
 
-def lambda_handler(raw_event, context):
-    import json
+import json
 
+
+# Transformer that turns a simple dict to HTML
+def dict_to_html(data: dict):
+    ret = f'<html>\n\t<head></head>\n\t<body>\n\t\t<h1>Initial JSON payload</h1>\n\t\t<p>\n\t\t\t<pre>{json.dumps(data, indent=2)}</pre>\n\t\t</p>\n\t\t<h1>HTML conversion</h1>\n\t\t<p>\n\t\t\t<ul>'
+
+    for k in data.keys():
+        ret += f'\n\t\t\t\t<li><b><u>{k}</u></b>: <pre>{json.dumps(data[k])}</pre></li>'
+
+    ret += '\n\t\t\t</ul>\n\t\t</p>\n\t</body>\n</html>\n'
+
+    return ret, 'text/html; charset=utf-8'
+
+
+# Maps the transformer above to the content-type 'text/html'
+html_transformer = {
+    'text/html': dict_to_html
+}
+
+
+def lambda_handler(raw_event, context):
     import awsmate.apigateway as ag
 
     from awsmate.logger import logger, log_internal_error
@@ -15,7 +34,7 @@ def lambda_handler(raw_event, context):
             'Access-Control-Allow-Origin': '*' # Deals with CORS provided HTTP OPTIONS is dealt with on API Gateway side.
         }
 
-        ag.determine_content_type(event)
+        ag.determine_content_type(event, custom_transformers=html_transformer)
 
         #############################
         # Specific work starts here
@@ -37,7 +56,7 @@ def lambda_handler(raw_event, context):
         # Specific work finishes here
         #############################
 
-        response = ag.build_http_response(200, payload, event=event, extra_headers=extra_headers)
+        response = ag.build_http_response(200, payload, event=event, extra_headers=extra_headers, custom_transformers=html_transformer)
 
     except ag.HttpClientError as err:
         logger.error(f'Client made a mistake: {repr(err)}')
