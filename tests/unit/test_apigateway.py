@@ -580,6 +580,94 @@ def test_LambdaProxyEvent_query_payload_raisesIfJsonIsIncorrect():
 
     assert exceptionInfo.value.args[0] == f"Payload is malformed. JSON cannot be decoded: Extra data: line 1 column 7 (char 6)."
 
+
+
+def test_LambdaProxyEvent_authorizer_claims_returnsTheClaimsIfAny():
+    claims = {
+        'cognito:username': '192837645', 
+        'email': 'jane@example.com', 
+        'given_name': 'Jane', 
+        'family_name': 'Doe'
+    }
+    
+    event = {
+        'requestContext': {
+            'authorizer': {
+                'claims': claims
+            }
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.authorizer_claims() == claims
+
+
+def test_LambdaProxyEvent_authorizer_claims_returnsTheClaimsEvenIfNone():
+    event = {
+        'requestContext': {
+            'authorizer': {
+                'claims': None
+            }
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.authorizer_claims() is None    
+
+
+def test_LambdaProxyEvent_authorizer_claims_returnsNoneIfNoClaims():
+    event = {
+        'requestContext': {
+            'authorizer': {}
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.authorizer_claims() is None
+
+
+def test_LambdaProxyEvent_authorizer_claims_returnsNoneIfNoAuthorizer():
+    event = {
+        'requestContext': {}
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.authorizer_claims() is None
+
+
+def test_LambdaProxyEvent_authorizer_claims_raisesIfRequestContextFieldIsMissing():
+    event = {}
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.authorizer_claims()
+
+    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."   
+
+
+def test_LambdaProxyEvent_authorizer_claims_raisesIfClaimsIsNotADict():
+    claims = ['192837645', 'jane@example.com', 'Jane', 'Doe']
+    
+    event = {
+        'requestContext': {
+            'authorizer': {
+                'claims': claims
+            }
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.authorizer_claims()
+
+    assert exceptionInfo.value.args[0] == "Claims should be a dict, not a <class 'list'>."  
+    
     
 def test_HttpClientError_init_initializesStatusProperly(caplog):
     status = random.randint(200, 599)
