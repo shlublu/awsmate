@@ -837,7 +837,12 @@ def build_http_response(
     return ret
 
 
-def build_http_server_error_response(message: typing.Optional[str] = None, extra_headers: typing.Optional[typing.Dict[str, str]] = None) -> dict:
+def build_http_server_error_response(
+        message: typing.Optional[str] = None, 
+        event: typing.Optional[LambdaProxyEvent] = None, 
+        custom_transformers: typing.Optional[typing.Dict[str, typing.Callable[[dict], typing.Tuple[str, str]]]] = None,
+        extra_headers: typing.Optional[typing.Dict[str, str]] = None
+    ) -> dict:
     """
     Convenience method that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
 
@@ -847,6 +852,10 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     ----------
     message : str
         Optional error message. If omitted, the default message is "Sorry, an error occured. Please contact the API administrator to have this sorted out."
+    event : LambdaProxyEvent
+        Optional wrapper of the event the Lambda handler receives from the API Gateway.
+    custom_transformers : dict
+        Optional mapping of ``Content-Type`` to transformer functions returning (the content as ``Content-Type``, the ``Content-Type`` with encoding as ``str``).
     extra_headers : dict
         Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.  
 
@@ -864,7 +873,7 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     -----
     This method simply calls:
 
-    >>> build_http_response(500, message, extra_headers=extra_headers)
+    >>> build_http_response(500, message, event=event, custom_transformers=custom_transformers, extra_headers=extra_headers)
 
     It is a good idea to make your Lambda handler to catch all unexpected errors to return a proper error message should anything go wrong.
 
@@ -890,11 +899,18 @@ def build_http_server_error_response(message: typing.Optional[str] = None, extra
     return build_http_response(
         500, 
         message if message else "Sorry, an error occured. Please contact the API administrator to have this sorted out.",
+        event=event,
+        custom_transformers=custom_transformers,
         extra_headers=extra_headers
     )
 
 
-def build_http_client_error_response(error: HttpClientError, extra_headers: typing.Optional[typing.Dict[str, str]] = None) -> dict:
+def build_http_client_error_response(
+        error: HttpClientError, 
+        event: typing.Optional[LambdaProxyEvent] = None, 
+        custom_transformers: typing.Optional[typing.Dict[str, typing.Callable[[dict], typing.Tuple[str, str]]]] = None,  
+        extra_headers: typing.Optional[typing.Dict[str, str]] = None
+    ) -> dict:
     """
     Convenience method that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
 
@@ -904,6 +920,10 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     ----------
     error : HttpClientError
         Object representing the error. 
+    event : LambdaProxyEvent
+        Optional wrapper of the event the Lambda handler receives from the API Gateway.
+    custom_transformers : dict
+        Optional mapping of ``Content-Type`` to transformer functions returning (the content as ``Content-Type``, the ``Content-Type`` with encoding as ``str``).
     extra_headers : dict
         Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.  
 
@@ -921,7 +941,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     -----
     This method simply calls 
     
-    >>> build_http_response(error.status, str(error), extra_headers=extra_headers)
+    >>> build_http_response(error.status, str(error), event=event, custom_transformers=custom_transformers, extra_headers=extra_headers)
 
     It is a good idea to make your Lambda handler to catch all HttpClientError to return a proper error message should there be any problem with the request.
 
@@ -944,5 +964,7 @@ def build_http_client_error_response(error: HttpClientError, extra_headers: typi
     return build_http_response(
         error.status, 
         str(error),
+        event=event,
+        custom_transformers=custom_transformers,
         extra_headers=extra_headers
     )
