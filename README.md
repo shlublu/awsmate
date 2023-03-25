@@ -12,22 +12,11 @@
 * The complete documentation is available at [ReadTheDocs](https://awsmate.readthedocs.io/ "awsmate documentation").
 * Documentation status: [![Documentation status](https://readthedocs.org/projects/awsmate/badge/?version=latest)](https://awsmate.readthedocs.io/en/latest/?badge=latest)
 
-## Issues and testing
+## Issues
 
-* Testing tool: `pytest`
-* Command line: `pytest [-v|-vv] [-s]`. Should be run from the base directory of the repository.
-* Tests files location:
+* Tests status: ![tests status](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)
 
-        awsmate
-            |___tests
-                    |
-                    |___unit
-                    |
-                    |___integration (coming soon)
-
-* master branch tests status: ![master branch tests status](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)
-
-Should you ancounter any bug or problem, please feel free to open an issue according to our [contribution guidelines](https://awsmate.readthedocs.io/en/latest/contributing.html).
+Should you ancounter any bug or problem of any kind, please feel free to open an issue according to our [contribution guidelines](https://awsmate.readthedocs.io/en/latest/contributing.html).
 
 ## Examples
 

@@ -23,6 +23,7 @@ awsmate
    :caption: Technical appendix
 
    genindex
+   testing
    release_process
 
 .. toctree::
