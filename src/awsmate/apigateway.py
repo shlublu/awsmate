@@ -846,8 +846,6 @@ def build_http_server_error_response(
     """
     Convenience method that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
 
-    The response is always in uncompressed ``application/json`` format. The event received by the Lambda Handler is ignored.
-
     Parameters
     ----------
     message : str
@@ -913,8 +911,6 @@ def build_http_client_error_response(
     ) -> dict:
     """
     Convenience method that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
-
-    The response is always in uncompressed ``application/json`` format. The event received by the Lambda Handler is ignored.
 
     Parameters
     ----------
