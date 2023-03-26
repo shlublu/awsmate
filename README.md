@@ -22,6 +22,7 @@ Should you encounter any bug or problem of any kind, please feel free to open an
 
 * A complete example is available to demontrate the main features of this library.
 * Running this example requires an AWS account and a user profile able to create, modify and destroy resources for all AWS services this library covers.
+* Prerequisite: curl
 * Example files location:
 
         awsmate

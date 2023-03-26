@@ -4,32 +4,32 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
-#### Documentation
-- Contributing guidelines
-- Code of conduct
+- Documentation
+    - Contributing guidelines
+    - Code of conduct
 
-#### Example application
-- First draft focusing on `apigateway`
+- Example application
+    - First draft focusing on `apigateway`
 
-#### Code
-- added variable `awsmate.__version__` 
-- added `awsmate.apigateway.LambdaProxyEvent.http_protocol()`
-- added `awsmate.apigateway.LambdaProxyEvent.http_user_agent()`
-- added `awsmate.apigateway.LambdaProxyEvent.query_domain_name()`
-- added `awsmate.apigateway.LambdaProxyEvent.authorizer_claims()`
+- Code
+    - added variable `awsmate.__version__` 
+    - added `awsmate.apigateway.LambdaProxyEvent.http_protocol()`
+    - added `awsmate.apigateway.LambdaProxyEvent.http_user_agent()`
+    - added `awsmate.apigateway.LambdaProxyEvent.query_domain_name()`
+    - added `awsmate.apigateway.LambdaProxyEvent.authorizer_claims()`
 
 ### Changed
 
-#### Documentation
-- improved documentation
+- Documentation
+    - improved documentation
 
-#### Code
-- made `awsmate.apigateway.LambdaProxyEvent.http_method()` based on `event['requestContext']['httpMethod']` instead of just `event['httpMethod']`
-- made `awsmate.apigateway.build_http_server_error_response()` to handle `**kwargs` to pass to `awsmate.apigateway.build_http_response`
-- made `awsmate.apigateway.build_http_client_error_response()` to handle `**kwargs` to pass to `awsmate.apigateway.build_http_response`
-- renamed `awsmate.apigateway.LambdaProxyEvent.call_path()` -> `awsmate.apigateway.LambdaProxyEvent.query_path()` and made it based on `event['requestContext']['path']` instead of just `event['path']`
-- renamed `awsmate.apigateway.LambdaProxyEvent.call_string()` -> `awsmate.apigateway.LambdaProxyEvent.query_string()` and made it include the prototype and the domain name
-- renamed `awsmate.apigateway.LambdaProxyEvent.payload()` -> `awsmate.apigateway.LambdaProxyEvent.query_payload_()`
+- Code
+    - made `awsmate.apigateway.LambdaProxyEvent.http_method()` based on `event['requestContext']['httpMethod']` instead of just `event['httpMethod']`
+    - made `awsmate.apigateway.build_http_server_error_response()` to handle `**kwargs` to pass to `awsmate.apigateway.build_http_response`
+    - made `awsmate.apigateway.build_http_client_error_response()` to handle `**kwargs` to pass to `awsmate.apigateway.build_http_response`
+    - renamed `awsmate.apigateway.LambdaProxyEvent.call_path()` -> `awsmate.apigateway.LambdaProxyEvent.query_path()` and made it based on `event['requestContext']['path']` instead of just `event['path']`
+    - renamed `awsmate.apigateway.LambdaProxyEvent.call_string()` -> `awsmate.apigateway.LambdaProxyEvent.query_string()` and made it include the prototype and the domain name
+    - renamed `awsmate.apigateway.LambdaProxyEvent.payload()` -> `awsmate.apigateway.LambdaProxyEvent.query_payload_()`
 
 ### Deprecated
 
