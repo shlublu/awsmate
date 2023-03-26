@@ -7,6 +7,7 @@ awsmate
 
    readme
    changelog
+   example_application
 
 .. toctree::
    :maxdepth: 4
