@@ -20,7 +20,7 @@ Should you encounter any bug or problem of any kind, please feel free to open an
 
 ## Example code
 
-A complete example is available to demontrate the main features of this library. It is described in details [here](https://awsmate.readthedocs.io/en/latest/example_application.html).
+A complete example is available to demontrate the main features of this library. It is described in details [here in the documentation](https://awsmate.readthedocs.io/en/latest/example_application.html).
 
 ## License
 
