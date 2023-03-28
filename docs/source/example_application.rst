@@ -46,29 +46,38 @@ Credentials
 Deployment
 ~~~~~~~~~~
 
-From the ``example`` directory above:
+From the ``example`` directory above, run:
 
-* ``./deploy.sh``
+* ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take a few minutes.
+* then take note of the final message ``endpoint_url = "https://XXXXXXX.execute-api.eu-west-1.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
 
-This wil deploy all AWS resources described in the ``tf/`` directory.
+The section "Application users's guide" below explains how to use this example application.
 
-**Caveat**: Should you redeploy the example application after having modified the API Gateway routes or parameters defined in ``tf/03-apigateway.tf``, the 
-API Gateway will be modified but not redeployed in AWS. You will need to redeploy it using the AWS console or the AWS CLI before continuing to use the example
-application, otherwise unexpected behaviour may occur. You can also undeploy the application (see next section) before deplying it again, but this would
-change the example API URL. 
+**Caveat**: 
+
+Should you redeploy the example application after having modified the API Gateway routes or parameters defined in ``tf/03-apigateway.tf``, the 
+API Gateway resources will be modified but the API will not redeployed in AWS. You will need to redeploy it using the AWS console or the AWS CLI 
+before continuing to use the example application, otherwise unexpected behaviour may occur such as unexpected ``{"message":"Missing Authentication Token"}``
+messages when querying the example API. 
+
+You can also undeploy the application (see next section) before deploying it again. This would workflows
+but this would change the example API URL. 
 
 Undeployment
 ~~~~~~~~~~~~
 
-From the ``example`` directory above:
+From the ``example`` directory above, run:
 
-* ``./undeploy.sh``
-
-This will destroy all AWS resources created by ``./deploy.sh``.
-
+* ``./undeploy.sh``: this will destroy all AWS resources created by ``./deploy.sh``. This may take a few minutes.
 
 Application users's guide
 -------------------------
 
-* API Gateway
-* S3 Notifications
+TODO:
+
+This example application demonstrates the various modules of the ``awsmate`` library:
+
+*  :doc:`apigateway <apigateway>` module: API Gateway features
+* Lambda Function features
+* Logger features
+* S3 features
