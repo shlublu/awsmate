@@ -17,6 +17,11 @@ All notable changes to this project are documented in this file.
     - added `awsmate.apigateway.LambdaProxyEvent.http_user_agent()`
     - added `awsmate.apigateway.LambdaProxyEvent.query_domain_name()`
     - added `awsmate.apigateway.LambdaProxyEvent.authorizer_claims()`
+    - added `awsmate.s3.LambdaNotificationEvent.object_size()`
+    - added `awsmate.s3.LambdaNotificationEvent.object_etag()`
+    - added `awsmate.s3.LambdaNotificationEvent.bucket_name()`
+    - added `awsmate.s3.LambdaNotificationEvent.bucket_arn()`
+    - added `awsmate.s3.LambdaNotificationEvent.event_name()`
 
 ### Changed
 

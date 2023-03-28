@@ -8,10 +8,6 @@ class LambdaNotificationEvent(LambdaEvent):
     Mapping of the input event received by an AWS Lambda function triggered by AWS S3 Notification.
     """
 
-    KEY_S3 = "s3"
-    KEY_RECORDS = "Records"
-
-
     def __init__(self, event_object: dict):
         """
         Parameters
@@ -34,6 +30,56 @@ class LambdaNotificationEvent(LambdaEvent):
         super().__init__(event_object)
 
 
+    def _records_structure(self) -> dict:
+        KEY_RECORDS = "Records"
+
+        try:
+            ret = ret = self._event[KEY_RECORDS][0]
+
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+        
+        except IndexError:
+            LambdaEvent._raiseEventStructureError(f"'{KEY_RECORDS}' is empty")
+
+        if len(self._event[KEY_RECORDS]) != 1:
+            LambdaEvent._raiseEventStructureError(
+                f"event contains {str(len(self._event[KEY_RECORDS]))} {KEY_RECORDS} where 1 is expected"
+            )
+        
+        return ret
+        
+        
+    def _s3_structure(self) -> dict:
+        try:
+            ret = self._records_structure()["s3"]
+
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+        
+        return ret
+    
+
+    def _object_structure(self) -> dict:
+        try:
+            ret = self._s3_structure()["object"]
+    
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+
+        return ret         
+    
+
+    def _bucket_structure(self) -> dict:
+        try:
+            ret = self._s3_structure()["bucket"]
+    
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+
+        return ret  
+    
+
     def object_key(self) -> str:
         """
         Returns the key of the S3 object that is the subject of this notification.
@@ -55,19 +101,154 @@ class LambdaNotificationEvent(LambdaEvent):
         """
         
         try:
-            ret = self._event[LambdaNotificationEvent.KEY_RECORDS][0][LambdaNotificationEvent.KEY_S3]["object"]["key"]
+            ret = self._object_structure()["key"]
     
         except KeyError as err:
-            raise AwsEventSpecificationError(f"Event structure is not as expected: cannot reach {str(err)}.")
-
-        except IndexError:
-            raise AwsEventSpecificationError(
-                f"Event structure is not as expected: no {LambdaNotificationEvent.KEY_RECORDS} object is present in '{LambdaNotificationEvent.KEY_S3}'."
-            )
-
-        if len(self._event[LambdaNotificationEvent.KEY_RECORDS]) != 1:
-            raise AwsEventSpecificationError(
-                f"Event contains {str(len(self._event[LambdaNotificationEvent.KEY_RECORDS]))} {LambdaNotificationEvent.KEY_RECORDS} where 1 is expected."
-            )
+            LambdaEvent._raiseCannotReachError(str(err))
 
         return ret 
+
+
+    def object_size(self) -> int:
+        """
+        Returns the size of the S3 object that is the subject of this notification.
+
+        Returns
+        -------
+        int
+            The size of the S3 object in bytes.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If the event structure does not allow retrieving this size.         
+
+        Examples
+        --------
+        >>> event.objet_size()
+        43168
+        """
+        
+        try:
+            ret = self._object_structure()["size"]
+    
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+
+        return ret 
+    
+
+    def object_etag(self) -> str:
+        """
+        Returns the etag of the S3 object that is the subject of this notification.
+
+        Returns
+        -------
+        str
+            The eTag of the S3 object.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If the event structure does not allow retrieving this eTag.         
+
+        Examples
+        --------
+        >>> event.objet_etag()
+        '8b38dac3b5c48c44704ec934eabae5a2'
+        """
+        
+        try:
+            ret = self._object_structure()["eTag"]
+    
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+
+        return ret     
+
+
+    def bucket_name(self) -> str:
+        """
+        Returns the name of the S3 bucket that is the subject of this notification.
+
+        Returns
+        -------
+        str
+            The name of the S3 bucket.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If the event structure does not allow retrieving this bucket name.         
+
+        Examples
+        --------
+        >>> event.bucket_name()
+        'my-example-s3-bucket'
+        """
+        
+        try:
+            ret = self._bucket_structure()["name"]
+    
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+
+        return ret     
+
+
+    def bucket_arn(self) -> str:
+        """
+        Returns the arn of the S3 bucket that is the subject of this notification.
+
+        Returns
+        -------
+        str
+            The arn of the S3 bucket.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If the event structure does not allow retrieving this bucket arn.         
+
+        Examples
+        --------
+        >>> event.bucket_arn()
+        'arn:aws:s3:::my-example-s3-bucket'
+        """
+        
+        try:
+            ret = self._bucket_structure()["arn"]
+    
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+
+        return ret  
+
+
+    def event_name(self) -> str:
+        """
+        Returns the name of the S3 event that triggered this notification.
+
+        Returns
+        -------
+        str
+            The S3 event name.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If the event structure does not allow retrieving this event name.         
+
+        Examples
+        --------
+        >>> event.event_name()
+        'ObjectCreated:Put'
+        """
+        
+        try:
+            ret = self._records_structure()["eventName"]
+    
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+
+        return ret          
