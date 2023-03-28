@@ -21,6 +21,16 @@ class LambdaEvent():
     Without being abstract, this class has no other method than :func:`LambdaEvent.__init__`.
     """
     
+    @staticmethod
+    def _raiseEventStructureError(msg: str) -> None:
+        raise AwsEventSpecificationError(f"Event structure is not as expected: {msg}.")
+    
+
+    @staticmethod
+    def _raiseCannotReachError(msg: str) -> None:
+        LambdaEvent._raiseEventStructureError(f'cannot reach "{msg}"')
+    
+
     def __init__(self, event_object: dict) -> None:
         """
         Parameters
