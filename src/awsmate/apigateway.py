@@ -73,7 +73,7 @@ class LambdaProxyEvent(LambdaEvent):
             headers = self._event["headers"]
 
         except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+            LambdaEvent._raiseCannotReachError(str(err))
 
         return {} if headers is None else { k.lower(): v for k, v in headers.items() }
 
@@ -104,7 +104,7 @@ class LambdaProxyEvent(LambdaEvent):
             method = self._event["requestContext"]["httpMethod"]
 
         except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+            LambdaEvent._raiseCannotReachError(str(err))
 
         return method.upper()
     
@@ -135,7 +135,7 @@ class LambdaProxyEvent(LambdaEvent):
             protocol = self._event["requestContext"]["protocol"]
 
         except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+            LambdaEvent._raiseCannotReachError(str(err))
 
         return protocol.upper()    
     
@@ -166,7 +166,7 @@ class LambdaProxyEvent(LambdaEvent):
             userAgent = self._event["requestContext"]["identity"]["userAgent"]
 
         except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+            LambdaEvent._raiseCannotReachError(str(err))
 
         return userAgent        
 
@@ -236,7 +236,7 @@ class LambdaProxyEvent(LambdaEvent):
             domainName = self._event["requestContext"]["domainName"]
 
         except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+            LambdaEvent._raiseCannotReachError(str(err))
 
         return domainName.lower()   
         
@@ -268,7 +268,7 @@ class LambdaProxyEvent(LambdaEvent):
             path = path[1 if not len(path[0]) else 0 : -1 if len(path[-1]) == 0 else len(path)]
 
         except KeyError as err:
-            raise AwsEventSpecificationError(f"Event structure is not as expected: cannot reach {str(err)}.")
+            LambdaEvent._raiseCannotReachError(str(err))
 
         return tuple(path)
 
@@ -302,7 +302,7 @@ class LambdaProxyEvent(LambdaEvent):
             params = self._event["queryStringParameters"]
 
         except KeyError as err:
-            raise AwsEventSpecificationError("Event structure is not as expected: cannot reach " + str(err) + ".")
+            LambdaEvent._raiseCannotReachError(str(err))
 
         return params or {}
 
@@ -363,7 +363,7 @@ class LambdaProxyEvent(LambdaEvent):
             ret = None if body is None else json.loads(body)
     
         except KeyError as err:
-            raise AwsEventSpecificationError(f"Event structure is not as expected: cannot reach {str(err)}.")
+            LambdaEvent._raiseCannotReachError(str(err))
     
         except (TypeError, json.JSONDecodeError) as err:
             raise MalformedPayloadError(f"Payload is malformed. JSON cannot be decoded: {str(err)}.")
@@ -396,7 +396,7 @@ class LambdaProxyEvent(LambdaEvent):
     
         except KeyError as err:
             if str(err) == "'requestContext'":
-                raise AwsEventSpecificationError(f"Event structure is not as expected: cannot reach {str(err)}.")
+                LambdaEvent._raiseCannotReachError(str(err))
             else:
                 claims = None
 

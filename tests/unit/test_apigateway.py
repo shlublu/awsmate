@@ -46,9 +46,10 @@ def test_LambdaProxyEvent_http_headers_raisesIfNoHeaderElementIsPresent():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_headers()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.http_headers()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'headers'."
+    mcre.assert_called_once_with("'headers'")
 
 
 def test_LambdaProxyEvent_http_method_returnsTheHttpMethodOfTheCallInUpperCase():
@@ -71,9 +72,10 @@ def test_LambdaProxyEvent_http_method_raisesIfMethodFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_method()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.http_method()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'httpMethod'."
+    mcre.assert_called_once_with("'httpMethod'")
 
 
 def test_LambdaProxyEvent_http_method_raisesIfRequestContextFieldIsMissing():
@@ -82,9 +84,10 @@ def test_LambdaProxyEvent_http_method_raisesIfRequestContextFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_method()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.http_method()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
+    mcre.assert_called_once_with("'requestContext'")
 
 
 def test_LambdaProxyEvent_http_protocol_returnsTheHttpProtocolOfTheCallInUpperCase():
@@ -107,9 +110,10 @@ def test_LambdaProxyEvent_http_protocol_raisesIfProtocolFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_protocol()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.http_protocol()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'protocol'."
+    mcre.assert_called_once_with("'protocol'")
 
 
 def test_LambdaProxyEvent_http_protocol_raisesIfRequestContextFieldIsMissing():
@@ -118,9 +122,10 @@ def test_LambdaProxyEvent_http_protocol_raisesIfRequestContextFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_protocol()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.http_protocol()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
+    mcre.assert_called_once_with("'requestContext'")
 
 
 def test_LambdaProxyEvent_http_user_agent_returnsTheHttpUserAgentOfTheCall():
@@ -147,9 +152,10 @@ def test_LambdaProxyEvent_http_user_agent_raisesIfUserAGentFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_user_agent()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.http_user_agent()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'userAgent'."
+    mcre.assert_called_once_with("'userAgent'")
 
 
 def test_LambdaProxyEvent_http_user_agent_raisesIfIdentityFieldIsMissing():
@@ -160,9 +166,10 @@ def test_LambdaProxyEvent_http_user_agent_raisesIfIdentityFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_user_agent()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.http_user_agent()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'identity'."    
+    mcre.assert_called_once_with("'identity'")
     
     
 def test_LambdaProxyEvent_http_user_agent_raisesIfRequestContextFieldIsMissing():
@@ -171,9 +178,10 @@ def test_LambdaProxyEvent_http_user_agent_raisesIfRequestContextFieldIsMissing()
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.http_user_agent()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.http_user_agent()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
+    mcre.assert_called_once_with("'requestContext'")
 
 
 def test_LambdaProxyEvent_header_sorted_preferences_returnsNonWeightedPreferencesAsPassed():
@@ -296,9 +304,10 @@ def test_LambdaProxyEvent_query_domain_name_raisesIfDomainNameFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.query_domain_name()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.query_domain_name()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'domainName'."
+    mcre.assert_called_once_with("'domainName'")
 
 
 def test_LambdaProxyEvent_query_domain_name_raisesIfRequestContextFieldIsMissing():
@@ -307,9 +316,10 @@ def test_LambdaProxyEvent_query_domain_name_raisesIfRequestContextFieldIsMissing
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.query_domain_name()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.query_domain_name()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
+    mcre.assert_called_once_with("'requestContext'")
 
 
 def test_LambdaProxyEvent_query_path_returnsPathElementsIgnoringTrailingSeparator():
@@ -396,9 +406,10 @@ def test_LambdaProxyEvent_query_path_raisesIfPathFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.query_path()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.query_path()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'path'."
+    mcre.assert_called_once_with("'path'")
 
 
 def test_LambdaProxyEvent_query_path_raisesIfRequestContextFieldIsMissing():
@@ -407,9 +418,10 @@ def test_LambdaProxyEvent_query_path_raisesIfRequestContextFieldIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.query_path()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.query_path()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."    
+    mcre.assert_called_once_with("'requestContext'")
 
 
 def test_LambdaProxyEvent_query_string_parameters_returnsAllQueryStringParametersAsTheyAre():
@@ -444,9 +456,10 @@ def test_LambdaProxyEvent_query_string_parameters_raisesIfParametersFieldIsMissi
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.query_string_parameters()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.query_string_parameters()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'queryStringParameters'."
+    mcre.assert_called_once_with("'queryStringParameters'")
 
 
 def test_LambdaProxyEvent_query_string_returnsTheWholeString():
@@ -561,9 +574,10 @@ def test_LambdaProxyEvent_query_payload_raisesIfBodyIsMissing():
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.query_payload()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.query_payload()
 
-    assert exceptionInfo.value.args[0] == f"Event structure is not as expected: cannot reach 'body'."
+    mcre.assert_called_once_with("'body'")
 
 
 def test_LambdaProxyEvent_query_payload_raisesIfJsonIsIncorrect():
@@ -645,9 +659,10 @@ def test_LambdaProxyEvent_authorizer_claims_raisesIfRequestContextFieldIsMissing
     test = ag.LambdaProxyEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        test.authorizer_claims()
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.authorizer_claims()
 
-    assert exceptionInfo.value.args[0] == "Event structure is not as expected: cannot reach 'requestContext'."   
+    mcre.assert_called_once_with("'requestContext'")
 
 
 def test_LambdaProxyEvent_authorizer_claims_raisesIfClaimsIsNotADict():
