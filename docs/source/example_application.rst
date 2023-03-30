@@ -102,19 +102,19 @@ API Gateway features: :doc:`apigateway<apigateway>` module
 
 * Use
 
-    ``<deployment id>`` and ``<region>`` placeholders below need replacing by actual values returned by ``./deploy.sh``, as seen in :ref:`section "Deployment" <Deployment>` above.
+    The ``<endpoint_url>`` placeholder below need replacing by the actual value returned by ``./deploy.sh``, as seen in :ref:`section "Deployment" <Deployment>` above.
 
     * Route "okay"
         * Command-line with ``curl`` 
-            * ``curl -X <any HTTP verb> https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
-            * Example: ``curl -X POST https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/lets/go?someParam=someValue --data '{ "someKey": 42 }' --header 'X-example: 42'``
+            * ``curl -X https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
+            * Example: ``curl -X POST https://<endpoint_url>/okay/lets/go?someParam=someValue --data '{ "someKey": 42 }' --header 'X-example: 42'``
             * Returns 200 with a JSON payload that contains the result of all methods of ``awsmate.apigateway.LambdaProxyEvent`` plus the raw event received from AWS API Gateway.
             * Demonstrates
                 * the use of all methods of ``awsmate.apigateway.LambdaProxyEvent``,
                 * the use of the HTTP response builder ``awsmate.apigateway.build_http_response()``
         * With a web browser
-            * ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc>``
-            * Example: ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/lets/go?someParam=someValue``
+            * ``https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc>``
+            * Example: ``https://<endpoint_url>/okay/lets/go?someParam=someValue``
             * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
             * Demonstrates 
                 * the same of the above, plus
@@ -124,27 +124,27 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                 * the handling of preferences submitted through ``Accept<*>`` headers in `weighted quality value syntax<https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation>`.
     * Route "forbidden"
         * Command-line with ``curl`` 
-            * ``curl -X GET https://<deployment id>.execute-api.<region>.amazonaws.com/v0/forbidden' --header '<any name>: <any value>'`` 
-            * Example: ``curl -X GET https://<deployment id>.execute-api.<region>.amazonaws.com/v0/forbidden``
+            * ``curl -X GET https://<endpoint_url>/forbidden' --header '<any name>: <any value>'`` 
+            * Example: ``curl -X GET https://<endpoint_url>/forbidden``
             * Returns 403 with a JSON payload that explains access is forbidden
             * Demonstrates
                 * the use of the HTTP response builder ``awsmate.apigateway.build_http_client_error_response()``
         * With a web browser
-            * ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/forbidden``
-            * Example: ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/forbidden``
+            * ``https://<endpoint_url>/forbidden``
+            * Example: ``https://<endpoint_url>/forbidden``
             * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
             * Demonstrates 
                 * the same of the above plus the same extras seen with the "okay" route above
     * Route "crash"
         * Command-line with ``curl`` 
-            * ``curl -X GET https://<deployment id>.execute-api.<region>.amazonaws.com/v0/crash' --header '<any name>: <any value>'`` 
-            * Example: ``curl -X GET https://<deployment id>.execute-api.<region>.amazonaws.com/v0/crash``
+            * ``curl -X GET https://<endpoint_url>/crash' --header '<any name>: <any value>'`` 
+            * Example: ``curl -X GET https://<endpoint_url>/crash``
             * Returns 500 with a JSON payload that explains an internal error occurred
             * Demonstrates
                 * the use of the HTTP response builder ``awsmate.apigateway.build_http_server_error_response()``
         * With a web browser
-            * ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/crash``
-            * Example: ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/crash``
+            * ``https://<endpoint_url>/crash``
+            * Example: ``https://<endpoint_url>/crash``
             * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
             * Demonstrates 
                 * the same of the above plus the same extras seen with the "okay" route above                

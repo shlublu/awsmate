@@ -41,6 +41,20 @@ toc_object_entries_show_parents = 'hide'
 
 html_theme = 'sphinx_rtd_theme'
 
+html_theme_options = {
+    'logo_only': False,
+    'display_version': True,
+    'prev_next_buttons_location': 'bottom',
+    'style_external_links': True,
+    'style_nav_header_background': 'white',
+    # Toc options
+    'collapse_navigation': False,
+    'sticky_navigation': True,
+    'navigation_depth': -1,
+    'includehidden': True,
+    'titles_only': False
+}
+
 # -- Extension configuration -------------------------------------------------
 
 # Autodoc settings
