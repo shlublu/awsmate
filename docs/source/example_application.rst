@@ -44,6 +44,8 @@ Credentials
     *   Export them all using the shell ``export`` command
     *   Please see the `AWS documentation of these environment variables <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html>`_  for further details
 
+.. _Deployment:
+
 Deployment
 ~~~~~~~~~~
 
@@ -52,7 +54,7 @@ From the ``example`` directory above, run:
 * ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take a few minutes.
 * then take note of the final message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
 
-The :ref:`section "Application users's guide" <Application users's guide>` below explains how to use this example application.
+The :ref:`section "Application users's guide" <UsersGuide>` below explains how to use this example application.
 
 **Caveat**: 
 
@@ -63,12 +65,16 @@ messages when querying the example API.
 
 You can also undeploy the application (see :ref:`section "Undeployment" <Undeployment>`) below before deploying it again. This would work but this would change the example API URL. 
 
+.. _Undeployment:
+
 Undeployment
 ~~~~~~~~~~~~
 
 From the ``example`` directory above, run:
 
 * ``./undeploy.sh``: this will destroy all AWS resources created by ``./deploy.sh``. This may take a few minutes.
+
+.. _UsersGuide:
 
 Application users's guide
 -------------------------
