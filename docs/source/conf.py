@@ -33,6 +33,8 @@ source_suffix = {
     '.md': 'markdown'
 }
 
+templates_path = ['_templates']
+
 root_doc = "index"
 
 # -- Options for HTML output -------------------------------------------------
