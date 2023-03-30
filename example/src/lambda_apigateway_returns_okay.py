@@ -16,7 +16,7 @@ def dict_to_html_regular(data: dict):
         else:
             bullet = k
             
-        ret += f'\n\t\t\t\t<li><b>{bullet}</b>: <pre>{json.dumps(data[k])}</pre></li>'
+        ret += f'\n\t\t\t\t<li><b>{bullet}</b>: <pre>{json.dumps(data[k], indent=2)}</pre></li>'
 
     ret += '\n\t\t\t</ul>\n\t\t</p>\n\t</body>\n</html>\n'
 
@@ -58,7 +58,6 @@ def lambda_handler(raw_event, context):
         # Specific work starts here
 
         payload = {
-            'raw_event': raw_event,
             'event.http_headers()' : event.http_headers(),
             'event.http_method()' : event.http_method(),
             'event.http_protocol()' : event.http_protocol(),
@@ -71,7 +70,8 @@ def lambda_handler(raw_event, context):
             'event.query_string_parameters()' : event.query_string_parameters(),
             'event.query_string()' : event.query_string(),
             'event.query_payload()' : event.query_payload(),
-            'event.authorizer_claims()' : event.authorizer_claims()
+            'event.authorizer_claims()' : event.authorizer_claims(),
+            'raw_event': raw_event
         }
 
         # Specific work finishes here

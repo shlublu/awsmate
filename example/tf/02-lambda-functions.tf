@@ -114,7 +114,7 @@ resource "aws_lambda_function" "s3_notification" {
         aws_lambda_layer_version.awsmate.arn
     ]
 
-    handler = var.lambda_entry_point
+    handler = "lambda_s3_notification.${var.lambda_entry_point}"
     runtime = var.lambda_runtime
 
     timeout = 30

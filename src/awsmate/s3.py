@@ -109,19 +109,21 @@ class LambdaNotificationEvent(LambdaEvent):
         return ret 
 
 
-    def object_size(self) -> int:
+    def object_size(self) -> typing.Optional[int]:
         """
         Returns the size of the S3 object that is the subject of this notification.
+
+        The size is only defined for object creation events, not for deletions.
 
         Returns
         -------
         int
-            The size of the S3 object in bytes.
+            The size of the S3 object in bytes or ``None`` if not defined
 
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If the event structure does not allow retrieving this size.         
+            If the event structure is invalid.         
 
         Examples
         --------
@@ -129,28 +131,24 @@ class LambdaNotificationEvent(LambdaEvent):
         43168
         """
         
-        try:
-            ret = self._object_structure()["size"]
-    
-        except KeyError as err:
-            LambdaEvent._raiseCannotReachError(str(err))
+        return self._object_structure().get('size', None)
 
-        return ret 
-    
 
-    def object_etag(self) -> str:
+    def object_etag(self) -> typing.Optional[str]:
         """
-        Returns the etag of the S3 object that is the subject of this notification.
+        Returns the eTag of the S3 object that is the subject of this notification.
+
+        The eTag is only defined for object creation events, not for deletions.
 
         Returns
         -------
         str
-            The eTag of the S3 object.
+            The eTag of the S3 object or ``None`` if not defined.
 
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If the event structure does not allow retrieving this eTag.         
+            If the event structure is invalid.         
 
         Examples
         --------
@@ -158,13 +156,7 @@ class LambdaNotificationEvent(LambdaEvent):
         '8b38dac3b5c48c44704ec934eabae5a2'
         """
         
-        try:
-            ret = self._object_structure()["eTag"]
-    
-        except KeyError as err:
-            LambdaEvent._raiseCannotReachError(str(err))
-
-        return ret     
+        return self._object_structure().get('eTag', None)
 
 
     def bucket_name(self) -> str:
