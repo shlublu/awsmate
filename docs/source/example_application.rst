@@ -100,7 +100,10 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                      |___lambda_apigateway_returns_500.py
 
 
-* Use (``<deployment id>`` and ``<region>`` below need replacing by actual values returned by ``./deploy.sh``, as seen in :ref:`section "Deployment" <Deployment>` above):
+* Use
+
+    ``<deployment id>`` and ``<region>`` placeholders below need replacing by actual values returned by ``./deploy.sh``, as seen in :ref:`section "Deployment" <Deployment>` above.
+
     * Route "okay"
         * Command-line with ``curl`` 
             * ``curl -X <any HTTP verb> https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
