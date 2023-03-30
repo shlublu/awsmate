@@ -52,7 +52,7 @@ From the ``example`` directory above, run:
 * ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take a few minutes.
 * then take note of the final message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
 
-The :ref:`section "Application users's guide"<Application users's guide>` below explains how to use this example application.
+The :ref:`section "Application users's guide" <Application users's guide>` below explains how to use this example application.
 
 **Caveat**: 
 
@@ -61,7 +61,7 @@ API Gateway resources will be modified but the API will not redeployed in AWS. Y
 before continuing to use the example application, otherwise unexpected behaviour may occur such as unexpected ``{"message":"Missing Authentication Token"}``
 messages when querying the example API. 
 
-You can also undeploy the application (see :ref:`section "Undeployment"<Undeployment>`) below before deploying it again. This would work but this would change the example API URL. 
+You can also undeploy the application (see :ref:`section "Undeployment" <Undeployment>`) below before deploying it again. This would work but this would change the example API URL. 
 
 Undeployment
 ~~~~~~~~~~~~
@@ -94,7 +94,7 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                      |___lambda_apigateway_returns_500.py
 
 
-* Use (``<deployment id>`` and ``<region>`` below need replacing by actual values returned by ``./deploy.sh``, as seen in :ref:`section "Deployment"<Deployment>` above):
+* Use (``<deployment id>`` and ``<region>`` below need replacing by actual values returned by ``./deploy.sh``, as seen in :ref:`section "Deployment" <Deployment>` above):
     * Route "okay"
         * Command-line with ``curl`` 
             * ``curl -X <any HTTP verb> https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
@@ -109,7 +109,7 @@ API Gateway features: :doc:`apigateway<apigateway>` module
             * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
             * Demonstrates 
                 * the same of the above, plus
-                * the use of the ``custom_transformers`` (here: HTML transformation of the API response) described in :doc:`the apigateway module documentation<apigateway>`,
+                * the use of the ``custom_transformers`` (here: HTML transformation of the API response) described in :doc:`the apigateway module documentation <apigateway>`,
                 * the use of ``extra_headers`` (here: to handle CORS) with ``awsmate.apigateway.build_http_response()``,
                 * the ``gzip`` built-in functionality of ``awsmate.apigateway.build_http_response()`` based on the ``Accept-Encoding`` header (unless your browser does not accept gzip!),
                 * the handling of preferences submitted through ``Accept<*>`` headers in `weighted quality value syntax<https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation>`.
@@ -141,12 +141,12 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                 * the same of the above plus the same extras seen with the "okay" route above                
 
 
-Lambda Function features: :doc:`lambdafunction<lambdafunction>` module
+Lambda Function features: :doc:`lambdafunction <lambdafunction>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 *Nothing for now*
 
-S3 features: :doc:`s3<s3>` module
+S3 features: :doc:`s3 <s3>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Relevant source files:
@@ -163,7 +163,7 @@ S3 features: :doc:`s3<s3>` module
 
 * Use: TODO
 
-Logger features: :doc:`logger<logger>` module
+Logger features: :doc:`logger <logger>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Relevant source files:
