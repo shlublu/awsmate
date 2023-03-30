@@ -39,6 +39,8 @@ root_doc = "index"
 
 toc_object_entries_show_parents = 'hide'
 
+html_static_path = ['_static']
+
 html_theme = 'sphinx_rtd_theme'
 
 html_theme_options = {
@@ -46,7 +48,6 @@ html_theme_options = {
     'display_version': True,
     'prev_next_buttons_location': 'bottom',
     'style_external_links': True,
-    'style_nav_header_background': 'white',
     # Toc options
     'collapse_navigation': False,
     'sticky_navigation': True,

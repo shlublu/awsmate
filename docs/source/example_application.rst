@@ -106,14 +106,14 @@ API Gateway features: :doc:`apigateway<apigateway>` module
 
     * Route "okay"
         * Command-line with ``curl`` 
-            * ``curl -X https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
+            * ``curl -X https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
             * Example: ``curl -X POST https://<endpoint_url>/okay/lets/go?someParam=someValue --data '{ "someKey": 42 }' --header 'X-example: 42'``
             * Returns 200 with a JSON payload that contains the result of all methods of ``awsmate.apigateway.LambdaProxyEvent`` plus the raw event received from AWS API Gateway.
             * Demonstrates
                 * the use of all methods of ``awsmate.apigateway.LambdaProxyEvent``,
                 * the use of the HTTP response builder ``awsmate.apigateway.build_http_response()``
         * With a web browser
-            * ``https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc>``
+            * ``https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value>``
             * Example: ``https://<endpoint_url>/okay/lets/go?someParam=someValue``
             * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
             * Demonstrates 
