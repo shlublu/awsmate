@@ -104,7 +104,7 @@ API Gateway features: :doc:`apigateway<apigateway>` module
 
     The ``<endpoint_url>`` placeholder below need replacing by the actual value returned by ``./deploy.sh``, as seen in :ref:`section "Deployment" <Deployment>` above.
 
-    * Route "okay"
+    * Route "okay": ``lambda_apigateway_returns_okay.py``
         * Command-line with ``curl`` 
             * ``curl -X https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
             * Example: ``curl -X POST https://<endpoint_url>/okay/lets/go?someParam=someValue --data '{ "someKey": 42 }' --header 'X-example: 42'``
@@ -112,6 +112,7 @@ API Gateway features: :doc:`apigateway<apigateway>` module
             * Demonstrates
                 * the use of all methods of ``awsmate.apigateway.LambdaProxyEvent``,
                 * the use of the HTTP response builder ``awsmate.apigateway.build_http_response()``
+            * Tip: play with the ``Accept`` and ``Accept-Encoding`` headers, play with the routes, play with the URL parameters
         * With a web browser
             * ``https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value>``
             * Example: ``https://<endpoint_url>/okay/lets/go?someParam=someValue``
@@ -122,7 +123,8 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                 * the use of ``extra_headers`` (here: to handle CORS) with ``awsmate.apigateway.build_http_response()``,
                 * the ``gzip`` built-in functionality of ``awsmate.apigateway.build_http_response()`` based on the ``Accept-Encoding`` header (unless your browser does not accept gzip!),
                 * the handling of preferences submitted through ``Accept<*>`` headers in `weighted quality value syntax<https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation>`.
-    * Route "forbidden"
+            * Tip: think of how you could localize the returned content depending on the ``Accept-Language`` header submitted by the browser
+    * Route "forbidden": ``lambda_apigateway_returns_403.py``
         * Command-line with ``curl`` 
             * ``curl -X GET https://<endpoint_url>/forbidden' --header '<any name>: <any value>'`` 
             * Example: ``curl -X GET https://<endpoint_url>/forbidden``
@@ -135,7 +137,7 @@ API Gateway features: :doc:`apigateway<apigateway>` module
             * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
             * Demonstrates 
                 * the same of the above plus the same extras seen with the "okay" route above
-    * Route "crash"
+    * Route "crash": ``lambda_apigateway_returns_500.py``
         * Command-line with ``curl`` 
             * ``curl -X GET https://<endpoint_url>/crash' --header '<any name>: <any value>'`` 
             * Example: ``curl -X GET https://<endpoint_url>/crash``
@@ -170,7 +172,23 @@ S3 features: :doc:`s3 <s3>` module
                      |___lambda_s3_notification.py
 
 
-* Use: TODO
+* Use
+    * Using the AWS console
+        * Step by step instructions
+            * Go to the S3 service page
+            * Open the page of the S3 bucket ``awsmate-drop-files-here-<your AWS account number>``
+            * Upload a file into this bucket
+            * Go to the CLoudwatch service page
+            * Follow the "Logs/Log group" link of the left navigation panel
+            * Search for the "/aws/lambda/s3_notification" log group and open it
+            * Open the most recent log stream
+            * This show a log that contains the result of all methods of ``awsmate.s3.LambdaNotificationEvent`` plus the raw event received from the AWS S3 service.
+        * This demonstrates
+            * the use of all methods of ``awsmate.s3.LambdaNotificationEvent``
+        * Tip: try to delete a file from the S3 bucket and see the corresponding log, try to drop or delete several files in a single action
+    * Using the AWS CLI
+        * All the steps above can be done using the AWS CLI
+
 
 Logger features: :doc:`logger <logger>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
