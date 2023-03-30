@@ -34,14 +34,15 @@ Instructions for deployment
 ---------------------------
 
 Credentials
-~~~~~~~~~~~ 
+~~~~~~~~~~~
 
 * Using configuration and credentials files:
     *   Define a default profile in ``~/.aws/``, or use the AWS CLI ``aws configure`` command
-    *   Please see the `AWS documentation <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>`_  for further details
+    *   Please see the `AWS documentation of these configuration files <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>`_  for further details
 * Using environment variables: 
-    *   Define the environment variables ``AWS_ACCESS_KEY_ID`` and ``AWS_SECRET_ACCESS_KEY`` with the parameters corresponding to your AWS IAM access key 
-    *   Export them both using the shell ``export`` command
+    *   Define the environment variables ``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``, ``AWS_ROLE_ARN`` (...) with the parameters corresponding to your AWS IAM access key 
+    *   Export them all using the shell ``export`` command
+    *   Please see the `AWS documentation of these environment variables <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html>`_  for further details
 
 Deployment
 ~~~~~~~~~~
@@ -49,9 +50,9 @@ Deployment
 From the ``example`` directory above, run:
 
 * ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take a few minutes.
-* then take note of the final message ``endpoint_url = "https://XXXXXXX.execute-api.eu-west-1.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
+* then take note of the final message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
 
-The section "Application users's guide" below explains how to use this example application.
+The :ref:`section "Application users's guide"<Application users's guide>` below explains how to use this example application.
 
 **Caveat**: 
 
@@ -60,8 +61,7 @@ API Gateway resources will be modified but the API will not redeployed in AWS. Y
 before continuing to use the example application, otherwise unexpected behaviour may occur such as unexpected ``{"message":"Missing Authentication Token"}``
 messages when querying the example API. 
 
-You can also undeploy the application (see next section) before deploying it again. This would workflows
-but this would change the example API URL. 
+You can also undeploy the application (see :ref:`section "Undeployment"<Undeployment>`) below before deploying it again. This would work but this would change the example API URL. 
 
 Undeployment
 ~~~~~~~~~~~~
@@ -73,11 +73,111 @@ From the ``example`` directory above, run:
 Application users's guide
 -------------------------
 
-TODO:
-
 This example application demonstrates the various modules of the ``awsmate`` library:
 
-*  :doc:`apigateway <apigateway>` module: API Gateway features
-* Lambda Function features
-* Logger features
-* S3 features
+API Gateway features: :doc:`apigateway<apigateway>` module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Relevant source files:
+
+::
+
+    awsmate
+        |___example
+                |
+                |___src
+                     |
+                     |___lambda_apigateway_returns_okay.py
+                     |
+                     |___lambda_apigateway_returns_403.py
+                     |
+                     |___lambda_apigateway_returns_500.py
+
+
+* Use (``<deployment id>`` and ``<region>`` below need replacing by actual values returned by ``./deploy.sh``, as seen in :ref:`section "Deployment"<Deployment>` above):
+    * Route "okay"
+        * Command-line with ``curl`` 
+            * ``curl -X <any HTTP verb> https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
+            * Example: ``curl -X POST https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/lets/go?someParam=someValue --data '{ "someKey": 42 }' --header 'X-example: 42'``
+            * Returns 200 with a JSON payload that contains the result of all methods of ``awsmate.apigateway.LambdaProxyEvent`` plus the raw event received from AWS API Gateway.
+            * Demonstrates
+                * the use of all methods of ``awsmate.apigateway.LambdaProxyEvent``,
+                * the use of the HTTP response builder ``awsmate.apigateway.build_http_response()``
+        * With a web browser
+            * ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/<any path>?<any url parameter>=<any value>&<etc>=<etc>``
+            * Example: ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/okay/lets/go?someParam=someValue``
+            * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
+            * Demonstrates 
+                * the same of the above, plus
+                * the use of the ``custom_transformers`` (here: HTML transformation of the API response) described in :doc:`the apigateway module documentation<apigateway>`,
+                * the use of ``extra_headers`` (here: to handle CORS) with ``awsmate.apigateway.build_http_response()``,
+                * the ``gzip`` built-in functionality of ``awsmate.apigateway.build_http_response()`` based on the ``Accept-Encoding`` header (unless your browser does not accept gzip!),
+                * the handling of preferences submitted through ``Accept<*>`` headers in `weighted quality value syntax<https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation>`.
+    * Route "forbidden"
+        * Command-line with ``curl`` 
+            * ``curl -X GET https://<deployment id>.execute-api.<region>.amazonaws.com/v0/forbidden' --header '<any name>: <any value>'`` 
+            * Example: ``curl -X GET https://<deployment id>.execute-api.<region>.amazonaws.com/v0/forbidden``
+            * Returns 403 with a JSON payload that explains access is forbidden
+            * Demonstrates
+                * the use of the HTTP response builder ``awsmate.apigateway.build_http_client_error_response()``
+        * With a web browser
+            * ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/forbidden``
+            * Example: ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/forbidden``
+            * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
+            * Demonstrates 
+                * the same of the above plus the same extras seen with the "okay" route above
+    * Route "crash"
+        * Command-line with ``curl`` 
+            * ``curl -X GET https://<deployment id>.execute-api.<region>.amazonaws.com/v0/crash' --header '<any name>: <any value>'`` 
+            * Example: ``curl -X GET https://<deployment id>.execute-api.<region>.amazonaws.com/v0/crash``
+            * Returns 500 with a JSON payload that explains an internal error occurred
+            * Demonstrates
+                * the use of the HTTP response builder ``awsmate.apigateway.build_http_server_error_response()``
+        * With a web browser
+            * ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/crash``
+            * Example: ``https://<deployment id>.execute-api.<region>.amazonaws.com/v0/crash``
+            * Returns an HTML page that is an HTML transformation of the JSON payload described in the command-line example just above.
+            * Demonstrates 
+                * the same of the above plus the same extras seen with the "okay" route above                
+
+
+Lambda Function features: :doc:`lambdafunction<lambdafunction>` module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*Nothing for now*
+
+S3 features: :doc:`s3<s3>` module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Relevant source files:
+
+::
+
+    awsmate
+        |___example
+                |
+                |___src
+                     |
+                     |___lambda_s3_notification.py
+
+
+* Use: TODO
+
+Logger features: :doc:`logger<logger>` module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Relevant source files:
+
+All files are relevant but we recommand the following one:
+
+::
+
+    awsmate
+        |___example
+                |
+                |___src
+                     |
+                     |___lambda_apigateway_returns_500.py 
+
+
+* Use: TODO -- think of suggesting Cloudwatch
