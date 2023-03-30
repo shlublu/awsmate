@@ -308,7 +308,7 @@ def test_LambdaNotificationEvent_object_size_returnsTheExpectedValue():
     assert test.object_size() == 123456
 
 
-def test_LambdaNotificationEvent_object_size_raisesIfEventDoesNotHaveASizeUnderObject():
+def test_LambdaNotificationEvent_object_size_returnsNoneIfEventDoesNotHaveASizeUnderObject():
     event = {
         "Records": [
             {
@@ -321,11 +321,7 @@ def test_LambdaNotificationEvent_object_size_raisesIfEventDoesNotHaveASizeUnderO
 
     test = s3.LambdaNotificationEvent(event)
 
-    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        with patch.object(s3.LambdaEvent, '_raiseCannotReachError', side_effect=s3.LambdaEvent._raiseCannotReachError) as mcre:
-            test.object_size()
-
-    mcre.assert_called_once_with("'size'")
+    assert test.object_size() is None
 
 
 def test_LambdaNotificationEvent_object_size_reliesOn_object_structure():
@@ -367,7 +363,7 @@ def test_LambdaNotificationEvent_object_etag_returnsTheExpectedValue():
     assert test.object_etag() == "8b38dac3b5c48c44704ec934eabae5a2"
 
 
-def test_LambdaNotificationEvent_object_etag_raisesIfEventDoesNotHaveAnEtagUnderObject():
+def test_LambdaNotificationEvent_object_etag_returnsNoneIfEventDoesNotHaveAnEtagUnderObject():
     event = {
         "Records": [
             {
@@ -380,11 +376,7 @@ def test_LambdaNotificationEvent_object_etag_raisesIfEventDoesNotHaveAnEtagUnder
 
     test = s3.LambdaNotificationEvent(event)
 
-    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        with patch.object(s3.LambdaEvent, '_raiseCannotReachError', side_effect=s3.LambdaEvent._raiseCannotReachError) as mcre:
-            test.object_etag()
-
-    mcre.assert_called_once_with("'eTag'")
+    assert test.object_etag() is None
 
 
 def test_LambdaNotificationEvent_object_etag_reliesOn_object_structure():
