@@ -45,7 +45,11 @@ html_static_path = ['_static']
 
 html_theme = 'sphinx_rtd_theme'
 
-html_js_files = ['https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js', 'https://cdn.jsdelivr.net/gh/justinribeiro/lite-youtube-embed@latest/lite-yt-embed.min.js', '_static/flyout.js']
+html_js_files = [
+    'https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js', 
+    '_static/flyout.js'
+]
+#    'https://cdn.jsdelivr.net/gh/justinribeiro/lite-youtube-embed@latest/lite-yt-embed.min.js', 
 
 html_theme_options = {
     'logo_only': False,
