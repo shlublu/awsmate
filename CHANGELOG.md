@@ -8,7 +8,9 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
-*nothing*
+- Example application
+    - Minor code and documentation updates
+    - Terraform version upgrade
 
 ### Deprecated
 
