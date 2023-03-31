@@ -2,3 +2,8 @@
 {% block extrahead %}
     <link href="{{ pathto("_static/theme.css", True) }}" rel="stylesheet" type="text/css">
 {% endblock %}
+
+{% block body %}
+{{ body }}
+    <div id="readthedocs-embed-flyout"></div>
+{% endblock %}
