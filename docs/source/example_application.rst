@@ -51,21 +51,21 @@ Depending on your AWS IAM setup, you may have to use the AWS CLI to execute comm
 Deployment
 ~~~~~~~~~~
 
-From the ``example`` directory seen above, run:
+From the ``example`` directory seen above:
 
-* ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take some time, and this produces a pretty verbose log.
+* run ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take some time, and this produces a pretty verbose log.
 * then take note of the final log message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
 
 The :ref:`section "Application users's guide" <UsersGuide>` below explains how to use this example application.
 
 **Caveat**: 
 
-Should you redeploy the example application after having modified the API Gateway routes or parameters defined in ``tf/03-apigateway.tf``, the 
-API Gateway resources will be modified but the API will not redeployed in AWS. You will need to redeploy it using the AWS console or the AWS CLI 
-before continuing to use the example application, otherwise unexpected behaviour may occur such as unexpected ``{"message":"Missing Authentication Token"}``
-messages when querying the example API. 
+Should you redeploy the example application after having modified the API Gateway routes or parameters defined in ``tf/03-apigateway.tf`` to experiment on your own, the 
+API Gateway resources will be modified ib AWS but the API will not be actually redeployed. You will need to redeploy it using the AWS console or the AWS CLI 
+before continuing to use the example application, otherwise unexpected behaviour may occur such as unexpected messages ``{"message":"Missing Authentication Token"}`` when
+querying the example API. 
 
-You can also undeploy the application (see :ref:`section "Undeployment" <Undeployment>`) below before deploying it again. This would work but this would change the example API URL. 
+You can also undeploy the application (see :ref:`section "Undeployment" <Undeployment>`) below before deploying it again. This would work but this would change the ``endpoint_url``. 
 
 .. _Undeployment:
 
@@ -124,7 +124,7 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                 * the use of the ``custom_transformers`` (here: HTML transformation of the API response) described in :doc:`the apigateway module documentation <apigateway>`,
                 * the use of ``extra_headers`` (here: to handle CORS) with ``awsmate.apigateway.build_http_response()``,
                 * the ``gzip`` built-in functionality of ``awsmate.apigateway.build_http_response()`` based on the ``Accept-Encoding`` header (unless your browser does not accept gzip!),
-                * the handling of preferences submitted through ``Accept<*>`` headers in `weighted quality value syntax<https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation>`.
+                * the handling of preferences submitted through ``Accept*`` headers in `weighted quality value syntax <https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation>`_.
             * Tip: think of how you could localize the returned content depending on the ``Accept-Language`` header submitted by the browser
     * Route "forbidden": ``lambda_apigateway_returns_403.py``
         * Command-line with ``curl`` 
@@ -213,11 +213,11 @@ All files are relevant but we recommand the following one:
 * Use
     * Step by step instructions
         * Open the URL ``https://<endpoint_url>/crash`` with your web browser
-        * Go to the CLoudwatch service page
+        * Go to the Cloudwatch service page
         * Follow the "Logs/Log group" link of the left navigation panel
         * Search for the ``/aws/lambda/apigateway_returns_500`` log group and open it
         * Open the most recent log stream
         * This shows a log containing a critical error message followed by a stack trace showing the details of this crash simulation, and then an informational message showing the returned payload
     * This demonstrates
         * the use of the ``log_internal_error`` function of ``awsmate.logger``
-        * the use of the ``logger`` object of ``awsmate.logger``, which is a `standard Python logger<https://docs.python.org/3/library/logging.html>`
+        * the use of the ``logger`` object of ``awsmate.logger``, which is a `standard Python logger <https://docs.python.org/3/library/logging.html>`_
