@@ -40,19 +40,21 @@ Credentials
     *   Define a default profile in ``~/.aws/``, or use the AWS CLI ``aws configure`` command
     *   Please see the `AWS documentation of these configuration files <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>`_  for further details
 * Using environment variables: 
-    *   Define the environment variables ``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``, ``AWS_ROLE_ARN`` (...) with the parameters corresponding to your AWS IAM access key 
+    *   Define the environment variables ``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``, (...) with the parameters corresponding to your AWS IAM credentials 
     *   Export them all using the shell ``export`` command
     *   Please see the `AWS documentation of these environment variables <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html>`_  for further details
+
+Depending on your AWS IAM setup, you may have to use the AWS CLI to execute commands such as ``aws sts assume-role`` or ``aws sso login`` on top of the above.
 
 .. _Deployment:
 
 Deployment
 ~~~~~~~~~~
 
-From the ``example`` directory above, run:
+From the ``example`` directory seen above, run:
 
-* ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take a few minutes.
-* then take note of the final message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
+* ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take some time, and this produces a pretty verbose log.
+* then take note of the final log message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
 
 The :ref:`section "Application users's guide" <UsersGuide>` below explains how to use this example application.
 
@@ -72,7 +74,7 @@ Undeployment
 
 From the ``example`` directory above, run:
 
-* ``./undeploy.sh``: this will destroy all AWS resources created by ``./deploy.sh``. This may take a few minutes.
+* ``./undeploy.sh``: this will destroy all AWS resources created by ``./deploy.sh``. This may take some time.
 
 .. _UsersGuide:
 
@@ -84,7 +86,7 @@ This example application demonstrates the various modules of the ``awsmate`` lib
 API Gateway features: :doc:`apigateway<apigateway>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Relevant source files:
+* Relevant source files
 
 ::
 
@@ -142,8 +144,10 @@ API Gateway features: :doc:`apigateway<apigateway>` module
             * ``curl -X GET https://<endpoint_url>/crash' --header '<any name>: <any value>'`` 
             * Example: ``curl -X GET https://<endpoint_url>/crash``
             * Returns 500 with a JSON payload that explains an internal error occurred
+            * Logs a complete stack trace in AWS Cloudwatch. See :ref:`section "Logger features" <LoggerFeatures>` below for further details.
             * Demonstrates
-                * the use of the HTTP response builder ``awsmate.apigateway.build_http_server_error_response()``
+                * the use of the HTTP response builder ``awsmate.apigateway.build_http_server_error_response()`` 
+                * how not to reveal the cause of the crash to the end user (which would be a security breach) while logging it for debugging purposes
         * With a web browser
             * ``https://<endpoint_url>/crash``
             * Example: ``https://<endpoint_url>/crash``
@@ -160,7 +164,7 @@ Lambda Function features: :doc:`lambdafunction <lambdafunction>` module
 S3 features: :doc:`s3 <s3>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Relevant source files:
+* Relevant source files
 
 ::
 
@@ -173,27 +177,26 @@ S3 features: :doc:`s3 <s3>` module
 
 
 * Use
-    * Using the AWS console
-        * Step by step instructions
-            * Go to the S3 service page
-            * Open the page of the S3 bucket ``awsmate-drop-files-here-<your AWS account number>``
-            * Upload a file into this bucket
-            * Go to the CLoudwatch service page
-            * Follow the "Logs/Log group" link of the left navigation panel
-            * Search for the "/aws/lambda/s3_notification" log group and open it
-            * Open the most recent log stream
-            * This show a log that contains the result of all methods of ``awsmate.s3.LambdaNotificationEvent`` plus the raw event received from the AWS S3 service.
-        * This demonstrates
-            * the use of all methods of ``awsmate.s3.LambdaNotificationEvent``
-        * Tip: try to delete a file from the S3 bucket and see the corresponding log, try to drop or delete several files in a single action
-    * Using the AWS CLI
-        * All the steps above can be done using the AWS CLI
+    * Step by step instructions
+        * Go to the S3 service page
+        * Open the page of the S3 bucket ``awsmate-drop-files-here-<your AWS account number>``
+        * Upload a file into this bucket
+        * Go to the Cloudwatch service page
+        * Follow the "Logs/Log group" link of the left navigation panel
+        * Search for the ``/aws/lambda/s3_notification`` log group and open it
+        * Open the most recent log stream
+        * This show a log that contains the result of all methods of ``awsmate.s3.LambdaNotificationEvent`` plus the raw event received from the AWS S3 service.
+    * This demonstrates
+        * the use of all methods of ``awsmate.s3.LambdaNotificationEvent``
+    * Tip: try to delete a file from the S3 bucket and see the corresponding log, try to drop or delete several files in a single action
 
+
+.. _LoggerFeatures:
 
 Logger features: :doc:`logger <logger>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Relevant source files:
+* Relevant source files
 
 All files are relevant but we recommand the following one:
 
@@ -207,4 +210,14 @@ All files are relevant but we recommand the following one:
                      |___lambda_apigateway_returns_500.py 
 
 
-* Use: TODO -- think of suggesting Cloudwatch
+* Use
+    * Step by step instructions
+        * Open the URL ``https://<endpoint_url>/crash`` with your web browser
+        * Go to the CLoudwatch service page
+        * Follow the "Logs/Log group" link of the left navigation panel
+        * Search for the ``/aws/lambda/apigateway_returns_500`` log group and open it
+        * Open the most recent log stream
+        * This shows a log containing a critical error message followed by a stack trace showing the details of this crash simulation, and then an informational message showing the returned payload
+    * This demonstrates
+        * the use of the ``log_internal_error`` function of ``awsmate.logger``
+        * the use of the ``logger`` object of ``awsmate.logger``, which is a `standard Python logger<https://docs.python.org/3/library/logging.html>`
