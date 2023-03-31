@@ -2,12 +2,8 @@
     max-width: 80%;
 }
 
-.toctree-13 {
-    font-size: 18px;
-}
-
-.toctree-14 {
-    font-size: 18px;
+.wy-menu ul ul a {
+    font-size: 14px;
 }
 
 .pre {
