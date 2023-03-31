@@ -2,6 +2,10 @@
     max-width: 80%;
 }
 
+.wy-menu ul ul a {
+    font-size: 18px;
+}
+
 .pre {
     color: #001188;
 }
