@@ -1,6 +1,6 @@
 All notable changes to this project are documented in this file.
 
-## [0.1.0] - *not yet released*
+## [0.1.0] - 2023-03-31
 
 ### Added
 
@@ -9,7 +9,9 @@ All notable changes to this project are documented in this file.
     - Code of conduct
 
 - Example application
-    - First draft focusing on `apigateway`
+    - Deployment scripts
+    - Python and Terraform source code to demonstrate `awsmate.apigateway`, `awsmate.s3` and `awsmate.logger`
+    - Corresponding documentation
 
 - Code
     - added variable `awsmate.__version__` 
@@ -26,7 +28,7 @@ All notable changes to this project are documented in this file.
 ### Changed
 
 - Documentation
-    - improved documentation
+    - improved documentation in general
 
 - Code
     - made `awsmate.apigateway.LambdaProxyEvent.http_method()` based on `event['requestContext']['httpMethod']` instead of `event['httpMethod']`
