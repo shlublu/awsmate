@@ -1,3 +1,5 @@
+import base64
+import gzip
 import json
 import typing
 
@@ -817,9 +819,6 @@ def build_http_response(
     --------
     determine_content_type : more details on the use of the optional parameter ``custom_transformers``.
     """
-
-    import base64
-    import gzip
 
     if isinstance(payload, str):
         payload = simple_message(payload)

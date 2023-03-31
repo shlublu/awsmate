@@ -1,7 +1,11 @@
 Example application
 ===================
 
-An example application is provided with this library to show how to implement its features.
+An example application is provided in the Github repository of this library to show how to implement its features.
+
+To deploy this example application, modify it for experimentation, etc, you can download the repository in one of the following ways:
+* ``git clone https://github.com/shlublu/awsmate.git``
+* download a ``zip`` or ``tar.gz`` archive from the `awsmate release page on Github <https://github.com/shlublu/awsmate/releases>`_
 
 Prerequisites
 -------------

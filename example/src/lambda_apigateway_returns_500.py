@@ -45,6 +45,7 @@ def lambda_handler(raw_event, context):
 
     except Exception as err:
         log_internal_error('Well, we expected that one')
+
         response = ag.build_http_server_error_response(
             'Something wrong happened, and this is on our end!', 
             event=event, 
