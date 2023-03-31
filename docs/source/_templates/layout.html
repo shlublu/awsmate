@@ -2,3 +2,42 @@
 {% block extrahead %}
     <link href="{{ pathto("_static/theme.css", True) }}" rel="stylesheet" type="text/css">
 {% endblock %}
+
+<nav role="navigation" aria-label="main navigation" class="wy-nav-side">
+    <div class="wy-side-scroll">
+      <div class="wy-side-nav-search">
+        <a href="#" data-toggle="wy-nav-top" class="wy-nav-header">
+          <span aria-hidden="true" class="fa fa-bars"></span>
+          <span class="nav-header-title">{{ _('Navigation') }}</span>
+        </a>
+        <div class="wy-side-nav-search">
+          <form id="rtd-search-form" class="wy-form" action="{{ pathto('search', 1) }}" method="get">
+            <input name="q" placeholder="{{ _('Search docs') }}" type="text" size="20">
+          </form>
+        </div>
+      </div>
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        <ul class="current">
+          {% include 'sphinx_rtd_theme/breadcrumbs.html' %}
+        </ul>
+        <ul>
+          <li><a href="#">Niveau 1</a>
+            <ul>
+              <li><a href="#">Sous-niveau 1</a>
+                <ul>
+                  <li><a href="#">Sous-sous-niveau 1</a></li>
+                  <li><a href="#">Sous-sous-niveau 2</a></li>
+                </ul>
+              </li>
+              <li><a href="#">Sous-niveau 2</a>
+                <ul>
+                  <li><a href="#">Sous-sous-niveau 3</a></li>
+                  <li><a href="#">Sous-sous-niveau 4</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
