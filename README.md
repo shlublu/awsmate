@@ -1,11 +1,11 @@
-`awsmate` is a companion for your AWS Python developments.
+`awsmate` is a companion for your AWS developments in Python.
 
+This library consists mainly of helper code aiming to ease the use of various services provided by AWS.
 
 ## Installation
 
 * Command line: `pip3 install awsmate`
 * See the [PyPI page](https://pypi.org/project/awsmate/ "awsmate PyPI page")
-
 
 ## Documentation
 
