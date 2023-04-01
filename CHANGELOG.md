@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 - Code
     - added `awsmate.apigateway.LambdaProxyEvent.source_ip()`
+    - added all missing ``awsmate.apigateway.HttpClientError`` subclasses
 
 - Documentation
     - Flyout menu that allows switching between versions
@@ -15,6 +16,7 @@ All notable changes to this project are documented in this file.
 
 - Code
     - Refactoring
+    - made all ``awsmate.apigateway.HttpClientError`` subclasses to rely on `http.HTTPStatus` for status codes and standard messages
 
 - Documentation
     - Direct access to sub-levels of the documentation from the table of contents in the sidebar
@@ -33,7 +35,8 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
-*nothing*
+- Code
+    - fixed status code of `awsmate.apigateway.HttpUnauthorizedError`: was erroneously set to 403. Now set to 401.
 
 ### Security
 
