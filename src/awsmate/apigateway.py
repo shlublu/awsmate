@@ -5,6 +5,8 @@ import json
 import re
 import typing
 
+from http import HTTPStatus
+
 from awsmate.logger import logger
 from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
 
@@ -505,15 +507,16 @@ class HttpBadRequestError(HttpClientError):
 
         Examples
         --------
-        >>> raise HttpBadRequestError('This is a very very bad request')
+        >>> raise HttpBadRequestError()  
         """
         
-        super().__init__(400, msg if msg else 'Bad request')
+        httpStatus = HTTPStatus.BAD_REQUEST
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)
 
 
 class HttpUnauthorizedError(HttpClientError):
     """
-    Error that represents a HTTP response status 403 "Unauthorized".
+    Error that represents a HTTP response status 401 "Unauthorized".
     """
     
     def __init__(self, msg: typing.Optional[str] = None):
@@ -525,10 +528,53 @@ class HttpUnauthorizedError(HttpClientError):
 
         Examples
         --------
-        >>> raise HttpUnauthorizedError('None shall pass')            
+        >>> raise HttpUnauthorizedError()  
         """
         
-        super().__init__(403, msg if msg else 'Unauthorized')
+        httpStatus = HTTPStatus.UNAUTHORIZED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)
+
+
+class HttpPaymentRequiredError(HttpClientError):
+    """
+    Error that represents a HTTP response status 402 "Payment required".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpPaymentRequiredError()       
+        """
+        
+        httpStatus = HTTPStatus.PAYMENT_REQUIRED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)        
+
+
+class HttpForbiddenError(HttpClientError):
+    """
+    Error that represents a HTTP response status 403 "Forbidden".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpForbiddenError()             
+        """
+        
+        httpStatus = HTTPStatus.FORBIDDEN
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)         
 
 
 class HttpNotFoundError(HttpClientError):
@@ -545,10 +591,32 @@ class HttpNotFoundError(HttpClientError):
 
         Examples
         --------
-        >>> raise HttpNotFoundError('This stuff is nowhere to be found')                
+        >>> raise HttpNotFoundError()             
         """
         
-        super().__init__(404, msg if msg else 'Not found')
+        httpStatus = HTTPStatus.NOT_FOUND
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpMethodNotAllowedError(HttpClientError):
+    """
+    Error that represents a HTTP response status 405 "Method not allowed".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpMethodNotAllowedError()                
+        """
+        
+        httpStatus = HTTPStatus.METHOD_NOT_ALLOWED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)          
 
 
 class HttpNotAcceptableError(HttpClientError):
@@ -565,12 +633,55 @@ class HttpNotAcceptableError(HttpClientError):
 
         Examples
         --------
-        >>> raise HttpNotAcceptableError('No I won`t respond in audio/mp3')              
+        >>> raise HttpNotAcceptableError()            
         """
         
-        super().__init__(406, msg if msg else 'Not acceptable')
+        httpStatus = HTTPStatus.NOT_ACCEPTABLE
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
         
 
+class HttpProxyAuthenticationRequiredError(HttpClientError):
+    """
+    Error that represents a HTTP response status 407 "Proxy authentication required".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpProxyAuthenticationRequiredError()                
+        """
+        
+        httpStatus = HTTPStatus.PROXY_AUTHENTICATION_REQUIRED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpRequestTimeoutError(HttpClientError):
+    """
+    Error that represents a HTTP response status 408 "Request timeout".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpRequestTimeoutError()            
+        """
+        
+        httpStatus = HTTPStatus.REQUEST_TIMEOUT
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)          
+        
+        
 class HttpConflictError(HttpClientError):
     """
     Error that represents a HTTP response status 409 "Conflict".
@@ -585,11 +696,348 @@ class HttpConflictError(HttpClientError):
 
         Examples
         --------
-        >>> raise HttpConflictError('Not the best idea ever')                          
+        >>> raise HttpConflictError()                          
         """
         
-        super().__init__(409, msg if msg else 'Conflict')    
+        httpStatus = HTTPStatus.CONFLICT
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)    
 
+
+class HttpGoneError(HttpClientError):
+    """
+    Error that represents a HTTP response status 410 "Gone".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpGoneError()                          
+        """
+        
+        httpStatus = HTTPStatus.GONE
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)            
+
+
+class HttpLengthRequiredError(HttpClientError):
+    """
+    Error that represents a HTTP response status 411 "Length required".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpLengthRequiredError()                     
+        """
+        
+        httpStatus = HTTPStatus.LENGTH_REQUIRED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)   
+
+
+class HttpPreconditionFailedError(HttpClientError):
+    """
+    Error that represents a HTTP response status 412 "Precondition failed".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpPreconditionFailedError()                           
+        """
+        
+        httpStatus = HTTPStatus.PRECONDITION_FAILED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+
+
+class HttpRequestEntityTooLargeError(HttpClientError):
+    """
+    Error that represents a HTTP response status 413 "Request entity too large".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpRequestEntityTooLargeError()                          
+        """
+        
+        httpStatus = HTTPStatus.REQUEST_ENTITY_TOO_LARGE
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpRequestUriTooLongError(HttpClientError):
+    """
+    Error that represents a HTTP response status 414 "Request URI too long".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpRequestUriTooLongError()                       
+        """
+        
+        httpStatus = HTTPStatus.REQUEST_URI_TOO_LONG
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpUnsupportedMediaTypeError(HttpClientError):
+    """
+    Error that represents a HTTP response status 415 "Unsupported media type".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpUnsupportedMediaTypeError()                        
+        """
+        
+        httpStatus = HTTPStatus.UNSUPPORTED_MEDIA_TYPE
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpRequestRangeNotSatisfiableError(HttpClientError):
+    """
+    Error that represents a HTTP response status 416 "Request range not satisfiable".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpRequestRangeNotSatisfiableError()                          
+        """
+        
+        httpStatus = HTTPStatus.REQUESTED_RANGE_NOT_SATISFIABLE
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpExpectationFailedError(HttpClientError):
+    """
+    Error that represents a HTTP response status 417 "Expectation failed".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpExpectationFailedError()                         
+        """
+        
+        httpStatus = HTTPStatus.EXPECTATION_FAILED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpMisdirectedRequestError(HttpClientError):
+    """
+    Error that represents a HTTP response status 421 "Misdirected request".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpMisdirectedRequestError()                        
+        """
+        
+        httpStatus = HTTPStatus.MISDIRECTED_REQUEST
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpUnprocessableEntityError(HttpClientError):
+    """
+    Error that represents a HTTP response status 422 "Unprocessable entity".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpUnprocessableEntityError()                         
+        """
+        
+        httpStatus = HTTPStatus.UNPROCESSABLE_ENTITY
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpLockedError(HttpClientError):
+    """
+    Error that represents a HTTP response status 423 "Locked".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpLockedError()                        
+        """
+        
+        httpStatus = HTTPStatus.LOCKED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpFailedDependencyError(HttpClientError):
+    """
+    Error that represents a HTTP response status 424 "Failed dependency".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpFailedDependencyError()                          
+        """
+        
+        httpStatus = HTTPStatus.FAILED_DEPENDENCY
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpUpgradeRequiredError(HttpClientError):
+    """
+    Error that represents a HTTP response status 426 "Upgrade required".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpUpgradeRequiredError()                          
+        """
+        
+        httpStatus = HTTPStatus.UPGRADE_REQUIRED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpPreconditionRequiredError(HttpClientError):
+    """
+    Error that represents a HTTP response status 428 "Precondition required".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpPreconditionRequiredError()                     
+        """
+        
+        httpStatus = HTTPStatus.PRECONDITION_REQUIRED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpTooManyRequestsError(HttpClientError):
+    """
+    Error that represents a HTTP response status 429 "Too many requests".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpTooManyRequestsError()                        
+        """
+        
+        httpStatus = HTTPStatus.TOO_MANY_REQUESTS
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
+
+class HttpRequestHeaderFieldsTooLargeError(HttpClientError):
+    """
+    Error that represents a HTTP response status 431 "Request header fields too large".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpRequestHeaderFieldsTooLargeError()               
+        """
+        
+        httpStatus = HTTPStatus.REQUEST_HEADER_FIELDS_TOO_LARGE
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+        
 
 def simple_message(message: str) -> typing.Dict[str, str]:
     """

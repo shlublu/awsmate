@@ -29,7 +29,7 @@ def lambda_handler(raw_event, context):
     event = ag.LambdaProxyEvent(raw_event)
     
     response = ag.build_http_client_error_response(
-        ag.HttpUnauthorizedError('None shall pass.'), 
+        ag.HttpForbiddenError('None shall pass.'), 
         event=event, 
         extra_headers=extra_headers, 
         custom_transformers=html_transformers
