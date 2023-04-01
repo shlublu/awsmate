@@ -1,5 +1,6 @@
 import base64
 import gzip
+import ipaddress
 import json
 import re
 import typing
@@ -51,6 +52,38 @@ class LambdaProxyEvent(LambdaEvent):
         super().__init__(event_object)
 
 
+    def source_ip(self) -> typing.Union[ipaddress.IPv4Address, ipaddress.IPv6Address]:
+        """
+        Returns the source IP address of the API call.
+
+        Returns
+        -------
+        ipaddress.IPv4Address or ipaddress.IPv6Address
+            The IP address the API call comes from.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If no ``requestContext.identity.sourceIp`` key is present in the event data or if the IP address is invalid.            
+
+        Examples
+        --------
+        >>> event.source_ip()
+        IPv4Address('93.184.216.34')
+        """
+
+        try: 
+            sourceIp = ipaddress.ip_address(self._event["requestContext"]["identity"]["sourceIp"])
+
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+
+        except ValueError as err:
+            raise AwsEventSpecificationError(f'Invalid IP address: {err}')
+
+        return sourceIp      
+        
+    
     def http_headers(self) -> typing.Dict[str, str]:
         """
         Returns all HTTP headers of the API call.
@@ -173,8 +206,8 @@ class LambdaProxyEvent(LambdaEvent):
             LambdaEvent._raiseCannotReachError(str(err))
 
         return userAgent        
-
     
+
     def header_sorted_preferences(self, header: str) -> typing.Tuple[str, ...]:
         """
         Returns all values assigned to the given header, sorted by decreasing preferences.

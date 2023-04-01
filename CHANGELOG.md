@@ -4,11 +4,17 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
+- Code
+    - added `awsmate.apigateway.LambdaProxyEvent.source_ip()`
+
 - Documentation
     - Flyout menu that allows switching between versions
     - Available for download in PDF and HTML (zip)
 
 ### Changed
+
+- Code
+    - Refactoring
 
 - Documentation
     - Direct access to sub-levels of the documentation from the table of contents in the sidebar
