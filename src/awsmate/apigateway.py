@@ -1,8 +1,10 @@
 import base64
 import gzip
 import json
+import re
 import typing
 
+from awsmate.logger import logger
 from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
 
 
@@ -426,10 +428,6 @@ class HttpClientError(RuntimeError):
         --------
         >>> raise HttpClientError(404, 'Not sure where it is!')
         """
-        
-        import re
-
-        from awsmate.logger import logger
 
         super().__init__(msg)
 
