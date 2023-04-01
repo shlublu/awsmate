@@ -1,4 +1,6 @@
 import logging
+import traceback
+
 
 defaultLevel = logging.INFO
 
@@ -42,6 +44,5 @@ def log_internal_error(msg: str) -> None:
     RuntimeError: WOW!
     """
     
-    import traceback
     logger.critical(f"INTERNAL ERROR: {msg}.")
     logger.critical(traceback.format_exc())
