@@ -4,9 +4,14 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
-*nothing*
+- Documentation
+    - Flyout menu that allows switching between versions
+    - Available for download in PDF and HTML (zip)
 
 ### Changed
+
+- Documentation
+    - Direct access to sub-levels of the documentation from the table of contents in the sidebar
 
 - Example application
     - Minor code and documentation updates
