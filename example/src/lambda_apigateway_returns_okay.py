@@ -58,10 +58,11 @@ def lambda_handler(raw_event, context):
         # Specific work starts here
 
         payload = {
+            'event.source_ip()' : str(event.source_ip()),    
             'event.http_headers()' : event.http_headers(),
             'event.http_method()' : event.http_method(),
             'event.http_protocol()' : event.http_protocol(),
-            'event.http_user_agent()' : event.http_user_agent(),            
+            'event.http_user_agent()' : event.http_user_agent(),    
             'event.header_sorted_preferences("accept")' : event.header_sorted_preferences("accept"),
             'event.header_sorted_preferences("accept-language")' : event.header_sorted_preferences("accept-language"),
             'event.header_sorted_preferences("accept-encoding")' : event.header_sorted_preferences("accept-encoding"),

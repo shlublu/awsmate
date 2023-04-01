@@ -1,7 +1,9 @@
 import pytest
 
+import ipaddress
 import json
 import random
+import re
 
 import awsmate.apigateway as ag
 
@@ -15,6 +17,93 @@ def test_LambdaProxyEvent_init_initializesInternalEventObject():
     test = ag.LambdaProxyEvent(event)
 
     assert test._event is event
+
+
+def test_LambdaProxyEvent_source_ip_returnsTheSourceIpV4OfTheCall():
+    event = {
+        'requestContext' : { 
+            'identity': {
+                'sourceIp': '192.168.1.2'
+            }
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.source_ip() == ipaddress.ip_address('192.168.1.2')
+
+
+def test_LambdaProxyEvent_source_ip_returnsTheSourceIpV6OfTheCall():
+    event = {
+        'requestContext' : { 
+            'identity': {
+                'sourceIp': '2001:0db8:85a3:0000:0000:8a2e:0370:7334'
+            }
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    assert  test.source_ip() == ipaddress.ip_address('2001:0db8:85a3:0000:0000:8a2e:0370:7334')    
+
+
+def test_LambdaProxyEvent_source_ip_raisesIfSourceIpIsInvalid():
+    event = {
+        'requestContext' : {
+            'identity': {
+                'sourceIp': 'bogus'
+            }
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        test.source_ip()
+
+    assert re.match('Invalid IP address: .+bogus.+', exceptionInfo.value.args[0])
+    
+    
+def test_LambdaProxyEvent_source_ip_raisesIfSourceIpFieldIsMissing():
+    event = {
+        'requestContext' : {
+            'identity': {}
+        }
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.source_ip()
+
+    mcre.assert_called_once_with("'sourceIp'")
+
+
+def test_LambdaProxyEvent_source_ip_raisesIfIdentityFieldIsMissing():
+    event = {
+        'requestContext' : {}
+    }
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.source_ip()
+
+    mcre.assert_called_once_with("'identity'")
+    
+    
+def test_LambdaProxyEvent_source_ip_raisesIfRequestContextFieldIsMissing():
+    event = {}
+
+    test = ag.LambdaProxyEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(ag.LambdaEvent, '_raiseCannotReachError', side_effect=ag.LambdaEvent._raiseCannotReachError) as mcre:
+            test.source_ip()
+
+    mcre.assert_called_once_with("'requestContext'")
 
 
 def test_LambdaProxyEvent_http_headers_returnsAllHeadersWithKeysInLowerCase():
@@ -142,7 +231,7 @@ def test_LambdaProxyEvent_http_user_agent_returnsTheHttpUserAgentOfTheCall():
     assert  test.http_user_agent() == 'agent/1.0'
 
 
-def test_LambdaProxyEvent_http_user_agent_raisesIfUserAGentFieldIsMissing():
+def test_LambdaProxyEvent_http_user_agent_raisesIfUserAgentFieldIsMissing():
     event = {
         'requestContext' : {
             'identity': {}
