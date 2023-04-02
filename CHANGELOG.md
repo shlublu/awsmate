@@ -15,15 +15,15 @@ All notable changes to this project are documented in this file.
 ### Changed
 
 - Code
+    - Made all ``awsmate.apigateway.HttpClientError`` subclasses to rely on `http.HTTPStatus` for status codes and standard messages
     - Refactoring
-    - made all ``awsmate.apigateway.HttpClientError`` subclasses to rely on `http.HTTPStatus` for status codes and standard messages
 
 - Documentation
     - Direct access to sub-levels of the documentation from the table of contents in the sidebar
 
 - Example application
-    - Minor code and documentation updates
     - Terraform version upgrade
+    - Refactoring: Terraform code structure and AWS resources naming
 
 ### Deprecated
 
@@ -37,6 +37,9 @@ All notable changes to this project are documented in this file.
 
 - Code
     - fixed status code of `awsmate.apigateway.HttpUnauthorizedError`: was erroneously set to 403. Now set to 401.
+
+- Example application
+    - API Gateway route "forbidden" was not using the correct exception (`awsmate.apigateway.HttpForbiddenError`)
 
 ### Security
 
