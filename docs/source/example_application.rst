@@ -188,7 +188,7 @@ S3 features: :doc:`s3 <s3>` module
         * Upload a file into this bucket
         * Go to the Cloudwatch service page
         * Follow the "Logs/Log group" link of the left navigation panel
-        * Search for the ``/aws/lambda/s3_notification`` log group and open it
+        * Search for the ``/aws/lambda/awsmate_s3_notification`` log group and open it
         * Open the most recent log stream
         * This show a log that contains the result of all methods of ``awsmate.s3.LambdaNotificationEvent`` plus the raw event received from the AWS S3 service.
     * This demonstrates
@@ -220,7 +220,7 @@ All files are relevant but we recommand the following one:
         * Open the URL ``https://<endpoint_url>/crash`` with your web browser
         * Go to the Cloudwatch service page
         * Follow the "Logs/Log group" link of the left navigation panel
-        * Search for the ``/aws/lambda/apigateway_returns_500`` log group and open it
+        * Search for the ``/aws/lambda/awsmate_apigateway_returns_500`` log group and open it
         * Open the most recent log stream
         * This shows a log containing a critical error message followed by a stack trace showing the details of this crash simulation, and then an informational message showing the returned payload
     * This demonstrates

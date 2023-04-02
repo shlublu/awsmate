@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_role" {
-    name = "lambda_compute_only"
+    name = "awsmate_lambda_compute_only"
 
     assume_role_policy = <<EOF
 {

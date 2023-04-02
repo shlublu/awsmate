@@ -1,5 +1,5 @@
 resource "aws_api_gateway_rest_api" "demonstrator" {
-    name        = "awsmate demo"
+    name        = "awsmate_demo"
     description = "Demonstrator for awsmate"
 
     endpoint_configuration {
