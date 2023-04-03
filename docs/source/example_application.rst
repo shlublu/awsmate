@@ -161,7 +161,7 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                 * the same of the above plus the same extras seen with the "okay" route above                
 
 
-EVentBridge features: :doc:`eventbridge <eventbridge>` module
+EventBridge features: :doc:`eventbridge <eventbridge>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * Relevant source files
