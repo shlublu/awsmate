@@ -4,11 +4,11 @@ site.addsitedir('/opt')
 import json 
 
 from awsmate.logger import logger
-from awsmate.eventbridge import LambdaBridgeEvent
+from awsmate.eventbridge import LambdaBridgePutEvent
 
 
 def lambda_handler(raw_event, context):
-    event = LambdaBridgeEvent(raw_event)
+    event = LambdaBridgePutEvent(raw_event)
     
     logger.info(f'event.source(): {event.source()}')
     logger.info(f'event.detail_type(): {event.detail_type()}')

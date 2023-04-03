@@ -4,15 +4,16 @@ import typing
 from awsmate.lambdafunction import LambdaEvent
 
 
-class LambdaBridgeEvent(LambdaEvent):
+class LambdaBridgePutEvent(LambdaEvent):
     """
     Mapping of the input event received by an AWS Lambda function triggered by AWS EventBridge.
 
     Warnings
     --------
     AWS EventBridge can be configured in `Universal Target mode <https://docs.aws.amazon.com/scheduler/latest/UserGuide/managing-targets-universal.html>`_,
-    which allows passing the target arbitrary event objects instead of standard ones. :class:`~LambdaBridgeEvent` is *not* designed to handle such events as they
-    do not comply to the AWS EventBridge events specifications.    
+    which allows passing the target arbitrary event objects instead of standard ones. :class:`~LambdaBridgePutEvent` is *not* designed to handle such events as they
+    do not comply to the AWS EventBridge events specifications. `PutEvents format <https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEventsRequestEntry.html>_
+    is the only handled.
     """
 
     def __init__(self, event_object: dict):
@@ -30,8 +31,8 @@ class LambdaBridgeEvent(LambdaEvent):
         Examples
         --------
         >>> def lambda_handler(raw_event, context):
-        >>>     from awsmate.eventbridge import LambdaBridgeEvent
-        >>>     event = LambdaBridgeEvent(raw_event)                 
+        >>>     from awsmate.eventbridge import LambdaBridgePutEvent
+        >>>     event = LambdaBridgePutEvent(raw_event)                 
         """
 
         super().__init__(event_object)
@@ -130,8 +131,5 @@ class LambdaBridgeEvent(LambdaEvent):
 
         except (TypeError, json.JSONDecodeError) as err:
             LambdaEvent._raiseEventStructureError(f"Detail JSON cannot be decoded: {str(err)}.")            
-
-        if not isinstance(ret, dict):
-            LambdaEvent._raiseEventStructureError(f"Detail should be a dict, not a {type(ret)}.") 
         
         return ret 
