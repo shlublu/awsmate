@@ -1,4 +1,4 @@
-EventBridge
+eventbridge
 ===========
 
 Lambda event
