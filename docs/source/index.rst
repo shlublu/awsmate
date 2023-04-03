@@ -15,6 +15,7 @@ awsmate
 
    awsmate
    apigateway
+   eventbridge
    lambdafunction
    s3
    logger
