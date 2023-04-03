@@ -1,11 +1,18 @@
+import json
 import typing
         
-from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
+from awsmate.lambdafunction import LambdaEvent
 
 
 class LambdaBridgeEvent(LambdaEvent):
     """
     Mapping of the input event received by an AWS Lambda function triggered by AWS EventBridge.
+
+    Warnings
+    --------
+    AWS EventBridge can be configured in `Universal Target mode <https://docs.aws.amazon.com/scheduler/latest/UserGuide/managing-targets-universal.html>`_,
+    which allows passing the target arbitrary event objects instead of standard ones. :class:`~LambdaBridgeEvent` is *not* designed to handle such events as they
+    do not comply to the AWS EventBridge events specifications.    
     """
 
     def __init__(self, event_object: dict):
@@ -24,7 +31,7 @@ class LambdaBridgeEvent(LambdaEvent):
         --------
         >>> def lambda_handler(raw_event, context):
         >>>     from awsmate.eventbridge import LambdaBridgeEvent
-        >>>     event = LambdaBridgeEvent(raw_event)                
+        >>>     event = LambdaBridgeEvent(raw_event)                 
         """
 
         super().__init__(event_object)
@@ -92,21 +99,21 @@ class LambdaBridgeEvent(LambdaEvent):
         return ret   
 
 
-    def detail(self) -> dict:
+    def detail(self) -> typing.Any:
         """
         Returns the AWS-service-specific details of this event.
 
-        The structure of the returned ``dict`` varies depending on the service that triggers the event. It may be empty but it is expected to be present.
+        The structure of the returned data varies depending on the service that triggers the event.
 
         Returns
         -------
-        dict
-            The detail of this event.
+        any
+            The detail of this event as submitted by the service that triggered it.
 
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If the event structure does not allow retrieving this detail, or if it is not a ``dict``.      
+            If the event structure does not allow retrieving this detail, or if cannot be JSON deserialized.      
 
         Examples
         --------
@@ -116,10 +123,13 @@ class LambdaBridgeEvent(LambdaEvent):
         """
         
         try:
-            ret = self._event['detail']
+            ret = json.loads(self._event['detail'])
     
         except KeyError as err:
             LambdaEvent._raiseCannotReachError(str(err))
+
+        except (TypeError, json.JSONDecodeError) as err:
+            LambdaEvent._raiseEventStructureError(f"Detail JSON cannot be decoded: {str(err)}.")            
 
         if not isinstance(ret, dict):
             LambdaEvent._raiseEventStructureError(f"Detail should be a dict, not a {type(ret)}.") 
