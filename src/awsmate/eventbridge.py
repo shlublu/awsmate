@@ -12,7 +12,7 @@ class LambdaBridgePutEvent(LambdaEvent):
     --------
     AWS EventBridge can be configured in `Universal Target mode <https://docs.aws.amazon.com/scheduler/latest/UserGuide/managing-targets-universal.html>`_,
     which allows passing the target arbitrary event objects instead of standard ones. :class:`~LambdaBridgePutEvent` is *not* designed to handle such events as they
-    do not comply to the AWS EventBridge events specifications. `PutEvents format <https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEventsRequestEntry.html>_
+    do not comply to the AWS EventBridge events specifications. `PutEvents format <https://docs.aws.amazon.com/eventbridge/latest/APIReference/API_PutEventsRequestEntry.html>`_
     is the only handled.
     """
 

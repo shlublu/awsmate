@@ -61,12 +61,12 @@ def test_LambdaBridgePutEvent_source_raisesIfEventDoesNotHaveASource():
 
 def test_LambdaBridgePutEvent_detail_returnsTheExpectedDetail():
     event = {
-        'detail': '{ "someKey": "someValue" }'
+        'detail': '[ "anything", "that is", { "in": "json form" }, 1, 2, 3, null ]'
     }    
 
     test = eb.LambdaBridgePutEvent(event)
 
-    assert test.detail() == { 'someKey': 'someValue' }
+    assert test.detail() == [ "anything", "that is", { "in": "json form" }, 1, 2, 3, None ]
 
 
 def test_LambdaBridgePutEvent_detail_LivesWellWithEmptyDetail():
