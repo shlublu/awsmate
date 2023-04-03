@@ -161,6 +161,31 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                 * the same of the above plus the same extras seen with the "okay" route above                
 
 
+EVentBridge features: :doc:`eventbridge <eventbridge>` module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* Relevant source files
+
+::
+
+    awsmate
+        |___example
+                |
+                |___src
+                     |
+                     |___lambda_eventbridge_scheduler.py
+
+
+* Use
+    * Step by step instructions
+        * Go to the Cloudwatch service page
+        * Follow the "Logs/Log group" link of the left navigation panel
+        * Search for the ``/aws/lambda/awsmate_eventbridge_scheduler`` log group and open it
+        * Open the most recent log stream
+        * This show a log that contains the result of all methods of ``awsmate.eventbridge.LambdaBridgePutEvent`` plus the raw event received from the AWS EventBridge service.
+    * This demonstrates
+        * the use of all methods of ``awsmate.eventbridge.LambdaBridgePutEvent``
+    
 Lambda Function features: :doc:`lambdafunction <lambdafunction>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
