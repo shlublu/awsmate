@@ -41,7 +41,7 @@ resource "aws_iam_policy" "lambda_role" {
 EOF
 }
 
-resource "aws_iam_role_policy_attachment" "lambda_compute_only" {
+resource "aws_iam_role_policy_attachment" "lambda_role" {
     role       = aws_iam_role.lambda_role.name
     policy_arn = aws_iam_policy.lambda_role.arn
 }

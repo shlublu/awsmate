@@ -15,7 +15,7 @@ def test_LambdaBridgeEvent_init_initializesInternalEventObject():
     assert test._event is event
 
 
-def test_LambdaBridgeEvent_detail_type_returnsTheExpectedDetails():
+def test_LambdaBridgeEvent_detail_type_returnsTheExpectedDetailsType():
     event = {
         'detail-type': 'Some readable explanations'
     }    
@@ -59,9 +59,9 @@ def test_LambdaBridgeEvent_source_raisesIfEventDoesNotHaveASource():
     mcre.assert_called_once_with("'source'")
     
 
-def test_LambdaBridgeEvent_detail_returnsTheExpectedServiceName():
+def test_LambdaBridgeEvent_detail_returnsTheExpectedDetail():
     event = {
-        'detail': { 'someKey': 'someValue' }
+        'detail': '{ "someKey": "someValue" }'
     }    
 
     test = eb.LambdaBridgeEvent(event)
@@ -71,7 +71,7 @@ def test_LambdaBridgeEvent_detail_returnsTheExpectedServiceName():
 
 def test_LambdaBridgeEvent_detail_LivesWellWithEmptyDetail():
     event = {
-        'detail': {}
+        'detail': '{}'
     }    
 
     test = eb.LambdaBridgeEvent(event)
@@ -91,9 +91,9 @@ def test_LambdaBridgeEvent_source_raisesIfEventDoesNotHaveASDetail():
     mcre.assert_called_once_with("'detail'")
 
 
-def test_LambdaBridgeEvent_source_raisesIfDetailsIsNotADict():
+def test_LambdaBridgeEvent_source_raisesIfDetailsIsNotValidJSON():
     event = {
-        'detail': 'something that is not a dict'
+        'detail': {}
     }    
 
     test = eb.LambdaBridgeEvent(event)
@@ -102,4 +102,18 @@ def test_LambdaBridgeEvent_source_raisesIfDetailsIsNotADict():
         with patch.object(eb.LambdaEvent, '_raiseEventStructureError', side_effect=eb.LambdaEvent._raiseEventStructureError) as mese:
             test.detail()
 
-    mese.assert_called_once_with("Detail should be a dict, not a <class 'str'>.") 
+    mese.assert_called_once_with('Detail JSON cannot be decoded: the JSON object must be str, bytes or bytearray, not dict.') 
+    
+
+def test_LambdaBridgeEvent_source_raisesIfDeserializedDetailsIsNotADict():
+    event = {
+        'detail': '[1, 2, 3, 4]'
+    }    
+
+    test = eb.LambdaBridgeEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(eb.LambdaEvent, '_raiseEventStructureError', side_effect=eb.LambdaEvent._raiseEventStructureError) as mese:
+            test.detail()
+
+    mese.assert_called_once_with("Detail should be a dict, not a <class 'list'>.") 
