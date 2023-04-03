@@ -1,6 +1,6 @@
 import typing
         
-from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
+from awsmate.lambdafunction import LambdaEvent
 
 
 class LambdaNotificationEvent(LambdaEvent):
@@ -34,7 +34,7 @@ class LambdaNotificationEvent(LambdaEvent):
         KEY_RECORDS = "Records"
 
         try:
-            ret = ret = self._event[KEY_RECORDS][0]
+            ret = self._event[KEY_RECORDS][0]
 
         except KeyError as err:
             LambdaEvent._raiseCannotReachError(str(err))
