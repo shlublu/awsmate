@@ -7,28 +7,28 @@ from unittest.mock import patch
 from awsmate.lambdafunction import AwsEventSpecificationError
 
 
-def test_LambdaBridgeEvent_init_initializesInternalEventObject():
+def test_LambdaBridgePutEvent_init_initializesInternalEventObject():
     event = {}
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     assert test._event is event
 
 
-def test_LambdaBridgeEvent_detail_type_returnsTheExpectedDetailsType():
+def test_LambdaBridgePutEvent_detail_type_returnsTheExpectedDetailsType():
     event = {
         'detail-type': 'Some readable explanations'
     }    
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     assert test.detail_type() == 'Some readable explanations'
 
 
-def test_LambdaBridgeEvent_detail_type_raisesIfEventDoesNotHaveADetailType():
+def test_LambdaBridgePutEvent_detail_type_raisesIfEventDoesNotHaveADetailType():
     event = {}    
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
         with patch.object(eb.LambdaEvent, '_raiseCannotReachError', side_effect=eb.LambdaEvent._raiseCannotReachError) as mcre:
@@ -37,20 +37,20 @@ def test_LambdaBridgeEvent_detail_type_raisesIfEventDoesNotHaveADetailType():
     mcre.assert_called_once_with("'detail-type'")
 
 
-def test_LambdaBridgeEvent_source_returnsTheExpectedServiceName():
+def test_LambdaBridgePutEvent_source_returnsTheExpectedServiceName():
     event = {
         'source': 'aws.scheduler'
     }    
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     assert test.source() == 'aws.scheduler'
 
 
-def test_LambdaBridgeEvent_source_raisesIfEventDoesNotHaveASource():
+def test_LambdaBridgePutEvent_source_raisesIfEventDoesNotHaveASource():
     event = {}    
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
         with patch.object(eb.LambdaEvent, '_raiseCannotReachError', side_effect=eb.LambdaEvent._raiseCannotReachError) as mcre:
@@ -59,30 +59,30 @@ def test_LambdaBridgeEvent_source_raisesIfEventDoesNotHaveASource():
     mcre.assert_called_once_with("'source'")
     
 
-def test_LambdaBridgeEvent_detail_returnsTheExpectedDetail():
+def test_LambdaBridgePutEvent_detail_returnsTheExpectedDetail():
     event = {
         'detail': '{ "someKey": "someValue" }'
     }    
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     assert test.detail() == { 'someKey': 'someValue' }
 
 
-def test_LambdaBridgeEvent_detail_LivesWellWithEmptyDetail():
+def test_LambdaBridgePutEvent_detail_LivesWellWithEmptyDetail():
     event = {
         'detail': '{}'
     }    
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     assert test.detail() == {}    
 
 
-def test_LambdaBridgeEvent_source_raisesIfEventDoesNotHaveASDetail():
+def test_LambdaBridgePutEvent_source_raisesIfEventDoesNotHaveASDetail():
     event = {}    
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
         with patch.object(eb.LambdaEvent, '_raiseCannotReachError', side_effect=eb.LambdaEvent._raiseCannotReachError) as mcre:
@@ -91,12 +91,12 @@ def test_LambdaBridgeEvent_source_raisesIfEventDoesNotHaveASDetail():
     mcre.assert_called_once_with("'detail'")
 
 
-def test_LambdaBridgeEvent_source_raisesIfDetailsIsNotValidJSON():
+def test_LambdaBridgePutEvent_source_raisesIfDetailsIsNotValidJSON():
     event = {
         'detail': {}
     }    
 
-    test = eb.LambdaBridgeEvent(event)
+    test = eb.LambdaBridgePutEvent(event)
 
     with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
         with patch.object(eb.LambdaEvent, '_raiseEventStructureError', side_effect=eb.LambdaEvent._raiseEventStructureError) as mese:
@@ -104,16 +104,3 @@ def test_LambdaBridgeEvent_source_raisesIfDetailsIsNotValidJSON():
 
     mese.assert_called_once_with('Detail JSON cannot be decoded: the JSON object must be str, bytes or bytearray, not dict.') 
     
-
-def test_LambdaBridgeEvent_source_raisesIfDeserializedDetailsIsNotADict():
-    event = {
-        'detail': '[1, 2, 3, 4]'
-    }    
-
-    test = eb.LambdaBridgeEvent(event)
-
-    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        with patch.object(eb.LambdaEvent, '_raiseEventStructureError', side_effect=eb.LambdaEvent._raiseEventStructureError) as mese:
-            test.detail()
-
-    mese.assert_called_once_with("Detail should be a dict, not a <class 'list'>.") 

@@ -7,7 +7,7 @@ All notable changes to this project are documented in this file.
 - Code
     - added `awsmate.apigateway.LambdaProxyEvent.source_ip()`
     - added all missing ``awsmate.apigateway.HttpClientError`` subclasses
-    - initiated ``awsmate.eventbridge`` module with ``awsmate.eventbridge.LambdaBridgeEvent``
+    - initiated ``awsmate.eventbridge`` module with ``awsmate.eventbridge.LambdaBridgePutEvent``
 
 - Documentation
     - Flyout menu that allows switching between versions
