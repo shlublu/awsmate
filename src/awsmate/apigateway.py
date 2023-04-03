@@ -422,7 +422,7 @@ class LambdaProxyEvent(LambdaEvent):
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If no ``requestContext`` key is present in the event data. or if claims is not ``None`` and not a ``dict``.  
+            If no ``requestContext`` key is present in the event data, or if claims is not ``None`` and not a ``dict``.  
 
         Examples
         --------
