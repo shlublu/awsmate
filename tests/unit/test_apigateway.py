@@ -1147,7 +1147,7 @@ def test_build_http_server_error_response_passeAllParameters():
         event=event,
         custom_transformers=transformers,
         extra_headers=extra_headers
-        )
+    )
     
 
 def test_build_http_server_error_response_usesDefaultMessageIfUnspecified():
@@ -1157,7 +1157,7 @@ def test_build_http_server_error_response_usesDefaultMessageIfUnspecified():
     mbhser.assert_called_once_with(
         500, 
         "Sorry, an error occured. Please contact the API administrator to have this sorted out.", 
-        )
+    )
 
 
 def test_build_http_client_error_response_passeAllParameters():
@@ -1175,4 +1175,4 @@ def test_build_http_client_error_response_passeAllParameters():
         event=event,
         custom_transformers=transformers,
         extra_headers=extra_headers
-        )
+    )
