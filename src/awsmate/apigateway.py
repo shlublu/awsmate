@@ -1357,6 +1357,8 @@ def build_http_server_error_response(
     """
     Convenience function that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
 
+    Warnings
+    --------
     .. deprecated:: 0.2.0
           `build_http_server_error_response` will change in version 0.3.0: the `message` positional parameter will be replaced by an
           `error` parameter of type `HttpServerError` to be introduced in the same version.
