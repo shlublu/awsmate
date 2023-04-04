@@ -28,7 +28,8 @@ All notable changes to this project are documented in this file.
 
 ### Deprecated
 
-*nothing*
+- Code
+    - `awsmate.apigateway.build_http_server_error_response()` will change in version 0.3.0: the `message` positional parameter will be replaced by an `error` parameter of type `HttpServerError` to be introduced in the same version.
 
 ### Removed
 

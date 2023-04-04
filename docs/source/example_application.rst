@@ -181,7 +181,7 @@ EventBridge features: :doc:`eventbridge <eventbridge>` module
         * Go to the Cloudwatch service page
         * Follow the "Logs/Log group" link of the left navigation panel
         * Search for the ``/aws/lambda/awsmate_eventbridge_scheduler`` log group and open it
-        * Open the most recent log stream
+        * Open the most recent log stream (the scheduler triggers an event every 5 minutes)
         * This show a log that contains the result of all methods of ``awsmate.eventbridge.LambdaBridgePutEvent`` plus the raw event received from the AWS EventBridge service.
     * This demonstrates
         * the use of all methods of ``awsmate.eventbridge.LambdaBridgePutEvent``
