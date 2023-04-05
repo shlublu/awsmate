@@ -1436,7 +1436,7 @@ def build_http_client_error_response(
     Examples
     --------
     >>> build_http_client_error_response(HttpNotFoundError())
-    {'isBase64Encoded': False, 'statusCode': 404, 'body': '{\\n  "Message": "Not found"\\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
+    {'isBase64Encoded': False, 'statusCode': 404, 'body': '{\\n  "Message": "Not Found"\\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
     
     Notes
     -----
