@@ -4,7 +4,9 @@ All notable changes to this project are documented in this file.
 
 ### Added
 
-*nothing*
+- Code
+    - added class ``awsmate.apigateway.HttpServerError``
+    - added class ``awsmate.apigateway.HttpError``, which is the base class of ``awsmate.apigateway.HttpClientError`` and ``awsmate.apigateway.HttpServerError``
 
 ### Changed
 
