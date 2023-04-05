@@ -19,7 +19,7 @@ classifiers = [
     "Operating System :: OS Independent",
     "License :: OSI Approved :: European Union Public Licence 1.2 (EUPL 1.2)"
 ]
-keywords = ["python", "aws", "aws-apigateway", "aws-lambda", "aws-s3"]
+keywords = ["python", "aws", "aws-apigateway", "aws-eventbridge", "aws-lambda", "aws-s3"]
 
 [project.urls]
 "Repository" = "https://github.com/shlublu/awsmate"
