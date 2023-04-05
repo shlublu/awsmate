@@ -445,9 +445,9 @@ class LambdaProxyEvent(LambdaEvent):
         return claims
     
 
-class HttpClientError(RuntimeError):
+class HttpError(RuntimeError):
     """
-    Error that represents a HTTP response status code that comes with a message.
+    HTTP error response: status code and message.
     """
 
     def __init__(self, status: int, msg: str) -> None:
@@ -491,6 +491,20 @@ class HttpClientError(RuntimeError):
         """
         
         return self._status
+
+
+class HttpClientError(HttpError):
+    """
+    Client HTTP error response.
+    """
+    pass
+
+
+class HttpServerError(HttpError):
+    """
+    Server-side HTTP error response.
+    """
+    pass
 
 
 class HttpBadRequestError(HttpClientError):

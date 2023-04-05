@@ -18,10 +18,12 @@ HTTP responses builders
 .. autofunction:: awsmate.apigateway.build_http_server_error_response
 .. autofunction:: awsmate.apigateway.build_http_client_error_response
 
-Common HTTP client errors
--------------------------
+HTTP errors
+-----------
 
+.. autoexception:: awsmate.apigateway.HttpError
 .. autoexception:: awsmate.apigateway.HttpClientError
+.. autoexception:: awsmate.apigateway.HttpServerError
 .. autoexception:: awsmate.apigateway.HttpBadRequestError
 .. autoexception:: awsmate.apigateway.HttpUnauthorizedError
 .. autoexception:: awsmate.apigateway.HttpPaymentRequiredError
