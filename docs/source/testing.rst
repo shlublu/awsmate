@@ -9,8 +9,6 @@ Testing
         |___tests
                 |
                 |___unit
-                |
-                |___integration (coming soon)
 
 * Tests status: |Test status|
 
