@@ -8,9 +8,7 @@ logging.basicConfig(format = '%(message)s', level = defaultLevel)
 
 logger = logging.getLogger()
 """
-Object used for logging.
-
-This object is a standard logger from the Python module ``logging``.
+logging.Logger : Standard logger from the Python module ``logging``.
 
 Examples
 --------
