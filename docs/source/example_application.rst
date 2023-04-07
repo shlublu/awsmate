@@ -57,8 +57,9 @@ Deployment
 
 From the ``example`` directory seen above:
 
+* edit the file ``variables.tfvars`` to define the AWS Region you wish to deploy in. The default configuration is ``aws_region = "eu-west-1"``
 * run ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take some time, and this produces a pretty verbose log.
-* then take note of the final log message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the URL of the newly deployed example API.
+* then take note of the final log message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the base URL of the newly deployed example API.
 
 The :ref:`section "Application users's guide" <UsersGuide>` below explains how to use this example application.
 
