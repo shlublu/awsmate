@@ -1599,7 +1599,7 @@ def build_http_server_error_response(
         **kwargs: typing.Dict[str, typing.Any]
     ) -> dict:
     """
-    Convenience function that builds an HTTP error 5XX response to be returned to API Gateway by the Lambda handlera.
+    Convenience function that builds an HTTP error 5XX response to be returned to API Gateway by the Lambda handler.
 
     Unless specified otherwise, calling this function logs a stack trace of the error showing the status and the actual error message. 
     This message is replaced by a client-oriented message in the HTTP response.
@@ -1623,7 +1623,7 @@ def build_http_server_error_response(
     Examples
     --------
     >>> build_http_server_error_response(HttpInsufficientStorageError(), client_message='Sorry, we have an issue.')
-    {'isBase64Encoded': False, 'statusCode': 507, 'body': '{\n  "Message": "Sorry, we have an issue."\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
+    {'isBase64Encoded': False, 'statusCode': 507, 'body': '{\\n  "Message": "Sorry, we have an issue."\\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
 
     Notes
     -----
