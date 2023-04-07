@@ -81,13 +81,14 @@ def lambda_handler(raw_event, context):
         response = ag.build_http_response(200, payload, event=event, extra_headers=extra_headers, custom_transformers=custom_transformers_regular)
 
     except ag.HttpClientError as err:
-        logger.error(f'Client made a mistake: {repr(err)}')
+        logger.error(f'Client made a mistake')
         response = ag.build_http_client_error_response(err, event=event, extra_headers=extra_headers, custom_transformers=custom_transformers_error)
 
     except Exception as err:
-        log_internal_error('This is actually unexpected.')
+        logger.critical('This is actually unexpected')
         response = ag.build_http_server_error_response(
-            'Something wrong happened, and this is on our end!',
+            ag.HttpInternalServerError(),
+            client_message='Something wrong happened, and this is on our end!',
             event=event, 
             extra_headers=extra_headers, 
             custom_transformers=custom_transformers_error

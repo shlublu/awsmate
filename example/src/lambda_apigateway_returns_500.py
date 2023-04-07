@@ -34,7 +34,7 @@ def lambda_handler(raw_event, context):
         #############################
         # Specific work starts here
 
-        raise RuntimeError("Let's simulate some crash")
+        raise RuntimeError("Let's simulate some crash caused by a programmatic error")
     
         # Specific work finishes here
         #############################    
@@ -44,10 +44,9 @@ def lambda_handler(raw_event, context):
         response = ag.build_http_client_error_response(err, event=event, extra_headers=extra_headers, custom_transformers=html_transformers)
 
     except Exception as err:
-        log_internal_error('Well, we expected that one')
-
         response = ag.build_http_server_error_response(
-            'Something wrong happened, and this is on our end!', 
+            ag.HttpInternalServerError(),
+            client_message='Something wrong happened, and this is on our end!', 
             event=event, 
             extra_headers=extra_headers, 
             custom_transformers=html_transformers

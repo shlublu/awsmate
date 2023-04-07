@@ -791,17 +791,6 @@ def test_HttpClientError_init_initializesMessageProperly(caplog):
     assert str(test) == message
 
 
-def test_HttpClientError_init_logsProperly(caplog):
-    import re
-
-    status = random.randint(200, 599)
-    message = f'{random.randint(1000, 9999)} some text'
-
-    ag.HttpClientError(status, message)
-
-    assert re.match(f'ERROR    root:apigateway.py:[0-9]{{3}} HttpClientError: {str(status)} - {message}\n', caplog.text)
-
-
 def test_simple_message_returnsProperPayload():
     message = f'{random.randint(0, 9999)} with some blablah'
 
@@ -1133,17 +1122,18 @@ def test_build_http_response_allowsReturningExtraHeaders():
 
 
 def test_build_http_server_error_response_passeAllParameters():
-    message = 'some msg'
+    error = ag.HttpInsufficientStorageError()
+    msg = 'client message'
     event = ag.LambdaProxyEvent({})
     transformers = { 'text/*': lambda x : (x, 'text/strange') }
     extra_headers={ 'someKey': 'someValue' }
 
     with patch('awsmate.apigateway.build_http_response') as mbhser:
-        ag.build_http_server_error_response(message, event=event, custom_transformers=transformers, extra_headers=extra_headers)
+        ag.build_http_server_error_response(error, client_message=msg, event=event, custom_transformers=transformers, extra_headers=extra_headers)
 
     mbhser.assert_called_once_with(
-        500, 
-        message, 
+        507, 
+        msg, 
         event=event,
         custom_transformers=transformers,
         extra_headers=extra_headers
@@ -1152,12 +1142,32 @@ def test_build_http_server_error_response_passeAllParameters():
 
 def test_build_http_server_error_response_usesDefaultMessageIfUnspecified():
     with patch('awsmate.apigateway.build_http_response') as mbhser:
-        ag.build_http_server_error_response()
+        ag.build_http_server_error_response(ag.HttpRServiceUnavailableError())
 
     mbhser.assert_called_once_with(
-        500, 
+        503, 
         "Sorry, an error occured. Please contact the API administrator to have this sorted out.", 
     )
+
+
+def test_build_http_server_error_response_callsLoggerByDefault():
+    error = ag.HttpRServiceUnavailableError()
+
+    with patch('awsmate.apigateway.build_http_response'):
+        with patch('awsmate.apigateway.log_internal_error') as mlie:
+            ag.build_http_server_error_response(error)
+
+    mlie.assert_called_once_with(f'{error.status} - {str(error)}')    
+
+
+def test_build_http_server_error_response_doesNotCallsLoggerIfSpecified():
+    error = ag.HttpRServiceUnavailableError()
+
+    with patch('awsmate.apigateway.build_http_response'):
+        with patch('awsmate.apigateway.log_internal_error') as mlie:
+            ag.build_http_server_error_response(error, log=False)
+
+    mlie.assert_not_called()
 
 
 def test_build_http_client_error_response_passeAllParameters():
@@ -1176,3 +1186,24 @@ def test_build_http_client_error_response_passeAllParameters():
         custom_transformers=transformers,
         extra_headers=extra_headers
     )
+
+
+def test_build_http_client_error_response_callsLoggerByDefault():
+    error = ag.HttpNotFoundError()
+
+    with patch('awsmate.apigateway.build_http_response'):
+        with patch.object(ag.logger, 'error') as mle:
+            ag.build_http_client_error_response(error)
+
+    mle.assert_called_once_with(f'{error.status} - {str(error)}')  
+
+
+def test_build_http_client_error_response_doesNotCallsLoggerIfSpecified():
+    error = ag.HttpNotFoundError()
+
+    with patch('awsmate.apigateway.build_http_response'):
+        with patch.object(ag.logger, 'error') as mle:
+            ag.build_http_client_error_response(error, log=False)
+
+    mle.assert_not_called()  
+    

@@ -50,7 +50,18 @@ HTTP errors
 .. autoexception:: awsmate.apigateway.HttpPreconditionRequiredError  
 .. autoexception:: awsmate.apigateway.HttpTooManyRequestsError   
 .. autoexception:: awsmate.apigateway.HttpRequestHeaderFieldsTooLargeError     
-   
+.. autoexception:: awsmate.apigateway.HttpInternalServerError  
+.. autoexception:: awsmate.apigateway.HttpNotImplementedError     
+.. autoexception:: awsmate.apigateway.HttpBadGatewayError  
+.. autoexception:: awsmate.apigateway.HttpRServiceUnavailableError  
+.. autoexception:: awsmate.apigateway.HttpGatewayTimeoutError  
+.. autoexception:: awsmate.apigateway.HttpVersionNotSupportedError  
+.. autoexception:: awsmate.apigateway.HttpVarianteAlsoNegociatesError  
+.. autoexception:: awsmate.apigateway.HttpInsufficientStorageError
+.. autoexception:: awsmate.apigateway.HttpLoopDetectedError
+.. autoexception:: awsmate.apigateway.HttpNotEXtendedError
+.. autoexception:: awsmate.apigateway.HttpNetworkAuthenticationRequiredError  
+
  
 Helper functions
 ----------------

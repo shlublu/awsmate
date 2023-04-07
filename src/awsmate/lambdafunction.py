@@ -18,7 +18,7 @@ class LambdaEvent():
     """
     Superclass of input events received by AWS Lambda functions triggered by the various AWS services. 
 
-    Without being abstract, this class has no other public method than :func:`LambdaEvent.__init__`.
+    Without being abstract, this class has no other public method than :meth:`LambdaEvent.__init__`.
     """
     
     @staticmethod

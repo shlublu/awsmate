@@ -1,6 +1,6 @@
 import logging
 import traceback
-
+import typing
 
 defaultLevel = logging.INFO
 
@@ -20,9 +20,9 @@ Examples
 logger.setLevel(defaultLevel)
 
 
-def log_internal_error(msg: str) -> None:
+def log_internal_error(msg: typing.Optional[str] = None) -> None:
     """
-    Logs an internal error with an explanatory message followed by a stack trace. 
+    Logs an error explanatory message followed by a stack trace. 
     
     This function is very useful if you redirect your Lambda function outputs to AWS Cloudwatch, which is recommended. Logs issued by 
     this function appear as ``CRITICAL``. 
@@ -30,15 +30,15 @@ def log_internal_error(msg: str) -> None:
     Parameters
     ----------
     msg : str
-        Explanatory message. 
+        Optional explanatory message. 
 
     Examples
     --------
     >>> try:
     >>>   raise RuntimeError('WOW!')
     >>> except Exception:
-    >>>   log_internal_error("Something wrong happened")
-    INTERNAL ERROR: Something wrong happened.
+    >>>   log_internal_error("This one is expected")
+    INTERNAL ERROR: This one is expected.
     Traceback (most recent call last):
     File "<stdin>", line 2, in <module>
     RuntimeError: WOW!

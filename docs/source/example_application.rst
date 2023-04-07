@@ -1,12 +1,11 @@
 Example application
 ===================
 
-An example application is provided in the Github repository of this library to show how to implement its features.
+An example application is provided in the Github repository of this library.
+To deploy it or to modify it for experimentation, you can download the repository in one of the following ways:
 
-To deploy this example application, modify it for experimentation, etc, you can download the repository in one of the following ways:
-
-* ``git clone https://github.com/shlublu/awsmate.git``
-* download a ``zip`` or ``tar.gz`` archive from the `awsmate release page on Github <https://github.com/shlublu/awsmate/releases>`_
+* using git: ``git clone https://github.com/shlublu/awsmate.git``
+* manually: download a ``zip`` or ``tar.gz`` archive from the `awsmate release page on Github <https://github.com/shlublu/awsmate/releases>`_
 
 Prerequisites
 -------------
@@ -113,12 +112,12 @@ API Gateway features: :doc:`apigateway<apigateway>` module
 
     * Route "okay": ``lambda_apigateway_returns_okay.py``
         * Command-line with ``curl`` 
-            * ``curl -X https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
-            * Example: ``curl -X POST https://<endpoint_url>/okay/lets/go?someParam=someValue --data '{ "someKey": 42 }' --header 'X-example: 42'``
+            * ``curl -v -X <method> https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
+            * Example: ``curl -v -X POST https://<endpoint_url>/okay/lets/go?someParam=someValue --data '{ "someKey": 42 }' --header 'X-example: 42'``
             * Returns 200 with a JSON payload that contains the result of all methods of ``awsmate.apigateway.LambdaProxyEvent`` plus the raw event received from AWS API Gateway.
             * Demonstrates
-                * the use of all methods of ``awsmate.apigateway.LambdaProxyEvent``,
-                * the use of the HTTP response builder ``awsmate.apigateway.build_http_response()``
+                * the use of all methods of :class:`awsmate.apigateway.LambdaProxyEvent`,
+                * the use of the HTTP response builder :func:`awsmate.apigateway.build_http_response`
             * Tip: play with the ``Accept`` and ``Accept-Encoding`` headers, play with the routes, play with the URL parameters
         * With a web browser
             * ``https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value>``
@@ -127,17 +126,18 @@ API Gateway features: :doc:`apigateway<apigateway>` module
             * Demonstrates 
                 * the same of the above, plus
                 * the use of the ``custom_transformers`` (here: HTML transformation of the API response) described in :doc:`the apigateway module documentation <apigateway>`,
-                * the use of ``extra_headers`` (here: to handle CORS) with ``awsmate.apigateway.build_http_response()``,
-                * the ``gzip`` built-in functionality of ``awsmate.apigateway.build_http_response()`` based on the ``Accept-Encoding`` header (unless your browser does not accept gzip!),
+                * the use of ``extra_headers`` (here: to handle CORS) with :func:`awsmate.apigateway.build_http_response`,
+                * the ``gzip`` built-in functionality of :func:`awsmate.apigateway.build_http_response` based on the ``Accept-Encoding`` header (unless your browser does not accept gzip!),
                 * the handling of preferences submitted through ``Accept*`` headers in `weighted quality value syntax <https://developer.mozilla.org/en-US/docs/Web/HTTP/Content_negotiation>`_.
             * Tip: think of how you could localize the returned content depending on the ``Accept-Language`` header submitted by the browser
     * Route "forbidden": ``lambda_apigateway_returns_403.py``
         * Command-line with ``curl`` 
-            * ``curl -X GET https://<endpoint_url>/forbidden' --header '<any name>: <any value>'`` 
-            * Example: ``curl -X GET https://<endpoint_url>/forbidden``
-            * Returns 403 with a JSON payload that explains access is forbidden
+            * ``curl -v -X GET https://<endpoint_url>/forbidden' --header '<any name>: <any value>'`` 
+            * Example: ``curl -v -X GET https://<endpoint_url>/forbidden``
+            * Returns 403 with a JSON payload that explains the access is forbidden
+            * Logs an error message in AWS Cloudwatch. See :ref:`section "Logger features" <LoggerFeatures>` below for further details.
             * Demonstrates
-                * the use of the HTTP response builder ``awsmate.apigateway.build_http_client_error_response()``
+                * the use of the HTTP response builder :func:`awsmate.apigateway.build_http_client_error_response`
         * With a web browser
             * ``https://<endpoint_url>/forbidden``
             * Example: ``https://<endpoint_url>/forbidden``
@@ -146,12 +146,12 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                 * the same of the above plus the same extras seen with the "okay" route above
     * Route "crash": ``lambda_apigateway_returns_500.py``
         * Command-line with ``curl`` 
-            * ``curl -X GET https://<endpoint_url>/crash' --header '<any name>: <any value>'`` 
-            * Example: ``curl -X GET https://<endpoint_url>/crash``
+            * ``curl -v -X GET https://<endpoint_url>/crash' --header '<any name>: <any value>'`` 
+            * Example: ``curl -v -X GET https://<endpoint_url>/crash``
             * Returns 500 with a JSON payload that explains an internal error occurred
             * Logs a complete stack trace in AWS Cloudwatch. See :ref:`section "Logger features" <LoggerFeatures>` below for further details.
             * Demonstrates
-                * the use of the HTTP response builder ``awsmate.apigateway.build_http_server_error_response()`` 
+                * the use of the HTTP response builder :func:`awsmate.apigateway.build_http_server_error_response` 
                 * how not to reveal the cause of the crash to the end user (which would be a security breach) while logging it for debugging purposes
         * With a web browser
             * ``https://<endpoint_url>/crash``
@@ -178,13 +178,13 @@ EventBridge features: :doc:`eventbridge <eventbridge>` module
 
 * Use
     * Step by step instructions
-        * Go to the Cloudwatch service page
+        * Go to the Cloudwatch service page of the AWS Console
         * Follow the "Logs/Log group" link of the left navigation panel
         * Search for the ``/aws/lambda/awsmate_eventbridge_scheduler`` log group and open it
         * Open the most recent log stream (the scheduler triggers an event every 5 minutes)
-        * This show a log that contains the result of all methods of ``awsmate.eventbridge.LambdaBridgePutEvent`` plus the raw event received from the AWS EventBridge service.
+        * This show a log that contains the result of all methods of :class:`awsmate.eventbridge.LambdaBridgePutEvent` plus the raw event received from the AWS EventBridge service.
     * This demonstrates
-        * the use of all methods of ``awsmate.eventbridge.LambdaBridgePutEvent``
+        * the use of all methods of :class:`awsmate.eventbridge.LambdaBridgePutEvent`
     
 Lambda Function features: :doc:`lambdafunction <lambdafunction>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -211,13 +211,13 @@ S3 features: :doc:`s3 <s3>` module
         * Go to the S3 service page
         * Open the page of the S3 bucket ``awsmate-drop-files-here-<your AWS account number>``
         * Upload a file into this bucket
-        * Go to the Cloudwatch service page
+        * Go to the Cloudwatch service page of the AWS Console
         * Follow the "Logs/Log group" link of the left navigation panel
         * Search for the ``/aws/lambda/awsmate_s3_notification`` log group and open it
         * Open the most recent log stream
-        * This show a log that contains the result of all methods of ``awsmate.s3.LambdaNotificationEvent`` plus the raw event received from the AWS S3 service.
+        * This show a log that contains the result of all methods of :class:`awsmate.s3.LambdaNotificationEvent` plus the raw event received from the AWS S3 service.
     * This demonstrates
-        * the use of all methods of ``awsmate.s3.LambdaNotificationEvent``
+        * the use of all methods of :class:`awsmate.s3.LambdaNotificationEvent`
     * Tip: try to delete a file from the S3 bucket and see the corresponding log, try to drop or delete several files in a single action
 
 
@@ -228,8 +228,6 @@ Logger features: :doc:`logger <logger>` module
 
 * Relevant source files
 
-All files are relevant but we recommand the following one:
-
 ::
 
     awsmate
@@ -237,17 +235,20 @@ All files are relevant but we recommand the following one:
                 |
                 |___src
                      |
-                     |___lambda_apigateway_returns_500.py 
+                     |___lambda_logger.py 
 
 
 * Use
     * Step by step instructions
-        * Open the URL ``https://<endpoint_url>/crash`` with your web browser
-        * Go to the Cloudwatch service page
+        * Go to the Lambda service page of the AWS Console
+        * Follow the "Functions" link of the left navigation panel
+        * Search for the ``awsmate_logger`` function and open it
+        * Use the "Test" button to run it once. This will lead you to create a test event if not done already: any payload can be used as the event is not used by this function.
+        * Go to the Cloudwatch service page of the AWS Console
         * Follow the "Logs/Log group" link of the left navigation panel
-        * Search for the ``/aws/lambda/awsmate_apigateway_returns_500`` log group and open it
+        * Search for the ``/aws/lambda/awsmate_logger`` log group and open it
         * Open the most recent log stream
-        * This shows a log containing a critical error message followed by a stack trace showing the details of this crash simulation, and then an informational message showing the returned payload
+        * This shows a log containing a series of messages of progressive log levels from INFO to CRITICAL, followed by a stack trace showing the details of a crash simulation.
     * This demonstrates
-        * the use of the ``log_internal_error`` function of ``awsmate.logger``
-        * the use of the ``logger`` object of ``awsmate.logger``, which is a `standard Python logger <https://docs.python.org/3/library/logging.html>`_
+        * the use of the :data:`awsmate.logger.logger` object of :mod:`awsmate.logger`, which is a `standard Python logger <https://docs.python.org/3/library/logging.html>`_
+        * the use of the :func:`awsmate.logger.log_internal_error` 

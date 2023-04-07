@@ -7,10 +7,21 @@ All notable changes to this project are documented in this file.
 - Code
     - added class ``awsmate.apigateway.HttpServerError``
     - added class ``awsmate.apigateway.HttpError``, which is the base class of ``awsmate.apigateway.HttpClientError`` and ``awsmate.apigateway.HttpServerError``
+    - added class ``awsmate.apigateway.HttpServerError`` hierarchy
+
+- Example application
+    - added a Lambda function specific to ``awsmate.logger``
 
 ### Changed
 
-*nothing*
+- Code
+    - ``awsmate.logger.log_internal_error()``: explanatory message has been made optional
+    - ``awsmate.apigateway.HttpClientError`` doesn't log an error anymore at construction time
+    - ``awsmate.apigateway.build_http_server_error_response()`` has a new signature and logs a critical error and a stack trace by default
+    - ``awsmate.apigateway.build_http_client_error_response()`` now logs an error by default
+
+- Documentation
+    - example application: rewording
 
 ### Deprecated
 

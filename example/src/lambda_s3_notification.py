@@ -3,7 +3,7 @@ site.addsitedir('/opt')
 
 import json 
 
-from awsmate.logger import logger
+from awsmate.logger import logger, log_internal_error
 from awsmate.s3 import LambdaNotificationEvent
 
 
