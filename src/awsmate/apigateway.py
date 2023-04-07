@@ -472,12 +472,7 @@ class HttpError(RuntimeError):
     @property
     def status(self) -> int:
         """
-        Returns the HTTP response status code. 
-
-        Returns
-        -------
-        int
-            The HTTP response status code. 
+        int : HTTP response status code. 
 
         Examples
         --------
