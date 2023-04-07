@@ -7,7 +7,7 @@ import typing
 
 from http import HTTPStatus
 
-from awsmate.logger import logger
+from awsmate.logger import logger, log_internal_error
 from awsmate.lambdafunction import LambdaEvent, AwsEventSpecificationError
 
 
@@ -461,15 +461,12 @@ class HttpError(RuntimeError):
 
         Examples
         --------
-        >>> raise HttpClientError(404, 'Not sure where it is!')
+        >>> raise HttpError(404, 'Not Found')
         """
 
         super().__init__(msg)
 
         self._status = status
-        matched = re.match(r".*'.*\.(.*)'.*", str(self.__class__))
-
-        logger.error(f'{"" if matched is None else matched.group(1)}: {str(status)} - {str(msg)}')
 
 
     @property
@@ -1051,6 +1048,237 @@ class HttpRequestHeaderFieldsTooLargeError(HttpClientError):
         
         httpStatus = HTTPStatus.REQUEST_HEADER_FIELDS_TOO_LARGE
         super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)           
+
+
+class HttpInternalServerError(HttpServerError):
+    """
+    Error that represents a HTTP response status 500 "Internal server error".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpInternalServerError()               
+        """
+        
+        httpStatus = HTTPStatus.INTERNAL_SERVER_ERROR
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)       
+
+
+class HttpNotImplementedError(HttpServerError):
+    """
+    Error that represents a HTTP response status 501 "Not implemented".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpNotImplementedError()               
+        """
+        
+        httpStatus = HTTPStatus.NOT_IMPLEMENTED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpBadGatewayError(HttpServerError):
+    """
+    Error that represents a HTTP response status 502 "Bad gateway".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpBadGatewayError()               
+        """
+        
+        httpStatus = HTTPStatus.BAD_GATEWAY
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpRServiceUnavailableError(HttpServerError):
+    """
+    Error that represents a HTTP response status 503 "Service unavailable".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpRServiceUnavailableError()               
+        """
+        
+        httpStatus = HTTPStatus.SERVICE_UNAVAILABLE
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpGatewayTimeoutError(HttpServerError):
+    """
+    Error that represents a HTTP response status 504 "GatewayTimeout".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpGatewayTimeoutError()               
+        """
+        
+        httpStatus = HTTPStatus.GATEWAY_TIMEOUT
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpVersionNotSupportedError(HttpServerError):
+    """
+    Error that represents a HTTP response status 505 "HTTP version not supported".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpVersionNotSupportedError()               
+        """
+        
+        httpStatus = HTTPStatus.HTTP_VERSION_NOT_SUPPORTED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpVarianteAlsoNegociatesError(HttpServerError):
+    """
+    Error that represents a HTTP response status 506 "Variant also negociates".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpVarianteAlsoNegociatesError()               
+        """
+        
+        httpStatus = HTTPStatus.VARIANT_ALSO_NEGOTIATES
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpInsufficientStorageError(HttpServerError):
+    """
+    Error that represents a HTTP response status 507 "Insufficient storage".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpInsufficientStorageError()               
+        """
+        
+        httpStatus = HTTPStatus.INSUFFICIENT_STORAGE
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpLoopDetectedError(HttpServerError):
+    """
+    Error that represents a HTTP response status 508 "Loop detected"".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpLoopDetectedError()               
+        """
+        
+        httpStatus = HTTPStatus.LOOP_DETECTED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpNotExtendedError(HttpServerError):
+    """
+    Error that represents a HTTP response status 510 "Not extended".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpNotExtendedError()               
+        """
+        
+        httpStatus = HTTPStatus.NOT_EXTENDED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)  
+
+
+class HttpNetworkAuthenticationRequiredError(HttpServerError):
+    """
+    Error that represents a HTTP response status 511 "Network authentication required".
+    """
+    
+    def __init__(self, msg: typing.Optional[str] = None):
+        """
+        Parameters
+        ----------
+        msg : str
+            Explanatory message. A default message is used if omitted.
+
+        Examples
+        --------
+        >>> raise HttpNetworkAuthenticationRequiredError()               
+        """
+        
+        httpStatus = HTTPStatus.NETWORK_AUTHENTICATION_REQUIRED
+        super().__init__(httpStatus.value, msg if msg else httpStatus.phrase)         
         
 
 def simple_message(message: str) -> typing.Dict[str, str]:
@@ -1087,7 +1315,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     Determines the ``Content-Type`` of the response to be sent based on the ``Accept`` header of the request.
 
     ``application/json`` is the only ``Content-Type`` transformer available by default. It is mapped to the ``Accept`` values
-    ``*/*``, ``application/*`` and ``application/json``. Any other ``Accept`` value leads to a :class:`HttpNotAcceptableError` unless
+    ``*/*``, ``application/*`` and ``application/json``. Any other ``Accept`` value leads to a :exc:`HttpNotAcceptableError` unless
     ``custom_transformers`` map this ``Accept`` value to an appropriate transformer.
 
     Preferences are handled by :func:`LambdaProxyEvent.header_sorted_preferences`. Should no ``Accept`` header be given, ``*/*`` is assumed.
@@ -1138,7 +1366,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     Notes
     -----
     It is a good idea to call this function at the very beginning of your Lambda handler. This way you can make sure that
-    the accepted ``Content-Type`` matches what your API is capable of returning, and return an :class:`~HttpNotAcceptableError` 
+    the accepted ``Content-Type`` matches what your API is capable of returning, and return an :exc:`~HttpNotAcceptableError` 
     response without doing any unnecessary processing otherwise.
 
     The example below only accepts ``*/*``, ``application/*`` and ``application/json``, all mapped to ``application/json`` by default. 
@@ -1157,7 +1385,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     >>>     except amag.HttpClientError as err:
     >>>         return amag.build_http_client_error_response(err) # We will end up here should HttpNotAcceptableError be raised by determine_content_type()
     >>>     except Exception:
-    >>>         return amag.build_http_server_error_response()
+    >>>         return amag.build_http_server_error_response(amag.HttpInternalServerError())
     """
 
     acceptedMimeTypes = event.header_sorted_preferences('Accept')
@@ -1267,7 +1495,7 @@ def build_http_response(
     """
     Builds the HTTP response the Lambda handler has to return to API Gateway.
 
-    Should the ``Accept`` header of the API call lead to a :class:`HttpNotAcceptableError`, an error message is returned instead
+    Should the ``Accept`` header of the API call lead to a :exc:`HttpNotAcceptableError`, an error message is returned instead
     of the passed payload and the status code is set accordingly. 
     
     This function handles the ``Accept-Encoding: gzip`` header of the API call for you. It also sets the base-64 flag of the response to ``True`` if
@@ -1365,46 +1593,48 @@ def build_http_response(
 
 
 def build_http_server_error_response(
-        message: typing.Optional[str] = None, 
+        error: HttpServerError, *,
+        client_message: typing.Optional[str] = None,
+        log: bool = True,
         **kwargs: typing.Dict[str, typing.Any]
     ) -> dict:
     """
-    Convenience function that builds an HTTP error 500 response to be returned to API Gateway by the Lambda handler.
+    Convenience function that builds an HTTP error 5XX response to be returned to API Gateway by the Lambda handlera.
 
-    Warnings
-    --------
-    .. deprecated:: 0.2.0
-          `build_http_server_error_response` will change in version 0.3.0: the `message` positional parameter will be replaced by an
-          `error` parameter of type `HttpServerError` to be introduced in the same version.
+    Unless specified otherwise, calling this function logs a stack trace of the error showing the status and the actual error message. 
+    This message is replaced by a client-oriented message in the HTTP response.
 
     Parameters
     ----------
-    message : str
-        Optional error message. If omitted, the default message is "Sorry, an error occured. Please contact the API administrator to have this sorted out."
+    error : HttpServerError
+        Object representing the error. 
+    client_message : str
+        Optional client-oriented message. An english canned message is used if omitted.
+    log : bool
+        Optional flag that defines whether a stack trace should be logged. ``True`` if omitted.
     **kwarg : dict
         Optional arguments to pass to :func:`build_http_response`
 
     Returns
     -------
     dict
-        The HTTP error 500 response to return to API Gateway.      
+        The HTTP error 5XX response to return to API Gateway.        
       
     Examples
     --------
-    >>> build_http_server_error_response('Oops, our bad...')
-    {'isBase64Encoded': False, 'statusCode': 500, 'body': '{\\n  "Message": "Oops, our bad..."\\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
+    >>> build_http_server_error_response(HttpInsufficientStorageError(), client_message='Sorry, we have an issue.')
+    {'isBase64Encoded': False, 'statusCode': 507, 'body': '{\n  "Message": "Sorry, we have an issue."\n}', 'headers': {'Content-Type': 'application/json; charset=utf-8'}}
 
     Notes
     -----
-    This function simply calls:
-
-    >>> build_http_response(500, message, **kwargs)
-
-    It is a good idea to make your Lambda handler to catch all unexpected errors to return a proper error message should anything go wrong.
+    This function simply calls 
+    
+    >>> build_http_response(error.status, client_message, **kwargs)
+        
+    It is a good idea to make your Lambda handler to catch all unexpected errors to return a clean user-oriented error message should anything go wrong.
 
     >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
-    >>>     from awsmate.logger import log_internal_error
     >>>
     >>>     try:
     >>>         event = amag.LambdaProxyEvent(raw_event) 
@@ -1417,28 +1647,35 @@ def build_http_server_error_response(
     >>>         return amag.build_http_client_error_response(err, event=event) 
     >>>     except Exception:
     >>>         # We will end up here should any unexpected error occur
-    >>>         log_internal_error("Logs everything you need in CloudWatch")
-    >>>         return amag.build_http_server_error_response(event=event) 
+    >>>         return amag.build_http_server_error_response(amag.HttpInternalServerError(), event=event) 
     """
     
+    if log:
+        log_internal_error(f'{error.status} - {error}')
+
     return build_http_response(
-        500, 
-        message if message else "Sorry, an error occured. Please contact the API administrator to have this sorted out.",
+        error.status, 
+        client_message if client_message else 'Sorry, an error occured. Please contact the API administrator to have this sorted out.',
         **kwargs
     )
 
 
 def build_http_client_error_response(
-        error: HttpClientError, 
+        error: HttpClientError, *,
+        log: bool = True,
         **kwargs: typing.Dict[str, typing.Any]
     ) -> dict:
     """
     Convenience function that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
 
+    Unless specified otherwise, calling this function logs an error showing the status and message. 
+
     Parameters
     ----------
     error : HttpClientError
         Object representing the error. 
+    log : bool
+        Optional flag that defines whether a stack trace should be logged. ``True`` if omitted.
     **kwarg : dict
         Optional arguments to pass to :func:`build_http_response`
 
@@ -1458,7 +1695,7 @@ def build_http_client_error_response(
     
     >>> build_http_response(error.status, str(error), **kwargs)
 
-    It is a good idea to make your Lambda handler to catch all HttpClientError to return a proper error message should there be any problem with the request.
+    It is a good idea to make your Lambda handler to catch all HttpClientError to return a clean error message should there be any problem with the request.
 
     >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
@@ -1473,8 +1710,11 @@ def build_http_client_error_response(
     >>>     except amag.HttpClientError as err:
     >>>         return amag.build_http_client_error_response(err, event=event) # We will end up here should anything be wrong in the client's request
     >>>     except Exception:
-    >>>         return amag.build_http_server_error_response(event=event) 
+    >>>         return amag.build_http_server_error_response(amag.HttpInternalServerError(), event=event) 
     """
+
+    if log:
+        logger.error(f'{error.status} - {error}')
 
     return build_http_response(
         error.status, 
