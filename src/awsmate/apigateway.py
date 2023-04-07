@@ -29,7 +29,8 @@ class MalformedPayloadError(RuntimeError):
 
 class LambdaProxyEvent(LambdaEvent):
     """
-    Mapping of the input event received by an AWS Lambda function triggered by AWS API Gateway during a client API call.
+    Mapping of the input event received by an AWS Lambda function triggered by AWS API Gateway and integrated 
+    in `AWS_PROXY <https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-set-up-simple-proxy.html>`_ mode.
     """
 
     def __init__(self, event_object: dict):
