@@ -448,6 +448,10 @@ class LambdaProxyEvent(LambdaEvent):
 class HttpError(RuntimeError):
     """
     HTTP error response: status code and message.
+
+    Examples
+    --------
+    >>> raise HttpError(404, 'Not Found')    
     """
 
     def __init__(self, status: int, msg: str) -> None:
@@ -458,10 +462,6 @@ class HttpError(RuntimeError):
             The HTTP response status code. This value is taken as-is, there is no validation routine.
         msg : str
             The explanatory message.
-
-        Examples
-        --------
-        >>> raise HttpError(404, 'Not Found')
         """
 
         super().__init__(msg)
@@ -481,7 +481,7 @@ class HttpError(RuntimeError):
 
         Examples
         --------
-        Given ``e = HttpClientError(403, 'Forbidden')``
+        Given ``e = HttpError(403, 'Forbidden')``
 
         >>> e.status
         403
@@ -493,6 +493,10 @@ class HttpError(RuntimeError):
 class HttpClientError(HttpError):
     """
     Client HTTP error response.
+
+    Examples
+    --------
+    >>> raise HttpClientError(404, 'Not Found')    
     """
     pass
 
@@ -500,6 +504,10 @@ class HttpClientError(HttpError):
 class HttpServerError(HttpError):
     """
     Server-side HTTP error response.
+
+    Examples
+    --------
+    >>> raise HttpServerError(503, 'Service Unavailable')    
     """
     pass
 
