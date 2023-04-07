@@ -250,5 +250,5 @@ Logger features: :doc:`logger <logger>` module
         * Open the most recent log stream
         * This shows a log containing a series of messages of progressive log levels from INFO to CRITICAL, followed by a stack trace showing the details of a crash simulation.
     * This demonstrates
-        * the use of the :data:`awsmate.logger.logger` object of :doc:`awsmate.logger <logger>`, which is a `standard Python logger <https://docs.python.org/3/library/logging.html>`_
+        * the use of the :data:`awsmate.logger.logger` object, which is a `standard Python logger <https://docs.python.org/3/library/logging.html>`_
         * the use of the :func:`awsmate.logger.log_internal_error` 
