@@ -21,9 +21,16 @@ HTTP responses builders
 HTTP errors
 -----------
 
+Base classes
+~~~~~~~~~~~~ 
+
 .. autoexception:: awsmate.apigateway.HttpError
 .. autoexception:: awsmate.apigateway.HttpClientError
 .. autoexception:: awsmate.apigateway.HttpServerError
+
+Client errors
+~~~~~~~~~~~~~
+
 .. autoexception:: awsmate.apigateway.HttpBadRequestError
 .. autoexception:: awsmate.apigateway.HttpUnauthorizedError
 .. autoexception:: awsmate.apigateway.HttpPaymentRequiredError
@@ -49,7 +56,11 @@ HTTP errors
 .. autoexception:: awsmate.apigateway.HttpUpgradeRequiredError  
 .. autoexception:: awsmate.apigateway.HttpPreconditionRequiredError  
 .. autoexception:: awsmate.apigateway.HttpTooManyRequestsError   
-.. autoexception:: awsmate.apigateway.HttpRequestHeaderFieldsTooLargeError     
+.. autoexception:: awsmate.apigateway.HttpRequestHeaderFieldsTooLargeError   
+
+Server-side errors
+~~~~~~~~~~~~~~~~~~    
+
 .. autoexception:: awsmate.apigateway.HttpInternalServerError  
 .. autoexception:: awsmate.apigateway.HttpNotImplementedError     
 .. autoexception:: awsmate.apigateway.HttpBadGatewayError  
@@ -59,7 +70,7 @@ HTTP errors
 .. autoexception:: awsmate.apigateway.HttpVarianteAlsoNegociatesError  
 .. autoexception:: awsmate.apigateway.HttpInsufficientStorageError
 .. autoexception:: awsmate.apigateway.HttpLoopDetectedError
-.. autoexception:: awsmate.apigateway.HttpNotEXtendedError
+.. autoexception:: awsmate.apigateway.HttpNotExtendedError
 .. autoexception:: awsmate.apigateway.HttpNetworkAuthenticationRequiredError  
 
  
