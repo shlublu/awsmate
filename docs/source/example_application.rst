@@ -5,7 +5,7 @@ An example application is provided in the Github repository of this library.
 To deploy it or to modify it for experimentation, you can download the repository in one of the following ways:
 
 * using git: ``git clone https://github.com/shlublu/awsmate.git``
-* manually: download a ``zip`` or ``tar.gz`` archive from the `awsmate release page on Github <https://github.com/shlublu/awsmate/releases>`_
+* manually: ``zip`` and ``tar.gz`` archives are available on the `release page of the repository <https://github.com/shlublu/awsmate/releases>`_
 
 Prerequisites
 -------------
