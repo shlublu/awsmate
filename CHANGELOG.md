@@ -33,7 +33,8 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
-*nothing*
+- Example application
+    - Deployment scripts: ``.`` was mistakenly assumed to be in the ``PATH``.
 
 ### Security
 
