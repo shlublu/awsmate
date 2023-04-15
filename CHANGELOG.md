@@ -35,6 +35,7 @@ All notable changes to this project are documented in this file.
 
 - Example application
     - Deployment scripts: ``.`` was mistakenly assumed to be in the ``PATH``.
+    - API Gateway: fixed the redeployment issue
 
 ### Security
 
