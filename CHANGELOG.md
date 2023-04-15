@@ -23,6 +23,9 @@ All notable changes to this project are documented in this file.
 - Documentation
     - example application: rewording
 
+- Example application
+    - made the AWS region used for deployment configurable through an environment variable, without editing any file  
+
 ### Deprecated
 
 *nothing*
