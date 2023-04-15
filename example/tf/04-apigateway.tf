@@ -123,6 +123,12 @@ resource "aws_api_gateway_deployment" "demonstrator" {
     ]
 
     rest_api_id = aws_api_gateway_rest_api.demonstrator.id
+
+    stage_description = "${timestamp()}"  
+
+    lifecycle {
+        create_before_destroy = true
+    }    
 }
 
 resource "aws_api_gateway_stage" "demonstrator" {
