@@ -37,18 +37,19 @@ Example files location
 Instructions for deployment
 ---------------------------
 
-Credentials
-~~~~~~~~~~~
+AWS settings
+~~~~~~~~~~~~
 
 * Using configuration and credentials files:
     *   Define a default profile in ``~/.aws/``, or use the AWS CLI ``aws configure`` command
     *   Please see the `AWS documentation of these configuration files <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>`_  for further details
 * Using environment variables: 
-    *   Define the environment variables ``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``, (...) with the parameters corresponding to your AWS IAM credentials 
-    *   Export them all using the shell ``export`` command
+    *   Define your AWS IAM credential using the environment variables ``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``, (...)  
+    *   Define the AWS region you wish to deploy in using the environment variable ``AWS_REGION``
+    *   Export all these environment variables using the shell ``export`` command
     *   Please see the `AWS documentation of these environment variables <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html>`_  for further details
 
-Depending on your AWS IAM setup, you may have to use the AWS CLI to execute commands such as ``aws sts assume-role`` or ``aws sso login`` on top of the above.
+In some companies and organizations you may have to use the AWS CLI to execute commands such as ``aws sts assume-role`` or ``aws sso login`` on top of or instead of the above. Should you have issues defining your AWS settings, please check with your AWS administrator.
 
 .. _Deployment:
 
@@ -57,7 +58,6 @@ Deployment
 
 From the ``example`` directory seen above:
 
-* the AWS region of deployment is ``eu-west-1`` by default. Should you wish to change it, define the following environment variable: ``export TF_VAR_aws_region=<the AWS region you wish>``.
 * run ``./deploy.sh``: this will deploy all AWS resources described in the ``tf/`` directory. This may take some time, and this produces a pretty verbose log.
 * then take note of the final log message ``endpoint_url = "https://<deployment id>.execute-api.<region>.amazonaws.com/v0"``: this is the base URL of the newly deployed example API. 
 
