@@ -1,5 +1,33 @@
 All notable changes to this project are documented in this file.
 
+## [0.4.0] - *not yet released*
+
+### Added
+
+- Code
+    - initiated ``awsmate.sns`` module with ``awsmate.sns.LambdaMessageEvent``
+
+### Changed
+
+- Code
+    - transparently moved code from class ``awsmate.s3.LambdaNotificationEvent`` to ``awsmate.lambdafunction.LambdaEvent`` for mutualization
+
+### Deprecated
+
+*nothing*
+
+### Removed
+
+*nothing*
+
+### Fixed
+
+*nothing*
+
+### Security
+
+*nothing*
+
 ## [0.3.1] - 2023-04-28
 
 ### Added
