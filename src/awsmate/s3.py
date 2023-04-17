@@ -1,5 +1,6 @@
 import typing
         
+from urllib.parse import unquote_plus        
 from awsmate.lambdafunction import LambdaEvent
 
 
@@ -84,6 +85,8 @@ class LambdaNotificationEvent(LambdaEvent):
         """
         Returns the key of the S3 object that is the subject of this notification.
 
+        The returned value is URL decoded.
+
         Returns
         -------
         str
@@ -101,7 +104,7 @@ class LambdaNotificationEvent(LambdaEvent):
         """
         
         try:
-            ret = self._object_structure()["key"]
+            ret = unquote_plus(self._object_structure()["key"])
     
         except KeyError as err:
             LambdaEvent._raiseCannotReachError(str(err))
