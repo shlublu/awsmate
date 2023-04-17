@@ -100,7 +100,7 @@ class LambdaNotificationEvent(LambdaEvent):
         Examples
         --------
         >>> event.objet_key()
-        'path/to/some/object'
+        'path/to/object'
         """
         
         try:
@@ -160,6 +160,29 @@ class LambdaNotificationEvent(LambdaEvent):
         """
         
         return self._object_structure().get('eTag', None)
+    
+
+    def object_url(self):
+        """
+        Returns the complete URL of the S3 object that is the subject of this notification.
+
+        Returns
+        -------
+        str
+            The URL of the S3 object.
+
+        Raises
+        ------
+        awsmate.lambdafunction.AwsEventSpecificationError
+            If the event structure is invalid.         
+
+        Examples
+        --------
+        >>> event.object_url()
+        's3://my-example-s3-bucket/path/to/object'
+        """
+ 
+        return f's3://{self.bucket_name()}/{self.object_key()}'
 
 
     def bucket_name(self) -> str:
