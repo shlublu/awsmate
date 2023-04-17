@@ -41,13 +41,13 @@ AWS settings
 ~~~~~~~~~~~~
 
 * Using configuration and credentials files:
-    *   Define a default profile in ``~/.aws/``, or use the AWS CLI ``aws configure`` command
-    *   Please see the `AWS documentation of these configuration files <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>`_  for further details
+    *   define a default profile in ``~/.aws/``, or use the AWS CLI ``aws configure`` command
+    *   please see the `AWS documentation of these configuration files <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html>`_  for further details
 * Using environment variables: 
-    *   Define your AWS IAM credential using the environment variables ``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``, (...)  
-    *   Define the AWS region you wish to deploy in using the environment variable ``AWS_REGION``
-    *   Export all these environment variables using the shell ``export`` command
-    *   Please see the `AWS documentation of these environment variables <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html>`_  for further details
+    *   define your AWS IAM credential using the environment variables ``AWS_ACCESS_KEY_ID``, ``AWS_SECRET_ACCESS_KEY``, (...)  
+    *   define the AWS region you wish to deploy in using the environment variable ``AWS_REGION``
+    *   export all these environment variables using the shell ``export`` command
+    *   please see the `AWS documentation of these environment variables <https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-envvars.html>`_  for further details
 
 In some companies and organizations you may have to use the AWS CLI to execute commands such as ``aws sts assume-role`` or ``aws sso login`` on top of or instead of the above. Should you have issues defining your AWS settings, please check with your AWS administrator.
 

@@ -1600,7 +1600,7 @@ def build_http_server_error_response(
         error: HttpServerError, *,
         client_message: typing.Optional[str] = None,
         log: bool = True,
-        **kwargs: typing.Dict[str, typing.Any]
+        **kwargs: typing.Any
     ) -> dict:
     """
     Convenience function that builds an HTTP error 5XX response to be returned to API Gateway by the Lambda handler.
@@ -1616,7 +1616,7 @@ def build_http_server_error_response(
         Optional client-oriented message. An english canned message is used if omitted.
     log : bool
         Optional flag that defines whether a stack trace should be logged. ``True`` if omitted.
-    **kwarg : dict
+    **kwarg : any
         Optional arguments to pass to :func:`build_http_response`
 
     Returns
@@ -1667,7 +1667,7 @@ def build_http_server_error_response(
 def build_http_client_error_response(
         error: HttpClientError, *,
         log: bool = True,
-        **kwargs: typing.Dict[str, typing.Any]
+        **kwargs: typing.Any
     ) -> dict:
     """
     Convenience function that builds an HTTP error 4XX response to be returned to API Gateway by the Lambda handler.
@@ -1680,7 +1680,7 @@ def build_http_client_error_response(
         Object representing the error. 
     log : bool
         Optional flag that defines whether a stack trace should be logged. ``True`` if omitted.
-    **kwarg : dict
+    **kwarg : any
         Optional arguments to pass to :func:`build_http_response`
 
     Returns
