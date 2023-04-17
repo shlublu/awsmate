@@ -26,9 +26,9 @@ def lambda_handler(raw_event, context):
         'Access-Control-Allow-Origin': '*'
     }
 
+    event = ag.LambdaProxyEvent(raw_event)
+
     try:
-        event = ag.LambdaProxyEvent(raw_event)
-        
         ag.determine_content_type(event, custom_transformers=html_transformers)
 
         #############################
