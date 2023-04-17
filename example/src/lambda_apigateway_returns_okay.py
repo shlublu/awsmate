@@ -49,9 +49,9 @@ def lambda_handler(raw_event, context):
         'text/html': dict_to_html_error
     }
 
-    try:
-        event = ag.LambdaProxyEvent(raw_event)
+    event = ag.LambdaProxyEvent(raw_event)
 
+    try:
         ag.determine_content_type(event, custom_transformers=custom_transformers_regular)
 
         #############################
