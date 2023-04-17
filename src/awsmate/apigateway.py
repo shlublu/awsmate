@@ -1378,8 +1378,9 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
     >>>
+    >>>     event = amag.LambdaProxyEvent(raw_event) 
+    >>>
     >>>     try:
-    >>>         event = amag.LambdaProxyEvent(raw_event) 
     >>>         amag.determine_content_type(event)
     >>>
     >>>         # Everything you need to do
@@ -1387,9 +1388,9 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
     >>>         return amag.build_http_response(200, "OK", event=event)
     >>>
     >>>     except amag.HttpClientError as err:
-    >>>         return amag.build_http_client_error_response(err) # We will end up here should HttpNotAcceptableError be raised by determine_content_type()
+    >>>         return amag.build_http_client_error_response(err, event=event) # We will end up here should HttpNotAcceptableError be raised by determine_content_type()
     >>>     except Exception:
-    >>>         return amag.build_http_server_error_response(amag.HttpInternalServerError())
+    >>>         return amag.build_http_server_error_response(amag.HttpInternalServerError(), event=event)
     """
 
     acceptedMimeTypes = event.header_sorted_preferences('Accept')
@@ -1640,9 +1641,9 @@ def build_http_server_error_response(
     >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
     >>>
-    >>>     try:
-    >>>         event = amag.LambdaProxyEvent(raw_event) 
+    >>>     event = amag.LambdaProxyEvent(raw_event) 
     >>>
+    >>>     try:
     >>>         # Everything you need to do
     >>>
     >>>         return amag.build_http_response(200, "OK", event=event)
@@ -1704,9 +1705,9 @@ def build_http_client_error_response(
     >>> def lambda_handler(raw_event, context):
     >>>     import awsmate.apigateway as amag
     >>>
-    >>>     try:
-    >>>         event = amag.LambdaProxyEvent(raw_event) 
+    >>>     event = amag.LambdaProxyEvent(raw_event) 
     >>>
+    >>>     try:
     >>>         # Everything you need to do
     >>>
     >>>         return amag.build_http_response(200, "OK", event=event)

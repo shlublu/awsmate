@@ -166,6 +166,8 @@ class LambdaNotificationEvent(LambdaEvent):
         """
         Returns the complete URL of the S3 object that is the subject of this notification.
 
+        The returned value is URL decoded.
+
         Returns
         -------
         str
