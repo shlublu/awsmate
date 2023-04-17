@@ -8,6 +8,7 @@ All notable changes to this project are documented in this file.
     - added class ``awsmate.apigateway.HttpServerError``
     - added class ``awsmate.apigateway.HttpError``, which is the base class of ``awsmate.apigateway.HttpClientError`` and ``awsmate.apigateway.HttpServerError``
     - added class ``awsmate.apigateway.HttpServerError`` hierarchy
+    - added method ``awsmate.s3.LambdaNotificationEvent.object_url()`` 
 
 - Example application
     - added a Lambda function specific to ``awsmate.logger``

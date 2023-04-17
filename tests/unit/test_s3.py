@@ -418,6 +418,27 @@ def test_LambdaNotificationEvent_object_etag_reliesOn_object_structure():
     ms3n.assert_called_once_with()
 
 
+def test_LambdaNotificationEvent_object_url_returnsTheExpectedValue():
+    event = {
+        "Records": [
+            {
+                "s3": {
+                    "bucket": {
+                        "name": "my-example-bucket"
+                    },
+                    "object": {
+                        "key": "some/stuff"
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = s3.LambdaNotificationEvent(event)
+
+    assert test.object_url() == "s3://my-example-bucket/some/stuff"
+    
+
 def test_LambdaNotificationEvent_bucket_name_returnsTheExpectedValue():
     event = {
         "Records": [
