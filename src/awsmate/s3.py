@@ -162,7 +162,7 @@ class LambdaNotificationEvent(LambdaEvent):
         return self._object_structure().get('eTag', None)
     
 
-    def object_url(self):
+    def object_url(self) -> str:
         """
         Returns the complete URL of the S3 object that is the subject of this notification.
 
