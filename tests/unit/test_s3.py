@@ -249,6 +249,24 @@ def test_LambdaNotificationEvent_object_key_returnsTheExpectedKey():
     assert test.object_key() == "stuff" 
 
 
+def test_LambdaNotificationEvent_object_key_performsUrlDecoding():
+    event = {
+        "Records": [
+            {
+                "s3": {
+                    "object": {
+                        "key": "stuff+stuff%20and+more%20stuff%21+Et%20voil%C3%A0."
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = s3.LambdaNotificationEvent(event)
+
+    assert test.object_key() == "stuff stuff and more stuff! Et voilà."     
+
+
 def test_LambdaNotificationEvent_object_key_raisesIfEventDoesNotHaveAKeyUnderObject():
     event = {
         "Records": [

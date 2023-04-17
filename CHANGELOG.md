@@ -19,6 +19,7 @@ All notable changes to this project are documented in this file.
     - ``awsmate.apigateway.HttpClientError`` doesn't log an error anymore at construction time
     - ``awsmate.apigateway.build_http_server_error_response()`` has a new signature and logs a critical error and a stack trace by default
     - ``awsmate.apigateway.build_http_client_error_response()`` now logs an error by default
+    - ``awsmate.s3.LambdaNotificationEvent.object_key()`` performs URL decoding on the returned value
 
 - Documentation
     - example application: rewording
