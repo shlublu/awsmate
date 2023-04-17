@@ -11,6 +11,7 @@ Release process
 * ...test the job...
 * Update the changelog, including the release date
 * PR and merge into master
+* checkout/pull master and delete dev branch
 * Set commit tag
 * PyPi release: as per https://packaging.python.org/en/latest/tutorials/packaging-projects/
    * python3 -m pip install --upgrade build
