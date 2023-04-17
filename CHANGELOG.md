@@ -1,6 +1,6 @@
 All notable changes to this project are documented in this file.
 
-## [0.3.1] - *not released yet*
+## [0.3.1] - *not yet released*
 
 ### Added
 
@@ -8,7 +8,8 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
-*nothing*
+- Example application
+    - Terraform version upgrade
 
 ### Deprecated
 
