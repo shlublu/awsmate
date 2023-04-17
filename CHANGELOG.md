@@ -1,5 +1,32 @@
 All notable changes to this project are documented in this file.
 
+## [0.3.1] - *not released yet*
+
+### Added
+
+*nothing*
+
+### Changed
+
+*nothing*
+
+### Deprecated
+
+*nothing*
+
+### Removed
+
+*nothing*
+
+### Fixed
+
+- Code
+    - ``awsmate.s3.LambdaNotificationEvent.object_url()``: fixed missing return type hint
+
+### Security
+
+*nothing*
+
 ## [0.3.0] - 2023-04-17
 
 ### Added
