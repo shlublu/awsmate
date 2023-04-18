@@ -22,6 +22,7 @@ All notable changes to this project are documented in this file.
 ### Fixed
 
 - Code
+    - ``awsmate.lambdafunction.LambdaEvent.__init__()``: fixed error message if passed parameter is not a ``dict``
     - ``awsmate.s3.LambdaNotificationEvent.object_url()``: fixed missing return type hint
 
 ### Security
