@@ -51,7 +51,7 @@ class LambdaEvent():
         """
         
         if not isinstance(event_object, dict):
-            raise TypeError(f"eventObject should be a dict. Here: {str(type(event_object))}.")
+            raise TypeError(f"event_object should be a dict. Here: {str(type(event_object))}.")
 
         self._event = event_object
 

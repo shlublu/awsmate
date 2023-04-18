@@ -40,4 +40,4 @@ def test_LambdaEvent_init_raisesIfEventObjectIsNotADict():
     with pytest.raises(TypeError) as exceptionInfo:
         lf.LambdaEvent(event) # type: ignore
 
-    assert exceptionInfo.value.args[0] == f"eventObject should be a dict. Here: {str(type(event))}."
+    assert exceptionInfo.value.args[0] == f"event_object should be a dict. Here: {str(type(event))}."
