@@ -94,7 +94,7 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure does not allow retrieving this key.         
 
         Examples
@@ -125,7 +125,7 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure is invalid.         
 
         Examples
@@ -150,7 +150,7 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure is invalid.         
 
         Examples
@@ -175,7 +175,7 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure is invalid.         
 
         Examples
@@ -198,7 +198,7 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure does not allow retrieving this bucket name.         
 
         Examples
@@ -227,7 +227,7 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure does not allow retrieving this bucket arn.         
 
         Examples
@@ -256,7 +256,7 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure does not allow retrieving this event name.         
 
         Examples

@@ -51,7 +51,7 @@ class LambdaBridgePutEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure does not allow retrieving this piece of information.         
 
         Examples
@@ -82,7 +82,7 @@ class LambdaBridgePutEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure does not allow retrieving this service.         
 
         Examples
@@ -113,7 +113,7 @@ class LambdaBridgePutEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If the event structure does not allow retrieving this detail, or if cannot be JSON deserialized.      
 
         Examples
