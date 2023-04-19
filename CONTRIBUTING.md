@@ -10,7 +10,7 @@
 
 * Ensure the PR description clearly describes the problem and solution. Include the relevant issue number if applicable.
 
-* Before submitting, feel free to [open a discussion](https://github.com/shlublu/awsmate/discussions/new/choose "new discussion on awsmate forum") to let us know about your patch, or to ask any question you would like.
+* Before submitting, feel free to [open a discussion](https://github.com/shlublu/awsmate/discussions/new/choose "new discussion on awsmate board") to let us know about your patch, or to ask any question you would like.
 
 ## Did you fix whitespace, format code, or make some refactoring?
 
@@ -18,13 +18,13 @@ Such changes are welcome! Please just let us know why this change would be an im
 
 ## Do you intend to add a new feature or change an existing one?
 
-* Suggest your change in the [discussion forum](https://github.com/shlublu/awsmate/discussions/new?category=ideas "new idea on awsmate forum").
+* Suggest your change in the [discussion board](https://github.com/shlublu/awsmate/discussions/new?category=ideas "new idea on awsmate board").
 
 * After having collected some feedback, feel free to [open a precise feature request](https://github.com/shlublu/awsmate/issues/new?assignees=&labels=&template=feature_request.md&title= "new feature request on awsmate bugtracker").
 
 ## Do you have questions about the source code or the use of the library?
 
-* Ask any question you would like in [the discussion forum](https://github.com/shlublu/awsmate/discussions/new/choose "new discussion on awsmate forum").
+* Ask any question you would like in [the discussion board](https://github.com/shlublu/awsmate/discussions/new/choose "new discussion on awsmate board").
 
 ## Do you want to contribute to the documentation?
 

@@ -11,6 +11,9 @@ All notable changes to this project are documented in this file.
 - Example application
     - Terraform version upgrade
 
+- Documentation
+    - wording
+
 ### Deprecated
 
 *nothing*
