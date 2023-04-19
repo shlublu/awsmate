@@ -27,7 +27,7 @@ def log_internal_error(msg: typing.Optional[str] = None) -> None:
 
     Parameters
     ----------
-    msg : str
+    msg : ``str``
         Optional explanatory message. 
 
     Examples
