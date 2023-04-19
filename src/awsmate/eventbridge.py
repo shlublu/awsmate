@@ -20,12 +20,12 @@ class LambdaBridgePutEvent(LambdaEvent):
         """
         Parameters
         ----------
-        event_object : dict
+        event_object : ``dict``
             The parameter ``event`` received by the AWS Lambda function handler.
 
         Raises
         ------
-        TypeError
+        ``TypeError``
             If ``event_object`` is not a ``dict``.  
                     
         Examples
@@ -46,12 +46,12 @@ class LambdaBridgePutEvent(LambdaEvent):
 
         Returns
         -------
-        str
+        ``str``
             The detail of the type.
 
         Raises
         ------
-        awsmate.lambdafunction.AwsEventSpecificationError
+        ``awsmate.lambdafunction.AwsEventSpecificationError``
             If the event structure does not allow retrieving this piece of information.         
 
         Examples
@@ -77,12 +77,12 @@ class LambdaBridgePutEvent(LambdaEvent):
 
         Returns
         -------
-        str
+        ``str``
             The name of the source AWS service.
 
         Raises
         ------
-        awsmate.lambdafunction.AwsEventSpecificationError
+        ``awsmate.lambdafunction.AwsEventSpecificationError``
             If the event structure does not allow retrieving this service.         
 
         Examples
@@ -108,12 +108,12 @@ class LambdaBridgePutEvent(LambdaEvent):
 
         Returns
         -------
-        any
+        ``any``
             The detail of this event as submitted by the service that triggered it.
 
         Raises
         ------
-        awsmate.lambdafunction.AwsEventSpecificationError
+        ``awsmate.lambdafunction.AwsEventSpecificationError``
             If the event structure does not allow retrieving this detail, or if cannot be JSON deserialized.      
 
         Examples

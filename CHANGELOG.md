@@ -8,6 +8,9 @@ All notable changes to this project are documented in this file.
 
 ### Changed
 
+- Documentation
+    - Types styling
+
 - Example application
     - Terraform version upgrade
 
