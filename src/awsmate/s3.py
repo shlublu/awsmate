@@ -13,12 +13,12 @@ class LambdaNotificationEvent(LambdaEvent):
         """
         Parameters
         ----------
-        event_object : ``dict``
+        event_object : dict
             The parameter ``event`` received by the AWS Lambda function handler.
 
         Raises
         ------
-        ``TypeError``
+        TypeError
             If ``event_object`` is not a ``dict``.  
                     
         Examples
@@ -89,12 +89,12 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             The key of the S3 object.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If the event structure does not allow retrieving this key.         
 
         Examples
@@ -120,12 +120,12 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Returns
         -------
-        ``int``
+        int
             The size of the S3 object in bytes or ``None`` if not defined
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If the event structure is invalid.         
 
         Examples
@@ -145,12 +145,12 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             The eTag of the S3 object or ``None`` if not defined.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If the event structure is invalid.         
 
         Examples
@@ -170,12 +170,12 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             The URL of the S3 object.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If the event structure is invalid.         
 
         Examples
@@ -193,12 +193,12 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             The name of the S3 bucket.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If the event structure does not allow retrieving this bucket name.         
 
         Examples
@@ -222,12 +222,12 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             The arn of the S3 bucket.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If the event structure does not allow retrieving this bucket arn.         
 
         Examples
@@ -251,12 +251,12 @@ class LambdaNotificationEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             The S3 event name.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If the event structure does not allow retrieving this event name.         
 
         Examples

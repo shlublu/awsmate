@@ -20,7 +20,7 @@ class MalformedPayloadError(RuntimeError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message.
         """
         
@@ -37,12 +37,12 @@ class LambdaProxyEvent(LambdaEvent):
         """
         Parameters
         ----------
-        event_object : ``dict``
+        event_object : dict
             The parameter ``event`` received by the AWS Lambda function handler.
 
         Raises
         ------
-        ``TypeError``
+        TypeError
             If ``event_object`` is not a ``dict``.  
                     
         Examples
@@ -61,12 +61,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``ipaddress.IPv4Address`` or ``ipaddress.IPv6Address``
+        ipaddress.IPv4Address or ipaddress.IPv6Address
             The IP address the API call comes from.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``requestContext.identity.sourceIp`` key is present in the event data or if the IP address is invalid.            
 
         Examples
@@ -95,12 +95,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``dict``
+        dict
             Keys: header names as ``str``. Values: corresponding raw values as ``str``.
             
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``headers`` key is present in the event data.
 
         Examples
@@ -126,12 +126,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             HTTP method of the API call.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``requestContext.httpMethod`` key is present in the event data.            
 
         Examples
@@ -157,12 +157,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             HTTP protocol of the API call.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``requestContext.protocol`` key is present in the event data.            
 
         Examples
@@ -188,12 +188,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             HTTP user-agent of the API call.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``requestContext.identity.userAgent`` key is present in the event data.            
 
         Examples
@@ -220,7 +220,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``tuple``
+        tuple
             Header values as ``str``, in decreasing preference order.
             
         Examples
@@ -258,12 +258,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             Domain name of the API call.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``requestContext.domainName`` key is present in the event data.            
 
         Examples
@@ -287,12 +287,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``tuple``
+        tuple
             Path elements as ``str``.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``requestContext.path`` key is present in the event data.      
 
         Examples
@@ -322,12 +322,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``dict``
+        dict
             Keys: parameter names as ``str``. Values: corresponding raw values as ``str``.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``queryStringParameters`` key is present in the event data. No parameters is supposed to be represented as ``'queryStringParameters': None``.       
 
         Examples
@@ -353,12 +353,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``str``
+        str
             The query string of the API call, including URL parameters if any.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If at least one of the ``httpMethod``, ``query_domain``, ``query_path`` or ``query_string_parameters`` keys is not present in the event data.     
 
         Examples
@@ -382,14 +382,14 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``dict``
+        dict
             Data sent as the body of the API call loaded as a ``dict``, ``None`` if body is null.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``body`` key is present in the event data.    
-        ``MalformedPayloadError``
+        MalformedPayloadError
             If the submitted data is not valid JSON.        
 
         Examples
@@ -417,12 +417,12 @@ class LambdaProxyEvent(LambdaEvent):
 
         Returns
         -------
-        ``dict``
+        dict
             User details or ``None`` if this call is anonymous.
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        awsmate.lambdafunction.AwsEventSpecificationError
             If no ``requestContext`` key is present in the event data, or if claims is not ``None`` and not a ``dict``.  
 
         Examples
@@ -459,9 +459,9 @@ class HttpError(RuntimeError):
         """
         Parameters
         ----------
-        status : ``int``
+        status : int
             The HTTP response status code. This value is taken as-is, there is no validation routine.
-        msg : ``str``
+        msg : str
             The explanatory message.
         """
 
@@ -517,7 +517,7 @@ class HttpBadRequestError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -538,7 +538,7 @@ class HttpUnauthorizedError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -559,7 +559,7 @@ class HttpPaymentRequiredError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -580,7 +580,7 @@ class HttpForbiddenError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -601,7 +601,7 @@ class HttpNotFoundError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -622,7 +622,7 @@ class HttpMethodNotAllowedError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -643,7 +643,7 @@ class HttpNotAcceptableError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -664,7 +664,7 @@ class HttpProxyAuthenticationRequiredError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -685,7 +685,7 @@ class HttpRequestTimeoutError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -706,7 +706,7 @@ class HttpConflictError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -727,7 +727,7 @@ class HttpGoneError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -748,7 +748,7 @@ class HttpLengthRequiredError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -769,7 +769,7 @@ class HttpPreconditionFailedError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -790,7 +790,7 @@ class HttpRequestEntityTooLargeError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -811,7 +811,7 @@ class HttpRequestUriTooLongError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -832,7 +832,7 @@ class HttpUnsupportedMediaTypeError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -853,7 +853,7 @@ class HttpRequestRangeNotSatisfiableError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -874,7 +874,7 @@ class HttpExpectationFailedError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -895,7 +895,7 @@ class HttpMisdirectedRequestError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -916,7 +916,7 @@ class HttpUnprocessableEntityError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -937,7 +937,7 @@ class HttpLockedError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -958,7 +958,7 @@ class HttpFailedDependencyError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -979,7 +979,7 @@ class HttpUpgradeRequiredError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1000,7 +1000,7 @@ class HttpPreconditionRequiredError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1021,7 +1021,7 @@ class HttpTooManyRequestsError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1042,7 +1042,7 @@ class HttpRequestHeaderFieldsTooLargeError(HttpClientError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1063,7 +1063,7 @@ class HttpInternalServerError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1084,7 +1084,7 @@ class HttpNotImplementedError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1105,7 +1105,7 @@ class HttpBadGatewayError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1126,7 +1126,7 @@ class HttpRServiceUnavailableError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1147,7 +1147,7 @@ class HttpGatewayTimeoutError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1168,7 +1168,7 @@ class HttpVersionNotSupportedError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1189,7 +1189,7 @@ class HttpVarianteAlsoNegociatesError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1210,7 +1210,7 @@ class HttpInsufficientStorageError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1231,7 +1231,7 @@ class HttpLoopDetectedError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1252,7 +1252,7 @@ class HttpNotExtendedError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1273,7 +1273,7 @@ class HttpNetworkAuthenticationRequiredError(HttpServerError):
         """
         Parameters
         ----------
-        msg : ``str``
+        msg : str
             Explanatory message. A default message is used if omitted.
 
         Examples
@@ -1295,12 +1295,12 @@ def simple_message(message: str) -> typing.Dict[str, str]:
 
     Parameters
     ----------
-    message : ``str``
+    message : str
         The string to turn into a message payload.    
 
     Returns
     -------
-    ``dict``
+    dict
         Payload built from the message string.     
 
     Examples
@@ -1326,19 +1326,19 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
 
     Parameters
     ----------
-    event : ``LambdaProxyEvent``
+    event : LambdaProxyEvent
         The API call event.    
-    custom_transformers : ``dict``
+    custom_transformers : dict
         Optional mapping of ``Content-Type`` to transformer functions returning (the content as ``Content-Type``, the ``Content-Type`` with encoding as ``str``).
 
     Returns
     -------
-    ``str``
+    str
         The ``Content-Type`` of the response.     
 
     Raises
     ------
-    ``HttpNotAcceptableError``
+    HttpNotAcceptableError
         If no transformer meets the criteria of the ``Accept`` header.
             
     Examples
@@ -1431,12 +1431,12 @@ def is_binary(content_type: str) -> bool:
 
     Parameters
     ----------
-    content_type : ``str``
+    content_type : str
         The ``Content-Type`` to assess.    
 
     Returns
     -------
-    ``bool``
+    bool
         Whether the ``Content-Type`` is binary.     
         
     Examples
@@ -1466,12 +1466,12 @@ def json_transformer(payload: dict) -> typing.Tuple[str, str]:
 
     Parameters
     ----------
-    payload : ``dict``
+    payload : dict
         The payload to convert to ``application/json``.    
 
     Returns
     -------
-    ``tuple``
+    tuple
         The ``application/json`` payload as a ``str``, the ``Content-Type`` with its encoding specifier.      
         
     Examples
@@ -1508,20 +1508,20 @@ def build_http_response(
 
     Parameters
     ----------
-    status : ``int``
+    status : int
         The HTTP status code.  
-    payload : ``dict`` or ``str``
+    payload : dict or str
         The payload that constitutes the body of the response. Should it be a ``str``, it will first be transformed by :func:`simple_message`.
-    event : ``LambdaProxyEvent``
+    event : LambdaProxyEvent
         Optional wrapper of the event the Lambda handler receives from the API Gateway.
-    custom_transformers : ``dict``
+    custom_transformers : dict
         Optional mapping of ``Content-Type`` to transformer functions returning (the content as ``Content-Type``, the ``Content-Type`` with encoding as ``str``).
-    extra_headers : ``dict``
+    extra_headers : dict
         Optional extra headers to return. For example : ``{ 'Access-Control-Allow-Origin': '*' }`` to handle CORS.   
 
     Returns
     -------
-    ``dict``
+    dict
         The HTTP response to return to API Gateway.     
       
     Examples
@@ -1611,18 +1611,18 @@ def build_http_server_error_response(
 
     Parameters
     ----------
-    error : ``HttpServerError``
+    error : HttpServerError
         Object representing the error. 
-    client_message : ``str``
+    client_message : str
         Optional client-oriented message. An english canned message is used if omitted.
-    log : ``bool``
+    log : bool
         Optional flag that defines whether a stack trace should be logged. ``True`` if omitted.
-    **kwarg : ``any``
+    **kwarg : any
         Optional arguments to pass to :func:`build_http_response`
 
     Returns
     -------
-    ``dict``
+    dict
         The HTTP error 5XX response to return to API Gateway.        
       
     Examples
@@ -1677,16 +1677,16 @@ def build_http_client_error_response(
 
     Parameters
     ----------
-    error : ``HttpClientError``
+    error : HttpClientError
         Object representing the error. 
-    log : ``bool``
+    log : bool
         Optional flag that defines whether a stack trace should be logged. ``True`` if omitted.
-    **kwarg : ``any``
+    **kwarg : any
         Optional arguments to pass to :func:`build_http_response`
 
     Returns
     -------
-    ``dict``
+    dict
         The HTTP error 4XX response to return to API Gateway.      
 
     Examples
