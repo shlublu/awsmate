@@ -25,6 +25,10 @@ All notable changes to this project are documented in this file.
     - ``awsmate.lambdafunction.LambdaEvent.__init__()``: fixed error message if passed parameter is not a ``dict``
     - ``awsmate.s3.LambdaNotificationEvent.object_url()``: fixed missing return type hint
 
+- Documentation
+    - example application: protected `curl` URLs with quotes so that the shell does not interpret `&`
+    - example application: fixed typos in some example URLs
+
 ### Security
 
 *nothing*
