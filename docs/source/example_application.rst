@@ -113,8 +113,8 @@ API Gateway features: :doc:`apigateway<apigateway>` module
 
     * Route "okay": ``lambda_apigateway_returns_okay.py``
         * Command-line with ``curl`` 
-            * ``curl -v -X <method> https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value> --data '<any JSON payload>' --header '<any name>: <any value>'`` 
-            * Example: ``curl -v -X POST https://<endpoint_url>/okay/lets/go?someParam=someValue --data '{ "someKey": 42 }' --header 'X-example: 42'``
+            * ``curl -v -X <method> 'https://<endpoint_url>/okay/<any path>?<any url parameter>=<any value>' --data '<any JSON payload>' --header '<any name>: <any value>'`` 
+            * Example: ``curl -v -X POST 'https://<endpoint_url>/okay/lets/go?someParam=someValue' --data '{ "someKey": 42 }' --header 'X-example: 42'``
             * Returns 200 with a JSON payload that contains the result of all methods of ``awsmate.apigateway.LambdaProxyEvent`` plus the raw event received from AWS API Gateway.
             * Demonstrates
                 * the use of all methods of :class:`awsmate.apigateway.LambdaProxyEvent`,
@@ -133,8 +133,8 @@ API Gateway features: :doc:`apigateway<apigateway>` module
             * Tip: think of how you could localize the returned content depending on the ``Accept-Language`` header submitted by the browser
     * Route "forbidden": ``lambda_apigateway_returns_403.py``
         * Command-line with ``curl`` 
-            * ``curl -v -X GET https://<endpoint_url>/forbidden' --header '<any name>: <any value>'`` 
-            * Example: ``curl -v -X GET https://<endpoint_url>/forbidden``
+            * ``curl -v -X GET 'https://<endpoint_url>/forbidden' --header '<any name>: <any value>'`` 
+            * Example: ``curl -v -X GET 'https://<endpoint_url>/forbidden'``
             * Returns 403 with a JSON payload that explains the access is forbidden
             * Logs an error message in AWS Cloudwatch. See :ref:`section "Logger features" <LoggerFeatures>` below for further details.
             * Demonstrates
@@ -147,8 +147,8 @@ API Gateway features: :doc:`apigateway<apigateway>` module
                 * the same of the above plus the same extras seen with the "okay" route above
     * Route "crash": ``lambda_apigateway_returns_500.py``
         * Command-line with ``curl`` 
-            * ``curl -v -X GET https://<endpoint_url>/crash' --header '<any name>: <any value>'`` 
-            * Example: ``curl -v -X GET https://<endpoint_url>/crash``
+            * ``curl -v -X GET 'https://<endpoint_url>/crash' --header '<any name>: <any value>'`` 
+            * Example: ``curl -v -X GET 'https://<endpoint_url>/crash'``
             * Returns 500 with a JSON payload explaining that an internal error occurred
             * Logs a complete stack trace of this crash in AWS Cloudwatch. See :ref:`section "Logger features" <LoggerFeatures>` below for further details.
             * Demonstrates
