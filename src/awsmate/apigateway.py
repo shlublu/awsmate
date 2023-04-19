@@ -66,7 +66,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``requestContext.identity.sourceIp`` key is present in the event data or if the IP address is invalid.            
 
         Examples
@@ -100,7 +100,7 @@ class LambdaProxyEvent(LambdaEvent):
             
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``headers`` key is present in the event data.
 
         Examples
@@ -131,7 +131,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``requestContext.httpMethod`` key is present in the event data.            
 
         Examples
@@ -162,7 +162,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``requestContext.protocol`` key is present in the event data.            
 
         Examples
@@ -193,7 +193,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``requestContext.identity.userAgent`` key is present in the event data.            
 
         Examples
@@ -263,7 +263,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``requestContext.domainName`` key is present in the event data.            
 
         Examples
@@ -292,7 +292,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``requestContext.path`` key is present in the event data.      
 
         Examples
@@ -327,7 +327,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``queryStringParameters`` key is present in the event data. No parameters is supposed to be represented as ``'queryStringParameters': None``.       
 
         Examples
@@ -358,7 +358,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If at least one of the ``httpMethod``, ``query_domain``, ``query_path`` or ``query_string_parameters`` keys is not present in the event data.     
 
         Examples
@@ -387,9 +387,9 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``body`` key is present in the event data.    
-        ``MalformedPayloadError``
+        :exc:`MalformedPayloadError`
             If the submitted data is not valid JSON.        
 
         Examples
@@ -422,7 +422,7 @@ class LambdaProxyEvent(LambdaEvent):
 
         Raises
         ------
-        ``awsmate.lambdafunction.AwsEventSpecificationError``
+        :exc:`awsmate.lambdafunction.AwsEventSpecificationError`
             If no ``requestContext`` key is present in the event data, or if claims is not ``None`` and not a ``dict``.  
 
         Examples
@@ -1326,7 +1326,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
 
     Parameters
     ----------
-    event : ``LambdaProxyEvent``
+    event : :class:`LambdaProxyEvent`
         The API call event.    
     custom_transformers : ``dict``
         Optional mapping of ``Content-Type`` to transformer functions returning (the content as ``Content-Type``, the ``Content-Type`` with encoding as ``str``).
@@ -1338,7 +1338,7 @@ def determine_content_type(event: LambdaProxyEvent, *, custom_transformers: typi
 
     Raises
     ------
-    ``HttpNotAcceptableError``
+    :exc:`HttpNotAcceptableError`
         If no transformer meets the criteria of the ``Accept`` header.
             
     Examples
@@ -1512,7 +1512,7 @@ def build_http_response(
         The HTTP status code.  
     payload : ``dict`` or ``str``
         The payload that constitutes the body of the response. Should it be a ``str``, it will first be transformed by :func:`simple_message`.
-    event : ``LambdaProxyEvent``
+    event : :class:`LambdaProxyEvent`
         Optional wrapper of the event the Lambda handler receives from the API Gateway.
     custom_transformers : ``dict``
         Optional mapping of ``Content-Type`` to transformer functions returning (the content as ``Content-Type``, the ``Content-Type`` with encoding as ``str``).
@@ -1611,7 +1611,7 @@ def build_http_server_error_response(
 
     Parameters
     ----------
-    error : ``HttpServerError``
+    error : :exc:`HttpServerError`
         Object representing the error. 
     client_message : ``str``
         Optional client-oriented message. An english canned message is used if omitted.
@@ -1677,7 +1677,7 @@ def build_http_client_error_response(
 
     Parameters
     ----------
-    error : ``HttpClientError``
+    error : :exc:`HttpClientError`
         Object representing the error. 
     log : ``bool``
         Optional flag that defines whether a stack trace should be logged. ``True`` if omitted.
