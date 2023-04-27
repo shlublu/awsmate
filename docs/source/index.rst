@@ -18,6 +18,7 @@ awsmate
    eventbridge
    lambdafunction
    s3
+   sns
    logger
 
 .. toctree::
