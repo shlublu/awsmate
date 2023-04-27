@@ -15,63 +15,6 @@ def test_LambdaNotificationEvent_init_initializesInternalEventObject():
     assert test._event is event
 
 
-def LambdaNotificationEvent__records_structure_returnsTheProperStructure():
-    event = {
-        "Records": [
-            {
-                "anything": {}
-            }
-        ]
-    }    
-
-    test = s3.LambdaNotificationEvent(event)
-
-    assert test._records_structure() == event['Records']
-
-
-def LambdaNotificationEvent__records_structure_raisesIfEventHasNoRecordKey():
-    event = {}    
-
-    test = s3.LambdaNotificationEvent(event)
-
-    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        with patch.object(s3.LambdaEvent, '_raiseCannotReachError', side_effect=s3.LambdaEvent._raiseCannotReachError) as mcre:
-            test._records_structure()
-
-    mcre.assert_called_once_with("'Records'")
-
-
-def test_LambdaNotificationEvent__records_structure_raisesIfRecordsIsEmpty():
-    event = {
-        "Records": []
-    }
-
-    test = s3.LambdaNotificationEvent(event)
-
-    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        with patch.object(s3.LambdaEvent, '_raiseEventStructureError', side_effect=s3.LambdaEvent._raiseEventStructureError) as mcre:
-            test._records_structure()
-
-    mcre.assert_called_once_with("'Records' is empty")     
-
-
-def test_LambdaNotificationEvent_records_structure_raisesIfRecordsContainsMoreThanOneElement():
-    event = {
-        "Records": [
-            {},
-            {}
-        ]
-    }
-
-    test = s3.LambdaNotificationEvent(event)
-
-    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
-        with patch.object(s3.LambdaEvent, '_raiseEventStructureError', side_effect=s3.LambdaEvent._raiseEventStructureError) as mcre:
-            test._records_structure()
-
-    mcre.assert_called_once_with("event contains 2 Records where 1 is expected")       
-
-
 def test_LambdaNotificationEvent__s3_structure_returnsTheProperStructure():
     event = {
         "Records": [

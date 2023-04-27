@@ -55,3 +55,22 @@ class LambdaEvent():
 
         self._event = event_object
 
+
+    def _records_structure(self) -> dict:
+        KEY_RECORDS = "Records"
+
+        try:
+            ret = self._event[KEY_RECORDS][0]
+
+        except KeyError as err:
+            LambdaEvent._raiseCannotReachError(str(err))
+        
+        except IndexError:
+            LambdaEvent._raiseEventStructureError(f"'{KEY_RECORDS}' is empty")
+
+        if len(self._event[KEY_RECORDS]) != 1:
+            LambdaEvent._raiseEventStructureError(
+                f"event contains {str(len(self._event[KEY_RECORDS]))} {KEY_RECORDS} where 1 is expected"
+            )
+        
+        return ret

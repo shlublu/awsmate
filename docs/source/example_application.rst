@@ -222,6 +222,12 @@ S3 features: :doc:`s3 <s3>` module
     * Tip: try to delete a file from the S3 bucket and see the corresponding log, try to drop or delete several files in a single action
 
 
+SNS features: :doc:`sns <sns>` module
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*Nothing for now*
+
+
 .. _LoggerFeatures:
 
 Logger features: :doc:`logger <logger>` module
