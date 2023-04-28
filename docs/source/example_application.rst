@@ -190,7 +190,23 @@ EventBridge features: :doc:`eventbridge <eventbridge>` module
 Lambda Function features: :doc:`lambdafunction <lambdafunction>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*Nothing for now*
+* Relevant source files
+
+::
+
+    awsmate
+        |___example
+                |
+                |___src
+                     |
+                     |___lambda_sns_message.py
+
+
+* Use
+    * Step by step instructions
+        * Go to the SNS service page of the AWS Console
+    * This demonstrates
+        * the use of all methods of :class:`awsmate.sns.LambdaMessageEvent`
 
 S3 features: :doc:`s3 <s3>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -209,7 +225,7 @@ S3 features: :doc:`s3 <s3>` module
 
 * Use
     * Step by step instructions
-        * Go to the S3 service page
+        * Go to the S3 service page of the AWS Console
         * Open the page of the S3 bucket ``awsmate-drop-files-here-<your AWS account number>``
         * Upload a file into this bucket
         * Go to the Cloudwatch service page of the AWS Console
