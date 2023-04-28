@@ -619,6 +619,256 @@ def test_LambdaMessageEvent_message_attributes_raisesIfEventDoesNotHaveMessageAt
     mcre.assert_called_once_with("'MessageAttributes'")
 
 
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesAreNotADict():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": [1, 2, 3]
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes is not expected to be a <class 'list'>")    
+
+
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveANonStrKey():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        42: {
+                            "Type": "String",
+                            "Value": "OtherTestString"
+                        },
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "TestBinary"
+                        }                 
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes has a key of type <class 'int'>: 42")   
+
+
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveASubelementThatIsNotADict():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        "TestBadSubDict": [1, 2, 3],
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "TestBinary"
+                        }                          
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes[TestBadSubDict] is not expected to be a <class 'list'>")   
+
+
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesLackTypeSubkey():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        "TestMissingSubkey": {
+                            "Value": "TestBinary"
+                        },                          
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "TestBinary"
+                        }                          
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes[TestMissingSubkey] does not have a Type key")  
+
+
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesLackValueSubkey():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        "TestMissingSubkey": {
+                            "Type": "String"
+                        },                          
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "TestBinary"
+                        }                          
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes[TestMissingSubkey] does not have a Value key")      
+    
+    
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidSubkey():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        "TestBadSubkey": {
+                            "Type": "Binary",
+                            "Value": "TestBinary",
+                            "Erroneous": "SomeValue"
+                        },                          
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "TestBinary"
+                        }                          
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes[TestBadSubkey] has a key that is neither Type nor Value")       
+
+
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidType():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        "TestBadType": {
+                            "Type": "WRONG",
+                            "Value": "TestWrong",
+                        },                          
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "TestBinary"
+                        }                          
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes[TestBadType] has a Type that is neither String nor Binary")      
+
+
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidStringValue():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        "TestBadString": {
+                            "Type": "String",
+                            "Value": 42,
+                        },                          
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "TestBinary"
+                        }                          
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes[TestBadString] has a string Value of type <class 'int'>")        
+
+'''
+- Raises if one ['Value'] of Type String not a str
+'''
+
 def test_LambdaMessageEvent_message_attributes_reliesOn_sns_structure():
     event = {
         "Records": [
