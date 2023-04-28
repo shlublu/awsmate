@@ -190,23 +190,7 @@ EventBridge features: :doc:`eventbridge <eventbridge>` module
 Lambda Function features: :doc:`lambdafunction <lambdafunction>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* Relevant source files
-
-::
-
-    awsmate
-        |___example
-                |
-                |___src
-                     |
-                     |___lambda_sns_message.py
-
-
-* Use
-    * Step by step instructions
-        * Go to the SNS service page of the AWS Console
-    * This demonstrates
-        * the use of all methods of :class:`awsmate.sns.LambdaMessageEvent`
+*Nothing for now*
 
 S3 features: :doc:`s3 <s3>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -241,8 +225,23 @@ S3 features: :doc:`s3 <s3>` module
 SNS features: :doc:`sns <sns>` module
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-*Nothing for now*
+* Relevant source files
 
+::
+
+    awsmate
+        |___example
+                |
+                |___src
+                     |
+                     |___lambda_sns_message.py
+
+
+* Use
+    * Step by step instructions
+        * Go to the SNS service page of the AWS Console
+    * This demonstrates
+        * the use of all methods of :class:`awsmate.sns.LambdaMessageEvent`
 
 .. _LoggerFeatures:
 
