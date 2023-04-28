@@ -6,6 +6,7 @@ All notable changes to this project are documented in this file.
 
 - Code
     - initiated ``awsmate.sns`` module with ``awsmate.sns.LambdaMessageEvent``
+
 - Example application
     - Python and Terraform source code to demonstrate `awsmate.sns`
 
@@ -27,6 +28,9 @@ All notable changes to this project are documented in this file.
 - Code
     - ``awsmate.apigateway.LambdaProxyEvent.__init__()``: fixed return type hint
     - ``awsmate.s3.LambdaNotificationEvent.__init__()``: fixed return type hint
+
+- Example application
+    - Fixed erroneous S3 bucket ACL in Terraform code that is now rejected by AWS
 
 ### Security
 

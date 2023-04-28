@@ -6,12 +6,6 @@ resource "aws_s3_bucket" "demo_notifications" {
     force_destroy = true
 }
 
-resource "aws_s3_bucket_acl" "demo_notifications" {
-    bucket = aws_s3_bucket.demo_notifications.bucket
-
-    acl    = "private"
-}
-
 resource "aws_s3_bucket_public_access_block" "demo_notifications" {
     bucket = aws_s3_bucket.demo_notifications.bucket
 
