@@ -1,16 +1,21 @@
+[![Version](https://img.shields.io/pypi/v/awsmate)](https://pypi.org/project/awsmate/ "Project page - PyPI")
+[![Python](https://img.shields.io/pypi/pyversions/awsmate)](https://github.com/shlublu/awsmate/tree/master/src/awsmate "Source code - Github")
+[![License](https://img.shields.io/github/license/shlublu/awsmate)](https://github.com/shlublu/awsmate/blob/master/LICENSE.txt "License - Github")
+[![Tests](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)](https://github.com/shlublu/awsmate/actions "Workflows - Github")
+[![Documentation](https://readthedocs.org/projects/awsmate/badge/?version=latest)](https://awsmate.readthedocs.io/ "Documentation - ReadTheDocs.io")
+
+
 `awsmate` is a companion for your AWS developments in Python.
 It provides you with helper code that facilitates the use of various AWS services.
 
 ## Installation
 
 * Command line: `pip3 install awsmate`
-* [PyPI page](https://pypi.org/project/awsmate/ "awsmate PyPI page")
+* [PyPI page](https://pypi.org/project/awsmate/ "PyPI page")
 
 ## Documentation
 
-The complete documentation is available at [ReadTheDocs](https://awsmate.readthedocs.io/ "awsmate documentation").
-
-Documentation status: [![Documentation status](https://readthedocs.org/projects/awsmate/badge/?version=latest)](https://awsmate.readthedocs.io/en/latest/?badge=latest)
+The complete documentation is available at [ReadTheDocs](https://awsmate.readthedocs.io/ "Documentation - ReadTheDocs.io").
 
 ## Example application
 
@@ -19,8 +24,6 @@ An example application is available to demonstrate the main features of this lib
 ## Issues
 
 Should you encounter any bug or problem of any kind, please feel free to open an issue according to our [contribution guidelines](https://awsmate.readthedocs.io/en/latest/contributing.html).
-
-Tests status: ![tests status](https://github.com/shlublu/awsmate/actions/workflows/tests.yaml/badge.svg?branch=master)
 
 ## License
 
