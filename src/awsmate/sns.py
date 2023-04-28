@@ -364,4 +364,3 @@ class LambdaMessageEvent(LambdaEvent):
 
         return ret    
 
-    

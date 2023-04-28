@@ -865,9 +865,6 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidSt
 
     mcre.assert_called_once_with("MessageAttributes[TestBadString] has a string Value of type <class 'int'>")        
 
-'''
-- Raises if one ['Value'] of Type String not a str
-'''
 
 def test_LambdaMessageEvent_message_attributes_reliesOn_sns_structure():
     event = {
