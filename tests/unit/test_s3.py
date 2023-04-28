@@ -31,7 +31,7 @@ def test_LambdaNotificationEvent__s3_structure_returnsTheProperStructure():
     assert test._s3_structure() == test._records_structure()['s3']
     
     
-def LambdaNotificationEvent__s3_structure_raisesIfEventHasNoS3UnderRecords():
+def test_LambdaNotificationEvent__s3_structure_raisesIfEventHasNoS3UnderRecords():
     event = {
         "Records": [
             {}
