@@ -6,6 +6,8 @@ All notable changes to this project are documented in this file.
 
 - Code
     - initiated ``awsmate.sns`` module with ``awsmate.sns.LambdaMessageEvent``
+- Example application
+    - Python and Terraform source code to demonstrate `awsmate.sns`
 
 ### Changed
 
