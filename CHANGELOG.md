@@ -22,7 +22,9 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
-*nothing*
+- Code
+    - ``awsmate.apigateway.LambdaProxyEvent.__init__()``: fixed return type hint
+    - ``awsmate.s3.LambdaNotificationEvent.__init__()``: fixed return type hint
 
 ### Security
 
