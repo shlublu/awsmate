@@ -341,10 +341,16 @@ class LambdaMessageEvent(LambdaEvent):
 
         for k in ret.keys():
             if not isinstance(k, str):
-                LambdaEvent._raiseEventStructureError(f'MessageAttributes has a key of type {str(type(k))}')
+                LambdaEvent._raiseEventStructureError(f'MessageAttributes has a key of type {str(type(k))}: {str(k)}')
 
             if not isinstance(ret[k], dict):
-                LambdaEvent._raiseEventStructureError(f'MessageAttributes[{k}] is not expected to be a {str(type(ret))}')
+                LambdaEvent._raiseEventStructureError(f'MessageAttributes[{k}] is not expected to be a {str(type(ret[k]))}')
+
+            if 'Type' not in ret[k].keys():
+                LambdaEvent._raiseEventStructureError(f'MessageAttributes[{k}] does not have a Type key')
+
+            if 'Value' not in ret[k].keys():
+                LambdaEvent._raiseEventStructureError(f'MessageAttributes[{k}] does not have a Value key')
 
             for sk in ret[k].keys():
                 if sk not in ['Type', 'Value']:
