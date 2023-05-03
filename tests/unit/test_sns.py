@@ -547,7 +547,7 @@ def test_LambdaMessageEvent_message_attributes_returnsTheExpectedValue():
                         }, 
                         'OtherAttributeName': {
                             'Type': 'Binary', 
-                            'Value': 'Some random content'
+                            'Value': 'U29tZSByYW5kb20gY29udGVudA=='
                         }
                     }
                 }
@@ -564,7 +564,7 @@ def test_LambdaMessageEvent_message_attributes_returnsTheExpectedValue():
         }, 
         'OtherAttributeName': {
             'Type': 'Binary', 
-            'Value': 'Some random content'
+            'Value': b'Some random content'
         }
     }
 
@@ -655,7 +655,7 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveANonStrKey(
                         },
                         "TestBinary": {
                             "Type": "Binary",
-                            "Value": "TestBinary"
+                            "Value": "VGVzdEJpbmFyeQ=="
                         }                 
                     }
                 }
@@ -685,7 +685,7 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveASubelement
                         "TestBadSubDict": [1, 2, 3],
                         "TestBinary": {
                             "Type": "Binary",
-                            "Value": "TestBinary"
+                            "Value": "VGVzdEJpbmFyeQ=="
                         }                          
                     }
                 }
@@ -713,11 +713,11 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesLackTypeSubkey(
                             "Value": "TestString"
                         },
                         "TestMissingSubkey": {
-                            "Value": "TestBinary"
+                            "Value": "VGVzdEJpbmFyeQ=="
                         },                          
                         "TestBinary": {
                             "Type": "Binary",
-                            "Value": "TestBinary"
+                            "Value": "VGVzdEJpbmFyeQ=="
                         }                          
                     }
                 }
@@ -749,7 +749,7 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesLackValueSubkey
                         },                          
                         "TestBinary": {
                             "Type": "Binary",
-                            "Value": "TestBinary"
+                            "Value": "VGVzdEJpbmFyeQ=="
                         }                          
                     }
                 }
@@ -779,11 +779,11 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidSu
                         "TestBadSubkey": {
                             "Type": "Binary",
                             "Value": "TestBinary",
-                            "Erroneous": "SomeValue"
+                            "Erroneous": "VGVzdEJpbmFyeQ=="
                         },                          
                         "TestBinary": {
                             "Type": "Binary",
-                            "Value": "TestBinary"
+                            "Value": "VGVzdEJpbmFyeQ=="
                         }                          
                     }
                 }
@@ -816,7 +816,7 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidTy
                         },                          
                         "TestBinary": {
                             "Type": "Binary",
-                            "Value": "TestBinary"
+                            "Value": "VGVzdEJpbmFyeQ=="
                         }                          
                     }
                 }
@@ -833,7 +833,7 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidTy
     mcre.assert_called_once_with("MessageAttributes[TestBadType] has a Type that is neither String nor Binary")      
 
 
-def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidStringValue():
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveANonStrStringValue():
     event = {
         "Records": [
             {
@@ -849,7 +849,7 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidSt
                         },                          
                         "TestBinary": {
                             "Type": "Binary",
-                            "Value": "TestBinary"
+                            "Value": "VGVzdEJpbmFyeQ=="
                         }                          
                     }
                 }
@@ -863,7 +863,73 @@ def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveAnInvalidSt
         with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
             test.message_attributes()
 
-    mcre.assert_called_once_with("MessageAttributes[TestBadString] has a string Value of type <class 'int'>")        
+    mcre.assert_called_once_with("MessageAttributes[TestBadString] has a raw value of unexpected type <class 'int'>")        
+
+
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveANonStrBinaryValue():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        "TestBadString": {
+                            "Type": "Binary",
+                            "Value": 42,
+                        },                          
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "VGVzdEJpbmFyeQ=="
+                        }                          
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes[TestBadString] has a raw value of unexpected type <class 'int'>")           
+
+
+def test_LambdaMessageEvent_message_attributes_raisesIfAttributesHaveANonBase64BinaryValue():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        "TestString": {
+                            "Type": "String",
+                            "Value": "TestString"
+                        },
+                        "TestBadEncoding": {
+                            "Type": "Binary",
+                            "Value": "StrButNotBase64",
+                        },                          
+                        "TestBinary": {
+                            "Type": "Binary",
+                            "Value": "VGVzdEJpbmFyeQ=="
+                        }                          
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    with pytest.raises(AwsEventSpecificationError) as exceptionInfo:
+        with patch.object(sns.LambdaEvent, '_raiseEventStructureError', side_effect=sns.LambdaEvent._raiseEventStructureError) as mcre:
+            test.message_attributes()
+
+    mcre.assert_called_once_with("MessageAttributes[TestBadEncoding] has a raw value that is not encoded in base-64")               
 
 
 def test_LambdaMessageEvent_message_attributes_reliesOn_sns_structure():
@@ -878,7 +944,7 @@ def test_LambdaMessageEvent_message_attributes_reliesOn_sns_structure():
                         }, 
                         'OtherAttributeName': {
                             'Type': 'Binary', 
-                            'Value': 'Some random content'
+                            'Value': 'U29tZSByYW5kb20gY29udGVudA=='
                         }
                     }
                 }
@@ -892,3 +958,53 @@ def test_LambdaMessageEvent_message_attributes_reliesOn_sns_structure():
         test.message_attributes()
 
     ms3n.assert_called_once_with()        
+
+
+def test_LambdaMessageEvent_message_attributes_returnsAReferenceIfNoBinary():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        'AttributeName': {
+                            'Type': 'String', 
+                            'Value': 'Some text'
+                        },
+                        'OtherAttributeName': {
+                            'Type': 'String', 
+                            'Value': 'Some other text'
+                        }
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    assert test.message_attributes() is event["Records"][0]["Sns"]["MessageAttributes"]
+
+
+def test_LambdaMessageEvent_message_attributes_returnsACopyIfBinary():
+    event = {
+        "Records": [
+            {
+                "Sns": {
+                    "MessageAttributes": {
+                        'AttributeName': {
+                            'Type': 'String', 
+                            'Value': 'Some text'
+                        },
+                        'OtherAttributeName': {
+                            'Type': 'Binary', 
+                            'Value': 'VGVzdEJpbmFyeQ=='
+                        }
+                    }
+                }
+            }
+        ]
+    }    
+
+    test = sns.LambdaMessageEvent(event)
+
+    assert test.message_attributes() is not event["Records"][0]["Sns"]["MessageAttributes"]

@@ -240,6 +240,15 @@ SNS features: :doc:`sns <sns>` module
 * Use
     * Step by step instructions
         * Go to the SNS service page of the AWS Console
+        * Follow the "Topics" link of the left navigation panel
+        * Open the page of the topic ``awsmate_demo``
+        * Click on the "Publish message" button located at the top-right corner of the screen
+        * Fill the form with the content you decide 
+        * Go to the Cloudwatch service page of the AWS Console
+        * Follow the "Logs/Log group" link of the left navigation panel
+        * Search for the ``/aws/lambda/awsmate_sns_message`` log group and open it
+        * Open the most recent log stream
+        * This show a log that contains the result of all methods of :class:`awsmate.sns.LambdaMessageEvent` plus the raw event received from the AWS SNS service.        
     * This demonstrates
         * the use of all methods of :class:`awsmate.sns.LambdaMessageEvent`
 
