@@ -1,3 +1,9 @@
+import base64
+import typing
+
+from binascii import Error as Base64Error
+from copy import deepcopy
+
 from awsmate.lambdafunction import LambdaEvent
 
 
@@ -216,14 +222,14 @@ class LambdaMessageEvent(LambdaEvent):
         return ret   
     
 
-    def subject(self) -> str:
+    def subject(self) -> typing.Optional[str]:
         """
-        Returns the subject of the message.
+        Returns the subject of the message if any.
 
         Returns
         -------
         str
-            The subject of the message.
+            The subject of the message or ``None`` if omitted.
 
         Raises
         ------
@@ -309,7 +315,8 @@ class LambdaMessageEvent(LambdaEvent):
         """
         Returns the attributes of the message, if any.
 
-        Attributes must comply to `the AWS SNS attributes specifications <https://docs.aws.amazon.com/sns/latest/dg/sns-message-attributes.html>`_ 
+        Attributes must comply to `the AWS SNS attributes specifications <https://docs.aws.amazon.com/sns/latest/dg/sns-message-attributes.html>`_. Binary values
+        are decoded from base-64 to binary strings.
 
         Returns
         -------
@@ -319,12 +326,12 @@ class LambdaMessageEvent(LambdaEvent):
         Raises
         ------
         awsmate.lambdafunction.AwsEventSpecificationError
-            If the event structure does not allow retrieving such attributes or if their structure is invalid.         
+            If the event structure does not allow retrieving such attributes or if their do not comply to AWS SNS attributes specifications.         
 
         Examples
         --------
         >>> event.message_attributes()
-        {'AttributeName': {'Type': 'String', 'Value': 'Some text'}, 'OtherAttributeName': {'Type': 'String', 'Value': 'Some more text'}}
+        {'AttributeName': {'Type': 'String', 'Value': 'Some text'}, 'OtherAttributeName': {'Type': 'Binary', 'Value': b'Some decoded binary'}}
         """
         
         try:
@@ -359,8 +366,16 @@ class LambdaMessageEvent(LambdaEvent):
             if ret[k]['Type'] not in ['String', 'Binary']:
                 LambdaEvent._raiseEventStructureError(f'MessageAttributes[{k}] has a Type that is neither String nor Binary')
 
-            if ret[k]['Type'] == 'String' and not isinstance(ret[k]['Value'], str):
-                LambdaEvent._raiseEventStructureError(f'MessageAttributes[{k}] has a string Value of type {str(type(ret[k]["Value"]))}')
+            if not isinstance(ret[k]['Value'], str):
+                LambdaEvent._raiseEventStructureError(f'MessageAttributes[{k}] has a raw value of unexpected type {str(type(ret[k]["Value"]))}')
+
+            if ret[k]['Type'] == 'Binary': 
+                try:
+                    ret = deepcopy(ret)
+                    ret[k]["Value"] = base64.b64decode(ret[k]["Value"])
+
+                except Base64Error as err:
+                    LambdaEvent._raiseEventStructureError(f'MessageAttributes[{k}] has a raw value that is not encoded in base-64')
 
         return ret    
 
