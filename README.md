@@ -8,17 +8,15 @@
 `awsmate` is a companion for your AWS developments in Python.
 It provides you with helper code that facilitates the use of various AWS services.
 
-### What it is, what it does
+## What it does, what it doesn't
 
-`awsmate` pools AWS-specific code that is rewriten and retested for each new project:
+`awsmate` pools AWS specific code that is rewriten and retested for each new project:
 * it simplifies the use of some AWS services
 * it simplifies the error handling related to the use of these services
 
-### What it is not, what it doesn't
-`awsmate` doesn't do what others have already done, nor does it do anything unrelated to AWS:
+`awsmate` does not do what others have already done, and does not provide anything more than technical simplification of AWS:
 * it does not replace existing major libraries such as [s3fs](https://s3fs.readthedocs.io/en/latest/), [pynamodb](https://pynamodb.readthedocs.io/en/latest/), or [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
-* it does not implement use cases or algorithms
-
+* it does not implement functional use cases or algorithms
 
 ## Installation
 
