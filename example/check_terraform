@@ -13,7 +13,7 @@ notSupportedArch () {
   exit 1
 }
 
-TERRAFORM_VERSION='1.4.5'
+TERRAFORM_VERSION='1.4.6'
 
 BUILD_DIR='.build'
 
