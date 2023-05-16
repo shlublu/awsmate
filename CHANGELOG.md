@@ -1,6 +1,6 @@
 All notable changes to this project are documented in this file.
 
-## [0.4.0] - *not yet released*
+## [0.4.0] - 2023-05-16
 
 ### Added
 
@@ -15,6 +15,9 @@ All notable changes to this project are documented in this file.
 - Code
     - transparently moved code from class ``awsmate.s3.LambdaNotificationEvent`` to ``awsmate.lambdafunction.LambdaEvent`` for mutualization
 
+- Example application
+    - Terraform version upgrade
+    
 ### Deprecated
 
 *nothing*

@@ -15,7 +15,7 @@ It provides you with helper code that facilitates the use of various AWS service
 * it simplifies the error handling related to the use of these services
 
 `awsmate` does not do what others have already done and sticks to simplifying the use of AWS:
-* it does not replace existing major libraries such as [s3fs](https://s3fs.readthedocs.io/en/latest/), [pynamodb](https://pynamodb.readthedocs.io/en/latest/), or [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
+* it does not replace existing major libraries such as [s3fs](https://s3fs.readthedocs.io/en/latest/), [pynamodb](https://pynamodb.readthedocs.io/en/latest/), [aws-lambda-powertools](https://pypi.org/project/aws-lambda-powertools/) or [boto3](https://boto3.amazonaws.com/v1/documentation/api/latest/index.html)
 * it does not implement functional use cases or algorithms
 
 ## Installation
