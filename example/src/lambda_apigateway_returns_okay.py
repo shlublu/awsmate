@@ -34,7 +34,7 @@ def dict_to_html_error(data: dict):
 def lambda_handler(raw_event, context):
     import awsmate.apigateway as ag
 
-    from awsmate.logger import logger, log_internal_error
+    from awsmate.logger import logger
 
     # Deals with CORS provided HTTP OPTIONS is dealt with on API Gateway side.
     extra_headers = {
