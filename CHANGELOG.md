@@ -25,7 +25,7 @@ All notable changes to this project are documented in this file.
 
 ### Fixed
 
-*nothing*
+- Documentation: the version switch layout height was excessive
 
 ### Security
 
