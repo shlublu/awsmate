@@ -14,9 +14,9 @@ Release process
 * checkout/pull master and delete dev branch
 * Set commit tag
 * PyPi release: as per https://packaging.python.org/en/latest/tutorials/packaging-projects/
-   * python3 -m pip install --upgrade build
-   * python3 -m build
-   * python3 -m pip install --upgrade twine
-   * python3 -m twine upload dist/awsmate-<x.y.z>* (use __token__)
+   * ``pip3 install --upgrade build``
+   * ``python3 -m build``
+   * ``pip3 install --upgrade twine``
+   * ``python3 -m twine upload dist/awsmate-<x.y.z>*`` (use __token__)
 * Readthedocs: maintain versions (help in https://docs.readthedocs.io/en/stable/tutorial/)
 * Github: create release

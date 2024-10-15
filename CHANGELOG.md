@@ -1,5 +1,33 @@
 All notable changes to this project are documented in this file.
 
+## [0.4.2] - 2024-10-15
+
+### Added
+
+*nothing*
+
+### Changed
+
+*nothing*
+    
+### Deprecated
+
+*nothing*
+
+### Removed
+
+*nothing*
+
+### Fixed
+
+- Documentation: 
+    - Fixed a warning issue that was preventing the documentation for 0.4.1 from compiling
+    - Fixed a minor formatting issue
+
+### Security
+
+*nothing*
+
 ## [0.4.1] - 2024-10-15
 
 ### Added
