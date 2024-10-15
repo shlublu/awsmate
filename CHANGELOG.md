@@ -1,5 +1,36 @@
 All notable changes to this project are documented in this file.
 
+## [0.4.1] - 2024-10-15
+
+### Added
+
+- Code
+    - Supported Python versions: added 3.12 (according to AWS Lambda supported runtimes to date)
+
+### Changed
+
+- Example application
+    - Terraform version upgrade
+    
+### Deprecated
+
+*nothing*
+
+### Removed
+
+- Code
+    - Supported Python versions: removed 3.7 and 3.8 (according to AWS Lambda supported runtimes to date)
+
+### Fixed
+
+- Example application
+    - Fixed the installation/deinstallation scripts' shebang: `sh` was erroneously used instead of `bash`, causing errors with Ubuntu
+    - Switched the Lambda runtime from Python 3.9 to Python 3.10
+
+### Security
+
+*nothing*
+
 ## [0.4.0] - 2023-05-16
 
 ### Added
