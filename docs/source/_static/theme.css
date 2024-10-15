@@ -7,7 +7,7 @@
 }
 
 .version-switch {
-    height: auto;
+    height: fit-content;
 }
 
 .pre {
