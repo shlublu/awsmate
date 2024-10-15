@@ -1,6 +1,6 @@
 All notable changes to this project are documented in this file.
 
-## [x.x.x] - XXXX-XX-XX
+## Next release [x.x.x] - XXXX-XX-XX
 
 ### Added
 
