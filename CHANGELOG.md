@@ -1,5 +1,33 @@
 All notable changes to this project are documented in this file.
 
+## [x.x.x] - XXXX-XX-XX
+
+### Added
+
+*nothing*
+
+### Changed
+
+- Example application
+    - Terraform version upgrade
+    - Terraform providers upgrade
+    
+### Deprecated
+
+*nothing*
+
+### Removed
+
+*nothing*
+
+### Fixed
+
+*nothing*
+
+### Security
+
+*nothing*
+
 ## [0.4.2] - 2024-10-15
 
 ### Added
